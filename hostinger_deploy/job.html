@@ -41,7 +41,7 @@
       <div class="flex items-center gap-4">
         <a href="/" class="hover:underline">&larr; Back to Home</a>
         <span class="text-red-300">/</span>
-        <span id="breadcrumbCategory" class="text-red-100 font-normal">Job Detail</span>
+        <a id="breadcrumbCategory" href="/" class="text-red-100 hover:text-white font-normal hover:underline">Job Detail</a>
       </div>
       <div class="flex items-center gap-2">
         <a href="/post-job" class="bg-yellow-400 text-zinc-950 px-3 py-1 rounded text-[11px] font-bold hover:bg-yellow-300 flex items-center gap-1">
@@ -90,7 +90,7 @@
               </div>
               <h1 id="jobTitle" class="text-xl sm:text-2xl font-black text-zinc-900 mt-1 leading-tight"></h1>
               <div class="mt-2 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
-                <span id="jobCategoryBadge" class="bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded font-bold"></span>
+                <a id="jobCategoryBadge" href="/" class="bg-blue-100 hover:bg-blue-200 text-blue-800 px-2.5 py-0.5 rounded font-bold transition-colors"></a>
                 <span id="jobDate"></span>
                 <span id="jobViews"></span>
               </div>
@@ -229,11 +229,17 @@
     }
 
     function renderJob(job) {
-      document.title = `${job.title} at ${job.company} | SelectedJobs.in`;
-      document.getElementById('breadcrumbCategory').textContent = job.category || 'Job Opening';
+      const catUrl = `/?category=${encodeURIComponent(job.category || '')}`;
+      const bc = document.getElementById('breadcrumbCategory');
+      bc.textContent = job.category || 'Job Opening';
+      bc.href = catUrl;
+
       document.getElementById('jobCompany').textContent = job.company;
       document.getElementById('jobTitle').textContent = job.title;
-      document.getElementById('jobCategoryBadge').textContent = job.category;
+
+      const bg = document.getElementById('jobCategoryBadge');
+      bg.textContent = job.category || 'Career Opening';
+      bg.href = catUrl;
       
       const date = new Date(job.createdAt);
       document.getElementById('jobDate').textContent = 'Posted ' + (isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }));

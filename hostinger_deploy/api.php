@@ -85,9 +85,21 @@ switch ($action) {
 
         // Category filter
         $category = trim($_GET['category'] ?? '');
-        if (!empty($category) && $category !== 'All Categories') {
-            $approved = array_filter($approved, function($j) use ($category) {
-                return ($j['category'] ?? '') === $category;
+        if (!empty($category) && strtolower($category) !== 'all categories') {
+            $catLower = strtolower($category);
+            $approved = array_filter($approved, function($j) use ($catLower) {
+                $itemCat = strtolower($j['category'] ?? '');
+                if ($itemCat === $catLower) return true;
+                if (strpos($catLower, 'tech') !== false && strpos($itemCat, 'tech') !== false) return true;
+                if (strpos($catLower, 'bank') !== false && strpos($itemCat, 'bank') !== false) return true;
+                if ((strpos($catLower, 'bpo') !== false || strpos($catLower, 'private') !== false) && (strpos($itemCat, 'bpo') !== false || strpos($itemCat, 'private') !== false)) return true;
+                if (strpos($catLower, 'engineering') !== false && strpos($itemCat, 'engineering') !== false) return true;
+                if (strpos($catLower, 'state') !== false && (strpos($itemCat, 'state') !== false || strpos(strtolower($j['location'] ?? ''), 'state') !== false)) return true;
+                if (strpos($catLower, 'govt') !== false && strpos($itemCat, 'govt') !== false) return true;
+                if (strpos($catLower, 'defence') !== false && strpos($itemCat, 'defence') !== false) return true;
+                if (strpos($catLower, 'railway') !== false && strpos($itemCat, 'railway') !== false) return true;
+                if (strpos($catLower, 'teaching') !== false && strpos($itemCat, 'teaching') !== false) return true;
+                return false;
             });
         }
 
@@ -276,7 +288,7 @@ switch ($action) {
         }
 
         $filename = basename($input['filename'] ?? '');
-        $allowed = ['index.html', 'admin.html', 'post-job.html', 'job.html', '.htaccess', 'api.php'];
+        $allowed = ['index.html', 'admin.html', 'post-job.html', 'job.html', '.htaccess', 'api.php', 'jobs.json'];
         if (!in_array($filename, $allowed)) {
             http_response_code(400);
             echo json_encode(['success' => false, 'error' => 'Invalid or disallowed file name']);
@@ -290,7 +302,7 @@ switch ($action) {
             exit;
         }
 
-        $target = __DIR__ . '/' . $filename;
+        $target = ($filename === 'jobs.json') ? (__DIR__ . '/data/jobs.json') : (__DIR__ . '/' . $filename);
         $written = file_put_contents($target, $content, LOCK_EX);
         if ($written !== false) {
             echo json_encode(['success' => true, 'message' => "File $filename updated successfully", 'bytes' => $written]);
@@ -298,6 +310,25 @@ switch ($action) {
             http_response_code(500);
             echo json_encode(['success' => false, 'error' => "Failed to write file $filename"]);
         }
+        break;
+
+    // 10. Admin Bulk Replace / Sync All Jobs
+    case 'admin_replace_all_jobs':
+        if (!isAdminAuthed($ADMIN_PASSKEY)) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'error' => 'Unauthorized']);
+            exit;
+        }
+
+        $jobs = $input['jobs'] ?? null;
+        if (!is_array($jobs)) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Jobs array is required']);
+            exit;
+        }
+
+        saveJobs($DATA_FILE, $jobs);
+        echo json_encode(['success' => true, 'message' => 'All jobs synchronized successfully', 'count' => count($jobs)]);
         break;
 
     default:

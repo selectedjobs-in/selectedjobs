@@ -54,7 +54,7 @@
   <nav class="w-full bg-[#b91c1c] text-white shadow-md sticky top-0 z-40 border-b border-red-800">
     <div class="mx-auto max-w-7xl px-2 sm:px-4 flex items-center justify-between h-11">
       <div class="flex items-center space-x-1 sm:space-x-2 text-xs font-bold overflow-x-auto scrollbar-none py-1">
-        <a href="/" class="px-3 py-1.5 rounded bg-[#991b1b] text-white transition-colors whitespace-nowrap">Home</a>
+        <a href="/" onclick="clearCategoryFilter(event)" class="px-3 py-1.5 rounded bg-[#991b1b] text-white transition-colors whitespace-nowrap">Home</a>
         
         <!-- All Categories Dropdown -->
         <div class="relative group">
@@ -65,50 +65,52 @@
           </button>
           <div id="megaMenuDropdown" class="hidden absolute left-0 top-full mt-1 w-64 rounded-xl bg-white p-2 text-zinc-800 shadow-2xl border border-zinc-200 z-50">
             <div class="text-[11px] font-bold text-zinc-400 px-3 py-1 uppercase tracking-wider">Browse by Sector</div>
-            <a href="#all-state" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
-              <span>All State Jobs</span>
-              <i data-lucide="chevron-right" class="h-3 w-3 text-zinc-400"></i>
+            <a href="javascript:void(0)" onclick="filterByCategory('TECH & SOFTWARE JOBS')" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
+              <span>Tech & Software Jobs</span>
+              <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">7</span>
             </a>
-            <a href="#govt-jobs" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
+            <a href="javascript:void(0)" onclick="filterByCategory('PRIVATE & BPO JOBS')" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
+              <span>Private & BPO Jobs</span>
+              <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">5</span>
+            </a>
+            <a href="javascript:void(0)" onclick="filterByCategory('BANK & FINANCIAL JOBS')" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
+              <span>Bank & Finance</span>
+              <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">3</span>
+            </a>
+            <a href="javascript:void(0)" onclick="filterByCategory('ENGINEERING & DIPLOMA')" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
+              <span>Engineering & Diploma</span>
+              <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">1</span>
+            </a>
+            <div class="my-1 border-t border-zinc-100"></div>
+            <a href="javascript:void(0)" onclick="filterByCategory('GOVT & PSU JOBS')" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
               <span>Govt & PSU Jobs</span>
               <i data-lucide="chevron-right" class="h-3 w-3 text-zinc-400"></i>
             </a>
-            <a href="#defence-jobs" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
+            <a href="javascript:void(0)" onclick="filterByCategory('ALL STATE JOBS')" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
+              <span>All State Jobs</span>
+              <i data-lucide="chevron-right" class="h-3 w-3 text-zinc-400"></i>
+            </a>
+            <a href="javascript:void(0)" onclick="filterByCategory('DEFENCE & POLICE JOBS')" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
               <span>Defence & Police</span>
               <i data-lucide="chevron-right" class="h-3 w-3 text-zinc-400"></i>
             </a>
-            <a href="#bank-jobs" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
-              <span>Bank & Finance</span>
-              <i data-lucide="chevron-right" class="h-3 w-3 text-zinc-400"></i>
-            </a>
-            <a href="#tech-jobs" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
-              <span>Tech & Software</span>
-              <i data-lucide="chevron-right" class="h-3 w-3 text-zinc-400"></i>
-            </a>
-            <a href="#railway-jobs" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
+            <a href="javascript:void(0)" onclick="filterByCategory('POST OFFICE & RAILWAYS')" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
               <span>Post Office & Railways</span>
               <i data-lucide="chevron-right" class="h-3 w-3 text-zinc-400"></i>
             </a>
-            <a href="#engineering-jobs" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
-              <span>Engineering & Diploma</span>
-              <i data-lucide="chevron-right" class="h-3 w-3 text-zinc-400"></i>
-            </a>
-            <a href="#teaching-jobs" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
+            <a href="javascript:void(0)" onclick="filterByCategory('TEACHING & EDUCATION')" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
               <span>Teaching & Education</span>
-              <i data-lucide="chevron-right" class="h-3 w-3 text-zinc-400"></i>
-            </a>
-            <a href="#notifications" class="flex items-center justify-between px-3 py-1.5 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
-              <span>Important PDFs & Notices</span>
               <i data-lucide="chevron-right" class="h-3 w-3 text-zinc-400"></i>
             </a>
           </div>
         </div>
 
-        <a href="#all-state" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">State Jobs</a>
-        <a href="#govt-jobs" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Govt Jobs</a>
-        <a href="#bank-jobs" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Bank Jobs</a>
-        <a href="#tech-jobs" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Tech Jobs</a>
-        <a href="#notifications" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Admit Cards & PDFs</a>
+        <button onclick="filterByCategory('TECH & SOFTWARE JOBS')" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Tech Jobs</button>
+        <button onclick="filterByCategory('BANK & FINANCIAL JOBS')" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Bank Jobs</button>
+        <button onclick="filterByCategory('PRIVATE & BPO JOBS')" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Private & BPO</button>
+        <button onclick="filterByCategory('ENGINEERING & DIPLOMA')" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Engineering</button>
+        <button onclick="filterByCategory('GOVT & PSU JOBS')" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Govt Jobs</button>
+        <button onclick="filterByCategory('ALL STATE JOBS')" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">State Jobs</button>
         
         <!-- Post Job Button (Opens Recruiter & Admin WhatsApp Information) -->
         <button id="postJobNavBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-yellow-400 text-zinc-950 font-bold hover:bg-yellow-300 transition-colors whitespace-nowrap">
@@ -215,8 +217,62 @@
       </div>
     </div>
 
-    <!-- Main Container -->
-    <div class="mx-auto max-w-7xl px-2 sm:px-4 py-3 space-y-6">
+    <!-- Dedicated Single Category View (Shown when a category is selected or searched) -->
+    <div id="singleCategoryContainer" class="hidden w-full max-w-7xl mx-auto px-2 sm:px-4 py-4 space-y-5">
+      <!-- Category Header Banner -->
+      <div class="rounded-2xl border border-blue-200 bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white p-5 sm:p-6 shadow-md">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-semibold text-blue-200 mb-1">
+              <a href="/" onclick="clearCategoryFilter(event)" class="hover:text-white transition-colors">Home</a>
+              <span>/</span>
+              <span>Categories</span>
+              <span>/</span>
+              <span id="currentCategoryBreadcrumb" class="text-white font-bold">Category</span>
+            </div>
+            <div class="flex items-center gap-3 mt-1">
+              <h1 id="singleCategoryTitle" class="text-xl sm:text-2xl font-black text-white tracking-tight leading-tight">Category Name</h1>
+              <span id="singleCategoryBadge" class="inline-flex items-center rounded-full bg-yellow-400 text-zinc-950 text-xs font-black px-3 py-1 shadow-sm">0 Openings</span>
+            </div>
+            <p id="singleCategorySubtitle" class="text-xs text-blue-100 mt-1 max-w-2xl">Verified recruitment notices and active vacancies curated by SelectedJobs.in.</p>
+          </div>
+
+          <button onclick="clearCategoryFilter(event)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-bold backdrop-blur-sm transition-all shadow-sm flex-shrink-0">
+            <i data-lucide="arrow-left" class="h-4 w-4"></i>
+            <span>&larr; Show All Categories</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Single Category Job Cards Grid -->
+      <div id="singleCategoryJobsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Empty State Card -->
+      <div id="singleCategoryEmptyState" class="hidden rounded-2xl border border-dashed border-zinc-300 bg-white p-10 sm:p-14 text-center shadow-sm">
+        <div class="h-16 w-16 rounded-2xl bg-blue-50 text-[#1c64f2] flex items-center justify-center mx-auto mb-4 border border-blue-100">
+          <i data-lucide="folder-search" class="h-8 w-8 text-[#1c64f2]"></i>
+        </div>
+        <h3 id="emptyCategoryTitle" class="text-lg font-black text-zinc-900">No Current Openings in this Category</h3>
+        <p class="text-xs text-zinc-600 mt-2 max-w-md mx-auto leading-relaxed">
+          Our editorial team verifies and uploads new vacancies daily. New recruitment notices for this sector will appear here as soon as official circulars or hiring drives are announced.
+        </p>
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <button onclick="clearCategoryFilter(event)" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white text-xs font-bold px-5 py-2.5 shadow-sm transition-colors flex items-center gap-2">
+            <i data-lucide="grid" class="h-3.5 w-3.5"></i>
+            <span>Browse All Categories</span>
+          </button>
+          <button onclick="document.getElementById('postJobModal').classList.remove('hidden'); lucide.createIcons();" class="rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold px-5 py-2.5 shadow-sm transition-colors flex items-center gap-2">
+            <i data-lucide="message-circle" class="h-3.5 w-3.5"></i>
+            <span>Post a Job via WhatsApp</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Container (9-Box Grid & Informational Sections) -->
+    <div id="mainCategoryBoxesContainer" class="mx-auto max-w-7xl px-2 sm:px-4 py-3 space-y-6">
 
       <!-- 3-Column Category Box Grid (Row 1) -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -354,16 +410,16 @@
           </div>
         </div>
 
-        <!-- Box 9: IMPORTANT PDFS -->
-        <div id="notifications" class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14">
+        <!-- Box 9: PRIVATE & BPO JOBS -->
+        <div id="private-bpo-jobs" class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14">
           <div class="bg-[#1d4ed8] text-white px-3.5 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
-            <span>IMPORTANT PDF FILES</span>
+            <span>PRIVATE & BPO JOBS</span>
           </div>
-          <div id="jobs-notifications" class="p-3 flex-1 divide-y divide-zinc-100">
+          <div id="jobs-private-bpo" class="p-3 flex-1 divide-y divide-zinc-100">
             <div class="py-4 text-center text-xs text-zinc-400">Loading openings...</div>
           </div>
           <div class="px-3 py-2 bg-zinc-50/70 border-t border-zinc-100 flex justify-end">
-            <a href="javascript:filterByCategory('IMPORTANT NOTIFICATIONS & PDFS')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+            <a href="javascript:filterByCategory('PRIVATE & BPO JOBS')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
               <span>Show More</span>
               <i data-lucide="chevron-right" class="h-3 w-3"></i>
             </a>
@@ -589,7 +645,7 @@
       populateBox('jobs-railway-jobs', allJobs.filter(j => j.category === 'POST OFFICE & RAILWAYS'));
       populateBox('jobs-engineering-jobs', allJobs.filter(j => j.category === 'ENGINEERING & DIPLOMA'));
       populateBox('jobs-teaching-jobs', allJobs.filter(j => j.category === 'TEACHING & EDUCATION'));
-      populateBox('jobs-notifications', allJobs.filter(j => j.category === 'IMPORTANT NOTIFICATIONS & PDFS'));
+      populateBox('jobs-private-bpo', allJobs.filter(j => j.category === 'PRIVATE & BPO JOBS'));
     }
 
     function renderReadMore() {
@@ -615,6 +671,215 @@
       allJobs.slice(0, 4).forEach(job => col1.innerHTML += renderColItem(job));
       allJobs.slice(4, 8).forEach(job => col2.innerHTML += renderColItem(job));
       allJobs.slice(8, 12).forEach(job => col3.innerHTML += renderColItem(job));
+    }
+
+    function renderSingleCategoryJobCard(job) {
+      const skillsHtml = (job.skills && Array.isArray(job.skills) && job.skills.length > 0)
+        ? `<div class="mt-3 flex flex-wrap gap-1.5">
+            ${job.skills.slice(0, 5).map(s => `<span class="inline-block bg-zinc-100 text-zinc-700 border border-zinc-200/80 rounded-lg text-[10px] font-semibold px-2 py-0.5">${escapeHtml(s)}</span>`).join('')}
+            ${job.skills.length > 5 ? `<span class="text-[10px] text-zinc-400 font-medium self-center">+${job.skills.length - 5} more</span>` : ''}
+           </div>`
+        : '';
+
+      return `
+        <div class="rounded-2xl border border-zinc-200 hover:border-blue-300 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <!-- Top meta row -->
+            <div class="flex items-center justify-between gap-2 mb-2.5">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-xs font-bold text-zinc-800">${escapeHtml(job.company || 'SelectedJobs Verified')}</span>
+                <span class="inline-flex items-center gap-0.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700 border border-emerald-200">
+                  <i data-lucide="shield-check" class="h-3 w-3"></i>
+                  <span>Verified</span>
+                </span>
+                ${job.isNew ? '<span class="px-1.5 py-0.2 rounded text-[10px] font-black text-rose-600 bg-amber-100 border border-amber-300 badge-new">NEW</span>' : ''}
+              </div>
+              ${job.workplaceType ? `<span class="text-[10px] font-bold uppercase tracking-wider text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded">${escapeHtml(job.workplaceType)}</span>` : ''}
+            </div>
+
+            <!-- Job Title -->
+            <h3 class="text-sm sm:text-base font-black text-zinc-900 leading-snug group-hover:text-blue-700 transition-colors">
+              <a href="/jobs/${job.id}">
+                ${escapeHtml(job.title)}
+              </a>
+            </h3>
+
+            <!-- Details Key-Value Grid -->
+            <div class="mt-3 grid grid-cols-2 gap-2 text-xs text-zinc-600">
+              <div class="flex items-center gap-1.5 truncate">
+                <i data-lucide="map-pin" class="h-3.5 w-3.5 text-zinc-400 flex-shrink-0"></i>
+                <span class="truncate font-medium">${escapeHtml(job.location || 'All India')}</span>
+              </div>
+              <div class="flex items-center gap-1.5 truncate">
+                <i data-lucide="briefcase" class="h-3.5 w-3.5 text-zinc-400 flex-shrink-0"></i>
+                <span class="truncate font-medium">${escapeHtml(job.experience || 'Fresher / Experienced')}</span>
+              </div>
+              <div class="flex items-center gap-1.5 truncate col-span-2">
+                <i data-lucide="banknote" class="h-3.5 w-3.5 text-emerald-600 flex-shrink-0"></i>
+                <span class="font-bold text-emerald-700 truncate">${escapeHtml(job.salary || 'Competitive Package')}</span>
+              </div>
+            </div>
+
+            ${skillsHtml}
+          </div>
+
+          <!-- Card Action Footer -->
+          <div class="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-1 text-[11px] text-zinc-400">
+              <i data-lucide="calendar" class="h-3 w-3"></i>
+              <span>${formatDate(job.createdAt)}</span>
+            </div>
+            
+            <a href="/jobs/${job.id}" class="inline-flex items-center gap-1.5 rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 shadow-sm transition-colors flex-shrink-0">
+              <span>View Details & Apply</span>
+              <i data-lucide="chevron-right" class="h-3.5 w-3.5"></i>
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    function matchCategory(jobCat, requestedCat) {
+      if (!jobCat || !requestedCat) return false;
+      const jc = jobCat.trim().toUpperCase();
+      const rc = requestedCat.trim().toUpperCase();
+      if (jc === rc) return true;
+      if (rc.includes('TECH') && jc.includes('TECH')) return true;
+      if (rc.includes('BANK') && jc.includes('BANK')) return true;
+      if ((rc.includes('BPO') || rc.includes('PRIVATE')) && (jc.includes('BPO') || jc.includes('PRIVATE'))) return true;
+      if (rc.includes('ENGINEERING') && jc.includes('ENGINEERING')) return true;
+      if (rc.includes('STATE') && (jc.includes('STATE') || jc.includes('ALL STATE'))) return true;
+      if (rc.includes('GOVT') && jc.includes('GOVT')) return true;
+      if (rc.includes('DEFENCE') && jc.includes('DEFENCE')) return true;
+      if (rc.includes('RAILWAY') && jc.includes('RAILWAY')) return true;
+      if (rc.includes('TEACHING') && jc.includes('TEACHING')) return true;
+      return false;
+    }
+
+    function filterByCategory(cat) {
+      // Close dropdown if open
+      if (megaDrop && !megaDrop.classList.contains('hidden')) {
+        megaDrop.classList.add('hidden');
+      }
+
+      // Hide homepage sections
+      document.getElementById('topColoredGridContainer').classList.add('hidden');
+      document.getElementById('mainCategoryBoxesContainer').classList.add('hidden');
+      document.getElementById('searchFilterBanner').classList.add('hidden');
+
+      // Show single category container
+      const singleContainer = document.getElementById('singleCategoryContainer');
+      singleContainer.classList.remove('hidden');
+
+      // Update titles
+      document.getElementById('singleCategoryTitle').textContent = cat;
+      document.getElementById('currentCategoryBreadcrumb').textContent = cat;
+
+      // Filter matching jobs
+      const matchedJobs = allJobs.filter(j => matchCategory(j.category, cat));
+
+      const badgeEl = document.getElementById('singleCategoryBadge');
+      const gridEl = document.getElementById('singleCategoryJobsGrid');
+      const emptyEl = document.getElementById('singleCategoryEmptyState');
+
+      badgeEl.textContent = `${matchedJobs.length} ${matchedJobs.length === 1 ? 'Opening' : 'Openings'} Available`;
+
+      if (matchedJobs.length === 0) {
+        gridEl.innerHTML = '';
+        gridEl.classList.add('hidden');
+        document.getElementById('emptyCategoryTitle').textContent = `No Current Openings in ${cat}`;
+        emptyEl.classList.remove('hidden');
+      } else {
+        emptyEl.classList.add('hidden');
+        gridEl.classList.remove('hidden');
+        gridEl.innerHTML = matchedJobs.map(job => renderSingleCategoryJobCard(job)).join('');
+      }
+
+      // Update browser URL query param
+      try {
+        const url = new URL(window.location);
+        url.searchParams.set('category', cat);
+        url.searchParams.delete('search');
+        history.pushState({ category: cat }, '', url);
+      } catch (e) {}
+
+      lucide.createIcons();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function clearCategoryFilter(e) {
+      if (e) e.preventDefault();
+
+      document.getElementById('singleCategoryContainer').classList.add('hidden');
+      document.getElementById('topColoredGridContainer').classList.remove('hidden');
+      document.getElementById('mainCategoryBoxesContainer').classList.remove('hidden');
+      document.getElementById('searchFilterBanner').classList.add('hidden');
+
+      try {
+        const url = new URL(window.location);
+        url.searchParams.delete('category');
+        url.searchParams.delete('search');
+        history.pushState({}, '', url.pathname);
+      } catch (e) {}
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filterBySearch(query) {
+      if (!query) {
+        clearCategoryFilter();
+        return;
+      }
+
+      // Hide homepage sections
+      document.getElementById('topColoredGridContainer').classList.add('hidden');
+      document.getElementById('mainCategoryBoxesContainer').classList.add('hidden');
+      document.getElementById('searchFilterBanner').classList.add('hidden');
+
+      // Show single container
+      const singleContainer = document.getElementById('singleCategoryContainer');
+      singleContainer.classList.remove('hidden');
+
+      const titleText = `Search Results: "${query}"`;
+      document.getElementById('singleCategoryTitle').textContent = titleText;
+      document.getElementById('currentCategoryBreadcrumb').textContent = `Search: "${query}"`;
+
+      const q = query.toLowerCase().trim();
+      const matchedJobs = allJobs.filter(j => {
+        const title = (j.title || '').toLowerCase();
+        const company = (j.company || '').toLowerCase();
+        const cat = (j.category || '').toLowerCase();
+        const loc = (j.location || '').toLowerCase();
+        const skills = (j.skills && Array.isArray(j.skills)) ? j.skills.join(' ').toLowerCase() : '';
+        return title.includes(q) || company.includes(q) || cat.includes(q) || loc.includes(q) || skills.includes(q);
+      });
+
+      const badgeEl = document.getElementById('singleCategoryBadge');
+      const gridEl = document.getElementById('singleCategoryJobsGrid');
+      const emptyEl = document.getElementById('singleCategoryEmptyState');
+
+      badgeEl.textContent = `${matchedJobs.length} ${matchedJobs.length === 1 ? 'Result' : 'Results'} Found`;
+
+      if (matchedJobs.length === 0) {
+        gridEl.innerHTML = '';
+        gridEl.classList.add('hidden');
+        document.getElementById('emptyCategoryTitle').textContent = `No Results for "${query}"`;
+        emptyEl.classList.remove('hidden');
+      } else {
+        emptyEl.classList.add('hidden');
+        gridEl.classList.remove('hidden');
+        gridEl.innerHTML = matchedJobs.map(job => renderSingleCategoryJobCard(job)).join('');
+      }
+
+      try {
+        const url = new URL(window.location);
+        url.searchParams.set('search', query);
+        url.searchParams.delete('category');
+        history.pushState({ search: query }, '', url);
+      } catch (e) {}
+
+      lucide.createIcons();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function escapeHtml(text) {
@@ -672,27 +937,54 @@
       e.preventDefault();
       const q = searchInput.value.trim();
       if (q) {
-        document.getElementById('searchKeyword').textContent = `"${q}"`;
-        document.getElementById('searchFilterBanner').classList.remove('hidden');
         searchModal.classList.add('hidden');
-        loadJobs(q);
+        filterBySearch(q);
       }
     });
 
     document.getElementById('clearSearchBtn').addEventListener('click', () => {
-      document.getElementById('searchFilterBanner').classList.add('hidden');
-      searchInput.value = '';
-      loadJobs();
+      clearCategoryFilter();
     });
 
-    function filterByCategory(cat) {
-      document.getElementById('searchKeyword').textContent = `Category: ${cat}`;
-      document.getElementById('searchFilterBanner').classList.remove('hidden');
-      loadJobs('', cat);
-      window.scrollTo({ top: 120, behavior: 'smooth' });
+    // Popstate browser navigation support
+    window.addEventListener('popstate', (e) => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const cat = urlParams.get('category');
+      const q = urlParams.get('search');
+      if (cat) {
+        filterByCategory(cat);
+      } else if (q) {
+        filterBySearch(q);
+      } else {
+        clearCategoryFilter();
+      }
+    });
+
+    // Initialize: load jobs and check URL query
+    async function loadJobs() {
+      try {
+        const url = '/api.php?action=get_jobs&_t=' + Date.now();
+        const res = await fetch(url, { cache: 'no-store' });
+        const data = await res.json();
+        if (data.success) {
+          allJobs = data.jobs || [];
+          renderAll();
+
+          // Check if URL has category or search
+          const urlParams = new URLSearchParams(window.location.search);
+          const catParam = urlParams.get('category');
+          const searchParam = urlParams.get('search');
+          if (catParam) {
+            filterByCategory(catParam);
+          } else if (searchParam) {
+            filterBySearch(searchParam);
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching jobs:', err);
+      }
     }
 
-    // Initialize
     loadJobs();
   </script>
 </body>

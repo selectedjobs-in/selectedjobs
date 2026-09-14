@@ -61,10 +61,26 @@ async function sync() {
         if (res && res.success) {
           console.log(`+ Remotely updated: ${f}`);
         } else {
-          console.log(`- ${f} needs zip package upload (server returned: ${JSON.stringify(res)})`);
+          console.log(`- ${f} upload response: ${JSON.stringify(res)}`);
         }
       }
     }
+
+    // Also sync data/jobs.json
+    const jobsPath = path.join(__dirname, 'hostinger_deploy', 'data', 'jobs.json');
+    if (fs.existsSync(jobsPath)) {
+      const jobsContent = fs.readFileSync(jobsPath, 'utf8');
+      const res = await request('POST', '/api.php?action=admin_update_file', {
+        filename: 'jobs.json',
+        content: jobsContent,
+      });
+      if (res && res.success) {
+        console.log(`+ Remotely updated: data/jobs.json (${JSON.parse(jobsContent).length} jobs categorized)`);
+      } else {
+        console.log(`- jobs.json response: ${JSON.stringify(res)}`);
+      }
+    }
+    console.log('All files and data pushed to live server!');
     return;
   }
 
