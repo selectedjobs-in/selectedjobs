@@ -239,6 +239,20 @@
           </label>
         </div>
 
+        <!-- Duplicate Warning Alert Box -->
+        <div id="duplicateWarningBox" class="hidden rounded-xl border border-amber-300 bg-amber-50 p-4 text-xs text-amber-900 shadow-sm space-y-1.5">
+          <div class="flex items-center gap-1.5 font-bold text-amber-800">
+            <i data-lucide="alert-triangle" class="h-4 w-4 text-amber-600 flex-shrink-0"></i>
+            <span>Possible Duplicate Opening Detected</span>
+          </div>
+          <p id="dupReason" class="text-[11px] text-amber-900"></p>
+          <div class="pt-1 text-[11px]">
+            <span>Active match: </span>
+            <a id="dupExistingLink" href="#" target="_blank" class="font-bold text-blue-700 underline hover:text-blue-900"></a>
+          </div>
+          <p class="text-[10px] text-amber-700 italic">Please avoid duplicate postings. Check the link above to review the currently active listing.</p>
+        </div>
+
         <!-- Submit Button -->
         <div class="pt-2">
           <button type="submit" id="submitBtn" class="w-full rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-black text-sm py-3.5 shadow-md transition-all flex items-center justify-center gap-2">
@@ -352,6 +366,49 @@
       }
     });
 
+    // Real-time Duplicate Detection
+    let checkDupTimeout = null;
+    async function checkDuplicate() {
+      const applyValue = document.getElementById('applyValue').value.trim();
+      const title = document.getElementById('title').value.trim();
+      const company = document.getElementById('company').value.trim();
+
+      if (!applyValue && (!title || !company)) {
+        document.getElementById('duplicateWarningBox').classList.add('hidden');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api.php?action=check_duplicate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ applyValue, title, company })
+        });
+        const data = await res.json();
+        const box = document.getElementById('duplicateWarningBox');
+        if (data.success && data.isDuplicate) {
+          box.classList.remove('hidden');
+          document.getElementById('dupReason').textContent = data.reason || 'This opening appears to already be listed.';
+          const link = document.getElementById('dupExistingLink');
+          if (data.duplicateJob) {
+            link.href = '/jobs/' + data.duplicateJob.id;
+            link.textContent = `${data.duplicateJob.title} (${data.duplicateJob.company})`;
+          }
+          lucide.createIcons();
+        } else {
+          box.classList.add('hidden');
+        }
+      } catch (err) {
+        console.warn('Duplicate check check failed:', err);
+      }
+    }
+
+    ['blur', 'change'].forEach(evt => {
+      document.getElementById('applyValue').addEventListener(evt, checkDuplicate);
+      document.getElementById('title').addEventListener(evt, checkDuplicate);
+      document.getElementById('company').addEventListener(evt, checkDuplicate);
+    });
+
     // Handle Job Submission
     document.getElementById('jobForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -393,9 +450,24 @@
         });
 
         const data = await res.json();
+        if (res.status === 409 || data.isDuplicate) {
+          const box = document.getElementById('duplicateWarningBox');
+          box.classList.remove('hidden');
+          document.getElementById('dupReason').textContent = data.error || data.reason || 'Duplicate detected.';
+          if (data.duplicate_job) {
+            const link = document.getElementById('dupExistingLink');
+            link.href = '/jobs/' + data.duplicate_job.id;
+            link.textContent = `${data.duplicate_job.title} (${data.duplicate_job.company})`;
+          }
+          lucide.createIcons();
+          alert('Duplicate Job Alert: ' + (data.error || data.reason) + '\nThis opening is already posted on SelectedJobs.in.');
+          return;
+        }
+
         if (data.success && data.job) {
           document.getElementById('viewLiveJobBtn').href = '/jobs/' + data.job.id;
           document.getElementById('successModal').classList.remove('hidden');
+          document.getElementById('duplicateWarningBox').classList.add('hidden');
           lucide.createIcons();
         } else {
           alert('Error publishing job: ' + (data.error || 'Check administrator passkey'));
@@ -411,6 +483,7 @@
 
     document.getElementById('postAnotherBtn').addEventListener('click', () => {
       document.getElementById('successModal').classList.add('hidden');
+      document.getElementById('duplicateWarningBox').classList.add('hidden');
       document.getElementById('jobForm').reset();
     });
 

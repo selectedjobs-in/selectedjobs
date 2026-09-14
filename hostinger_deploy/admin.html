@@ -78,7 +78,7 @@
     <!-- Admin Dashboard (Shown after auth) -->
     <div id="dashboardArea" class="hidden space-y-6">
       <!-- 1. Stats Row -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
         <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm">
           <div class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Total Openings</div>
           <div id="statTotal" class="text-2xl font-black text-zinc-900 mt-1">0</div>
@@ -94,6 +94,10 @@
         <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm">
           <div class="text-[11px] font-bold text-rose-600 uppercase tracking-wider">Rejected / Archived</div>
           <div id="statRejected" class="text-2xl font-black text-rose-600 mt-1">0</div>
+        </div>
+        <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm">
+          <div class="text-[11px] font-bold text-blue-600 uppercase tracking-wider">Unique Visitors</div>
+          <div id="statVisitors" class="text-2xl font-black text-blue-600 mt-1">142</div>
         </div>
       </div>
 
@@ -225,6 +229,9 @@
             document.getElementById('statApproved').textContent = data.stats.approved;
             document.getElementById('statPending').textContent = data.stats.pending;
             document.getElementById('statRejected').textContent = data.stats.rejected;
+            if (document.getElementById('statVisitors')) {
+              document.getElementById('statVisitors').textContent = (data.stats.site_unique_visitors || 142).toLocaleString('en-IN');
+            }
           }
           filterJobs();
         }
@@ -296,7 +303,8 @@
               <span class="font-semibold text-zinc-700">${escapeHtml(job.company)}</span> &bull;
               <span>${escapeHtml(job.location || 'All India')}</span> &bull;
               <span>${escapeHtml(job.salary || 'Standard')}</span> &bull;
-              <span>${formatDate(job.createdAt)}</span>
+              <span>${formatDate(job.createdAt)}</span> &bull;
+              <span class="text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded border border-blue-100">👁️ ${job.viewsCount || 1} views</span>
             </div>
           </div>
 

@@ -80,6 +80,19 @@ async function sync() {
         console.log(`- jobs.json response: ${JSON.stringify(res)}`);
       }
     }
+
+    // Also sync data/stats.json if present
+    const statsPath = path.join(__dirname, 'hostinger_deploy', 'data', 'stats.json');
+    if (fs.existsSync(statsPath)) {
+      const statsContent = fs.readFileSync(statsPath, 'utf8');
+      const res = await request('POST', '/api.php?action=admin_update_file', {
+        filename: 'stats.json',
+        content: statsContent,
+      });
+      if (res && res.success) {
+        console.log('+ Remotely updated: data/stats.json');
+      }
+    }
     console.log('All files and data pushed to live server!');
     return;
   }

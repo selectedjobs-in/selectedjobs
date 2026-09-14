@@ -28,10 +28,16 @@
           <span class="text-[11px] block font-medium text-blue-100">selectedjobs.in</span>
         </div>
       </a>
-      <a href="/" class="text-xs font-bold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
-        <i data-lucide="chevron-left" class="h-4 w-4"></i>
-        <span>All Openings</span>
-      </a>
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/25 text-white border border-white/10 text-[11px] font-bold shadow-inner" title="Total Unique Job Seekers on SelectedJobs.in">
+          <i data-lucide="users" class="h-3.5 w-3.5 text-yellow-300"></i>
+          <span><strong id="headerVisitorsCount">143</strong> Unique Seekers</span>
+        </div>
+        <a href="/" class="text-xs font-bold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
+          <i data-lucide="chevron-left" class="h-4 w-4"></i>
+          <span>All Openings</span>
+        </a>
+      </div>
     </div>
   </header>
 
@@ -204,6 +210,15 @@
 
     const jobId = getParam('id');
 
+    function getVisitorId() {
+      let vid = localStorage.getItem('sj_vid');
+      if (!vid) {
+        vid = 'v_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+        localStorage.setItem('sj_vid', vid);
+      }
+      return vid;
+    }
+
     async function loadJob() {
       if (!jobId) {
         document.getElementById('loadingState').classList.add('hidden');
@@ -213,10 +228,15 @@
       }
 
       try {
-        const res = await fetch(`/api.php?action=get_job&id=${encodeURIComponent(jobId)}&_t=${Date.now()}`, { cache: 'no-store' });
+        const vid = getVisitorId();
+        const res = await fetch(`/api.php?action=get_job&id=${encodeURIComponent(jobId)}&vid=${encodeURIComponent(vid)}&_t=${Date.now()}`, { cache: 'no-store' });
         if (!res.ok) throw new Error('Job not found');
         const data = await res.json();
         if (data.success && data.job) {
+          if (data.site_unique_visitors) {
+            const hCount = document.getElementById('headerVisitorsCount');
+            if (hCount) hCount.textContent = data.site_unique_visitors.toLocaleString('en-IN');
+          }
           renderJob(data.job);
         } else {
           throw new Error('Not found');
@@ -244,6 +264,12 @@
       const date = new Date(job.createdAt);
       document.getElementById('jobDate').textContent = 'Posted ' + (isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }));
       
+      const views = job.viewsCount || 1;
+      const viewsEl = document.getElementById('jobViews');
+      if (viewsEl) {
+        viewsEl.innerHTML = `<span class="inline-flex items-center gap-1 font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200"><i data-lucide="eye" class="h-3 w-3"></i><span>${views} Unique Aspirants Viewed</span></span>`;
+      }
+
       document.getElementById('jobLocation').textContent = job.location || 'All India';
       document.getElementById('jobSalary').textContent = job.salary || 'Standard Pay Scale';
       document.getElementById('jobExperience').textContent = job.experience || 'Fresher / All';
