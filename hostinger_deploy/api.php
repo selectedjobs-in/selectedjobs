@@ -198,13 +198,13 @@ function extractRequisitionId($text) {
         return '';
     }
 
-    // Look for explicit prefix in URL or text
+    // Look for explicit prefix in URL or text (e.g. gh_jid=7756668, jobs/10504872, roles/184192, jobid=522236)
     if (preg_match('/(?:gh_jid=|jobid=|req_id=|job\/|jobs\/|apply\/|roles\/|jobdetail\/|job-details\/)([a-zA-Z0-9_-]+)/i', $text, $m)) {
         return strtolower($m[1]);
     }
 
-    // Look for standard corporate requisition codes (e.g. R171037, JR-0000115941, P-100247, 522236)
-    if (preg_match('/\b(JR-[0-9]{4,}|[RP]-[0-9]{4,}|R[0-9]{5,}|[0-9]{5,8})\b/i', $text, $m)) {
+    // Look for standard corporate requisition codes with alphabetic prefix (e.g. R171037, JR-0000115941, P-100247, JR337715, R0004966)
+    if (preg_match('/\b(JR-?[0-9]{4,}|[RP]-?[0-9]{4,}|R[0-9]{5,})\b/i', $text, $m)) {
         return strtolower($m[1]);
     }
     return '';
@@ -224,7 +224,7 @@ function extractCoreTitleTokens($title) {
     $t = strtolower($title);
     $t = preg_replace('/\(.*?\)/', '', $t);
     $t = preg_replace('/\b(?:batch\s*)?202[0-9](?:\s*-\s*202[0-9])?\b/i', '', $t);
-    $t = preg_replace('/\b(?:freshers?|experienced|urgent|immediate|hiring|opening|openings|walkin|walk-in)\b/i', '', $t);
+    $t = preg_replace('/\b(?:freshers?|experienced|urgent|immediate|hiring|opening|openings|walkin|walk-in|part-time|support)\b/i', '', $t);
     $words = preg_split('/[^a-z0-9]+/', $t, -1, PREG_SPLIT_NO_EMPTY);
     return array_values(array_filter($words, function($w) {
         return strlen($w) > 2 && !in_array($w, ['the', 'and', 'for', 'with', 'via']);
@@ -268,11 +268,22 @@ function findDuplicateJob($existingJobs, $newJob, $excludeId = null) {
             }
         }
 
-        // 2. Phone or Email match: Duplicate if same contact AND matching company or title
+        // 2. Phone or Email match:
         if (!empty($newApplyRaw) && !isWebUrl($newJob['applyValue'] ?? '') && $newApplyRaw === $existingApplyRaw) {
             $hasCompanyMatch = (!empty($newCompany) && !empty($existingCompany) && ($newCompany === $existingCompany || strpos($newCompany, $existingCompany) !== false || strpos($existingCompany, $newCompany) !== false));
             $intersect = array_intersect($newTokens, $existingTokens);
-            if ($hasCompanyMatch || count($intersect) >= 2) {
+            $minCount = min(count($newTokens), count($existingTokens));
+            $overlapRatio = $minCount > 0 ? (count($intersect) / $minCount) : 0;
+
+            // If same contact AND same company, duplicate ONLY if role title is also similar (>=50% overlap or exact)
+            if ($hasCompanyMatch) {
+                if ($newTitleNorm === $existingTitleNorm || ($overlapRatio >= 0.5 && count($intersect) >= 2)) {
+                    return [
+                        'reason' => 'Application contact, company, and role match an existing opening',
+                        'duplicate_job' => $j
+                    ];
+                }
+            } else if ($overlapRatio >= 0.75 && count($intersect) >= 2) {
                 return [
                     'reason' => 'Application contact details and role match an existing opening',
                     'duplicate_job' => $j
