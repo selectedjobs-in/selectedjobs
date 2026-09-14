@@ -279,48 +279,47 @@ export default async function HomePage(props: PageProps) {
         {/* 6. Informational Sections Matching Screenshots 3 & 4 */}
         <div className="space-y-4 pt-2">
           {/* Info Card 1 */}
-          <InfoCard title="Selected Jobs - Providing Authentic Career & Jobs Portal Features">
+          <InfoCard title="About SelectedJobs.in – A True Job Portal for Career Aspirants">
             <p>
-              This website primarily serves as a dedicated job portal for candidates, offering well-organized job listings in a structured table and category format for easy access by aspirants across India. Beyond job listings, this platform is curated for educational alerts, admit cards, and recruitment study materials.
+              <strong>SelectedJobs.in</strong> is dedicated to empowering millions of career seekers and job aspirants across India by providing timely, verified, and transparent recruitment notifications. We cut through misleading advertisements, fake circulars, and cluttered redirect links to bring you direct, authoritative job alerts.
             </p>
             <p>
-              At <strong>SelectedJobs.in</strong>, we dedicate ourselves to crafting an accurate, timely, and functional portal experience. All job notices are screened before being published to protect candidates from misleading information.
+              Our editorial desk monitors official government gazettes, the Press Information Bureau (PIB), Union & State Public Service Commissions, and corporate recruitment desks daily. Every opening listed on this platform is verified to ensure authentic application guidelines, eligible educational criteria, and accurate cutoff dates.
             </p>
           </InfoCard>
 
           {/* Info Card 2 */}
-          <InfoCard title="Essential Features of SelectedJobs.in">
-            <p>
-              A well-designed job portal offers a seamless experience for both candidates and administrators. Key features include:
-            </p>
-            <ul className="list-disc pl-5 space-y-1.5">
-              <li><strong>Intuitive Category Box Listings:</strong> Organized sections that make it fast for candidates to find relevant opportunities in State, Govt, Banking, Tech, and Defence sectors.</li>
-              <li><strong>Direct Official Links:</strong> Direct links to official careers portals, PDFs, and application forms without third-party redirects.</li>
-              <li><strong>Administrator Verified:</strong> Strict editorial curation to ensure only legitimate vacancies are presented.</li>
-              <li><strong>Mobile & Desktop Fast Navigation:</strong> Lightweight and responsive design ensuring rapid page loads on all mobile networks.</li>
+          <InfoCard title="Comprehensive Career & Recruitment Coverage Across India">
+            <p>We organize employment notices into structured, easy-to-navigate category segments:</p>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                <strong>Central & State Public Services:</strong> Real-time alerts for UPSC (Civil Services, CDS, NDA), Staff Selection Commission (SSC CGL, CHSL, GD, MTS), Railway Recruitment Boards (RRB NTPC, Group D, ALP), and State PSC examinations across all Indian states.
+              </li>
+              <li>
+                <strong>Banking & Financial Sector:</strong> Exhaustive alerts for SBI (Probationary Officers & Clerks), IBPS PO/Clerk/RRB/SO, Reserve Bank of India (RBI Grade B & Assistant), NABARD, SEBI, and public insurance corporations (LIC, NIACL, GIC).
+              </li>
+              <li>
+                <strong>Defence & Uniformed Services:</strong> Immediate circulars for Indian Army, Navy, Air Force (Agniveer, AFCAT, Technical Entry), Central Armed Police Forces (BSF, CISF, CRPF, ITBP, SSB), and State Police Sub-Inspectors & Constables.
+              </li>
+              <li>
+                <strong>Engineering & Technical PSUs:</strong> Opportunities for Diploma and B.Tech / B.E. graduates across top Maharatna & Navratna PSUs (GATE-based recruitments in ONGC, NTPC, BHEL, IOCL, HPCL) and technical apprenticeships.
+              </li>
+              <li>
+                <strong>Teaching & IT/Software:</strong> Central & State Teacher Eligibility Tests (CTET, State TETs, KVS, NVS, DSSSB, UGC NET), alongside vetted tech openings, software developer drives, and graduate trainee walk-ins.
+              </li>
             </ul>
           </InfoCard>
 
           {/* Info Card 3 */}
-          <InfoCard title="Top Features of Our Job Portal">
+          <InfoCard title="Aspirants' Verification Guide & Safe Application Practices">
             <p>
-              <strong>Selected Jobs</strong> is professionally tailored for career seekers and educational boards. Whether you are searching for Central Govt openings, State Public Service exams, Banking vacancies, or IT roles:
+              To ensure a seamless and safe application experience, candidates are advised to follow these standard practices:
             </p>
             <ul className="list-disc pl-5 space-y-1.5">
-              <li><strong>Modern & Responsive Design:</strong> Accessible across smartphones, tablets, and desktop computers.</li>
-              <li><strong>Fast Job Posting for Administrators:</strong> Instant one-click publication directly to the live feed.</li>
-              <li><strong>Google Jobs SEO Schema:</strong> Built-in structured data allowing Google search to rank openings automatically.</li>
-            </ul>
-          </InfoCard>
-
-          {/* Info Card 4 */}
-          <InfoCard title="Seamless Recruitment and Career Growth">
-            <p>
-              Our platform connects qualified candidates directly with official hiring processes:
-            </p>
-            <ul className="list-disc pl-5 space-y-1.5">
-              <li><strong>Job Listings & Multi-Category Sorting:</strong> Fast category-based classification.</li>
-              <li><strong>Transparent Eligibility Details:</strong> Plain-text breakdown of age limit, educational qualification, and application fees.</li>
+              <li><strong>Direct Official Portals:</strong> Always access the recruitment notification PDF and online application module via the verified official link provided on each job page.</li>
+              <li><strong>Check Eligibility Carefully:</strong> Thoroughly read the official advertisement PDF for specific age cutoff dates, educational relaxations, category certificates (SC/ST/OBC/EWS/PwD), and physical standard tests.</li>
+              <li><strong>Never Pay Third-Party Intermediaries:</strong> SelectedJobs.in provides information 100% free of charge and never asks for donations or payment. All exam and application fees must only be paid through the official gateway of the recruiting commission.</li>
+              <li><strong>Keep Copies of Forms:</strong> Always preserve a PDF copy of your submitted application form, fee receipt, and registration registration/roll number for future admit card downloads.</li>
             </ul>
           </InfoCard>
         </div>

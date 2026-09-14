@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | SelectedJobs.in</title>
+  
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#f8fafc] text-zinc-900 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Header Banner -->
+  <header class="w-full bg-[#1c64f2] text-white py-4 px-4 text-center border-b border-blue-700">
+    <div class="mx-auto max-w-7xl flex items-center justify-between">
+      <a href="/" class="inline-flex items-center gap-2">
+        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#1c64f2] shadow-sm">
+          <i data-lucide="briefcase" class="h-5 w-5 text-[#1c64f2]"></i>
+        </div>
+        <div class="text-left">
+          <span class="text-xl font-extrabold tracking-tight">Selected Jobs</span>
+          <span class="text-[11px] block font-medium text-blue-100">Portal Administration</span>
+        </div>
+      </a>
+      <div id="adminNavControls" class="flex items-center gap-3">
+        <a href="/post-job" class="text-xs font-bold text-zinc-950 bg-yellow-400 hover:bg-yellow-300 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
+          <i data-lucide="plus-circle" class="h-3.5 w-3.5"></i>
+          <span>Post New Job</span>
+        </a>
+        <button id="logoutBtn" class="hidden text-xs font-bold text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded transition-colors items-center gap-1">
+          <i data-lucide="log-out" class="h-3.5 w-3.5"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Red Subnav Bar -->
+  <nav class="w-full bg-[#b91c1c] text-white py-2 px-4 shadow-sm border-b border-red-800 text-xs font-bold">
+    <div class="mx-auto max-w-7xl flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="/" class="hover:underline">&larr; Return to Homepage</a>
+        <span class="text-red-300">/</span>
+        <span class="text-red-100 font-normal">Editorial & Moderation Console</span>
+      </div>
+      <div class="flex items-center gap-1.5 text-yellow-300">
+        <i data-lucide="shield-check" class="h-4 w-4"></i>
+        <span>Passkey: selectedadmin2026</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-1 py-8 px-4 max-w-7xl mx-auto w-full">
+    <!-- Admin Login Card (Shown when not authenticated) -->
+    <div id="loginCard" class="max-w-md mx-auto bg-white rounded-2xl border border-zinc-200 p-8 shadow-sm text-center">
+      <div class="w-12 h-12 rounded-2xl bg-blue-50 text-[#1c64f2] flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="shield-check" class="h-6 w-6"></i>
+      </div>
+      <h2 class="text-lg font-black text-zinc-900">Administrator Login</h2>
+      <p class="text-xs text-zinc-500 mt-1">Enter your admin passkey to manage jobs, approve postings, and edit vacancies.</p>
+      
+      <form id="adminLoginForm" class="mt-6 flex flex-col gap-3">
+        <input type="password" id="loginPasskey" placeholder="Enter passkey (e.g. selectedadmin2026)" required class="rounded-xl border border-zinc-300 px-4 py-2.5 text-sm text-center text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+        <button type="submit" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs py-2.5 transition-colors">
+          Sign In to Admin Portal
+        </button>
+        <p id="loginError" class="text-xs text-rose-600 font-bold hidden">Invalid administrator passkey.</p>
+      </form>
+    </div>
+
+    <!-- Admin Dashboard (Shown after auth) -->
+    <div id="dashboardArea" class="hidden space-y-6">
+      <!-- 1. Stats Row -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm">
+          <div class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Total Openings</div>
+          <div id="statTotal" class="text-2xl font-black text-zinc-900 mt-1">0</div>
+        </div>
+        <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm">
+          <div class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider">Live & Approved</div>
+          <div id="statApproved" class="text-2xl font-black text-emerald-600 mt-1">0</div>
+        </div>
+        <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm">
+          <div class="text-[11px] font-bold text-amber-600 uppercase tracking-wider">Pending Review</div>
+          <div id="statPending" class="text-2xl font-black text-amber-600 mt-1">0</div>
+        </div>
+        <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm">
+          <div class="text-[11px] font-bold text-rose-600 uppercase tracking-wider">Rejected / Archived</div>
+          <div id="statRejected" class="text-2xl font-black text-rose-600 mt-1">0</div>
+        </div>
+      </div>
+
+      <!-- 2. Controls & Filter Bar -->
+      <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+        <!-- Tabs -->
+        <div class="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto">
+          <button onclick="setTab('ALL')" id="tab-ALL" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-[#1c64f2] text-white">All Jobs</button>
+          <button onclick="setTab('APPROVED')" id="tab-APPROVED" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 text-zinc-600 hover:bg-zinc-200">Live (Approved)</button>
+          <button onclick="setTab('PENDING')" id="tab-PENDING" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 text-zinc-600 hover:bg-zinc-200">Pending</button>
+          <button onclick="setTab('REJECTED')" id="tab-REJECTED" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 text-zinc-600 hover:bg-zinc-200">Rejected</button>
+        </div>
+
+        <!-- Search Box -->
+        <div class="w-full sm:w-72">
+          <input type="text" id="adminSearchInput" oninput="filterJobs()" placeholder="Filter by title, company..." class="w-full rounded-xl border border-zinc-300 px-3.5 py-1.5 text-xs text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+        </div>
+      </div>
+
+      <!-- 3. Job Items List -->
+      <div class="bg-white rounded-2xl border border-zinc-200 shadow-sm overflow-hidden">
+        <div id="adminJobsList" class="divide-y divide-zinc-200">
+          <div class="py-12 text-center text-xs text-zinc-400">Loading job postings...</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-zinc-900 text-zinc-400 text-xs py-6 border-t border-zinc-800 text-center">
+    &copy; SelectedJobs.in &bull; Secure Administration
+  </footer>
+
+  <script>
+    let adminKey = localStorage.getItem('selectedjobs_admin_key') || '';
+    let currentTab = 'ALL';
+    let allJobs = [];
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      return isNaN(d.getTime()) ? dateStr : d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+
+    async function checkAuth() {
+      if (adminKey === 'selectedadmin2026') {
+        showDashboard();
+        return;
+      }
+      try {
+        const res = await fetch('api.php?action=admin_check');
+        const data = await res.json();
+        if (data.isAuthenticated) {
+          showDashboard();
+        } else {
+          showLogin();
+        }
+      } catch {
+        showLogin();
+      }
+    }
+
+    function showDashboard() {
+      document.getElementById('loginCard').classList.add('hidden');
+      document.getElementById('dashboardArea').classList.remove('hidden');
+      document.getElementById('logoutBtn').classList.remove('hidden');
+      document.getElementById('logoutBtn').classList.add('flex');
+      loadAdminJobs();
+    }
+
+    function showLogin() {
+      document.getElementById('loginCard').classList.remove('hidden');
+      document.getElementById('dashboardArea').classList.add('hidden');
+      document.getElementById('logoutBtn').classList.add('hidden');
+      lucide.createIcons();
+    }
+
+    document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const entered = document.getElementById('loginPasskey').value.trim();
+      try {
+        const res = await fetch('api.php?action=admin_auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: entered })
+        });
+        const data = await res.json();
+        if (data.success) {
+          adminKey = entered;
+          localStorage.setItem('selectedjobs_admin_key', entered);
+          document.getElementById('loginError').classList.add('hidden');
+          showDashboard();
+        } else {
+          document.getElementById('loginError').classList.remove('hidden');
+        }
+      } catch {
+        if (entered === 'selectedadmin2026') {
+          adminKey = entered;
+          localStorage.setItem('selectedjobs_admin_key', entered);
+          showDashboard();
+        } else {
+          document.getElementById('loginError').classList.remove('hidden');
+        }
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      adminKey = '';
+      localStorage.removeItem('selectedjobs_admin_key');
+      await fetch('api.php?action=admin_logout');
+      showLogin();
+    });
+
+    async function loadAdminJobs() {
+      try {
+        const res = await fetch(`api.php?action=admin_jobs&status=ALL&_t=${Date.now()}`, {
+          cache: 'no-store',
+          headers: { 'x-admin-key': adminKey }
+        });
+        if (res.status === 401) {
+          showLogin();
+          return;
+        }
+        const data = await res.json();
+        if (data.success) {
+          allJobs = data.jobs || [];
+          if (data.stats) {
+            document.getElementById('statTotal').textContent = data.stats.total;
+            document.getElementById('statApproved').textContent = data.stats.approved;
+            document.getElementById('statPending').textContent = data.stats.pending;
+            document.getElementById('statRejected').textContent = data.stats.rejected;
+          }
+          filterJobs();
+        }
+      } catch (err) {
+        console.error('Error fetching admin jobs:', err);
+      }
+    }
+
+    function setTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.className = 'tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 text-zinc-600 hover:bg-zinc-200';
+      });
+      document.getElementById('tab-' + tab).className = 'tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-[#1c64f2] text-white';
+      filterJobs();
+    }
+
+    function filterJobs() {
+      const q = document.getElementById('adminSearchInput').value.toLowerCase().trim();
+      let list = allJobs;
+
+      if (currentTab !== 'ALL') {
+        list = list.filter(j => (j.status || 'APPROVED') === currentTab);
+      }
+
+      if (q) {
+        list = list.filter(j => 
+          (j.title && j.title.toLowerCase().includes(q)) || 
+          (j.company && j.company.toLowerCase().includes(q)) ||
+          (j.category && j.category.toLowerCase().includes(q))
+        );
+      }
+
+      renderList(list);
+    }
+
+    function renderList(list) {
+      const container = document.getElementById('adminJobsList');
+      container.innerHTML = '';
+
+      if (list.length === 0) {
+        container.innerHTML = '<div class="py-12 text-center text-xs text-zinc-400">No job openings match this filter.</div>';
+        return;
+      }
+
+      list.forEach(job => {
+        const item = document.createElement('div');
+        item.className = 'p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-zinc-50/70 transition-colors';
+
+        const statusColors = {
+          APPROVED: 'bg-emerald-100 text-emerald-800 border-emerald-300',
+          PENDING: 'bg-amber-100 text-amber-800 border-amber-300',
+          REJECTED: 'bg-rose-100 text-rose-800 border-rose-300'
+        };
+        const statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-extrabold border ${statusColors[job.status || 'APPROVED']}">${job.status || 'APPROVED'}</span>`;
+
+        item.innerHTML = `
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              ${statusBadge}
+              <span class="text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">${escapeHtml(job.category)}</span>
+              ${job.featuredInTopGrid ? '<span class="text-[10px] font-bold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded">Top Grid Pin</span>' : ''}
+              ${job.isNew ? '<span class="text-[10px] font-bold bg-amber-100 text-rose-600 px-1.5 py-0.5 rounded">NEW Badge</span>' : ''}
+            </div>
+            <h3 class="text-sm font-bold text-zinc-900 leading-snug truncate">
+              ${escapeHtml(job.title)}
+            </h3>
+            <div class="text-xs text-zinc-500 mt-1 flex flex-wrap items-center gap-2">
+              <span class="font-semibold text-zinc-700">${escapeHtml(job.company)}</span> &bull;
+              <span>${escapeHtml(job.location || 'All India')}</span> &bull;
+              <span>${escapeHtml(job.salary || 'Standard')}</span> &bull;
+              <span>${formatDate(job.createdAt)}</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 flex-shrink-0 w-full sm:w-auto justify-end border-t sm:border-t-0 pt-2 sm:pt-0">
+            <a href="/jobs/${job.id}" target="_blank" class="p-2 rounded-lg text-zinc-600 hover:text-blue-600 hover:bg-zinc-100" title="View Live Opening">
+              <i data-lucide="external-link" class="h-4 w-4"></i>
+            </a>
+
+            ${job.status !== 'APPROVED' ? `
+              <button onclick="handleAction('${job.id}', 'APPROVE')" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold">
+                Approve
+              </button>
+            ` : `
+              <button onclick="handleAction('${job.id}', 'REJECT')" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold">
+                Reject
+              </button>
+            `}
+
+            <button onclick="handleAction('${job.id}', 'DELETE')" class="p-2 rounded-lg text-zinc-400 hover:text-rose-600 hover:bg-rose-50" title="Delete Opening">
+              <i data-lucide="trash-2" class="h-4 w-4"></i>
+            </button>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+
+      lucide.createIcons();
+    }
+
+    async function handleAction(id, action) {
+      if (action === 'DELETE' && !confirm('Are you sure you want to permanently delete this opening?')) {
+        return;
+      }
+      try {
+        const res = await fetch('api.php?action=admin_action', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-key': adminKey
+          },
+          body: JSON.stringify({ id, action })
+        });
+        const data = await res.json();
+        if (data.success) {
+          loadAdminJobs();
+        } else {
+          alert('Action failed: ' + (data.error || 'Check authorization'));
+        }
+      } catch (err) {
+        alert('Server communication error.');
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    checkAuth();
+  </script>
+</body>
+</html>

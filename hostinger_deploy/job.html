@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Details | SelectedJobs.in</title>
+  
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#f8fafc] text-zinc-900 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Header Banner -->
+  <header class="w-full bg-[#1c64f2] text-white py-4 px-4 text-center border-b border-blue-700">
+    <div class="mx-auto max-w-7xl flex items-center justify-between">
+      <a href="/" class="inline-flex items-center gap-2 group">
+        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#1c64f2] shadow-sm">
+          <i data-lucide="briefcase" class="h-5 w-5 text-[#1c64f2]"></i>
+        </div>
+        <div class="text-left">
+          <span class="text-xl font-extrabold tracking-tight">Selected Jobs</span>
+          <span class="text-[11px] block font-medium text-blue-100">selectedjobs.in</span>
+        </div>
+      </a>
+      <a href="/" class="text-xs font-bold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
+        <i data-lucide="chevron-left" class="h-4 w-4"></i>
+        <span>All Openings</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Red Subnav Bar -->
+  <nav class="w-full bg-[#b91c1c] text-white py-2 px-4 shadow-sm border-b border-red-800 text-xs font-bold">
+    <div class="mx-auto max-w-7xl flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="/" class="hover:underline">&larr; Back to Home</a>
+        <span class="text-red-300">/</span>
+        <span id="breadcrumbCategory" class="text-red-100 font-normal">Job Detail</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="/post-job" class="bg-yellow-400 text-zinc-950 px-2.5 py-1 rounded text-[11px] font-bold hover:bg-yellow-300">Post Job</a>
+        <a href="/admin" class="hover:underline flex items-center gap-1 text-[11px]">
+          <i data-lucide="shield-check" class="h-3.5 w-3.5 text-yellow-300"></i>
+          <span>Admin</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 py-8 px-3 sm:px-6 max-w-5xl mx-auto w-full">
+    <!-- Loading State -->
+    <div id="loadingState" class="py-20 text-center">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-600 border-r-transparent"></div>
+      <p class="mt-3 text-sm text-zinc-500 font-medium">Fetching job details from SelectedJobs.in...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" class="hidden py-16 text-center bg-white rounded-2xl border border-zinc-200 p-8 shadow-sm">
+      <i data-lucide="alert-circle" class="h-12 w-12 text-rose-500 mx-auto mb-3"></i>
+      <h2 class="text-lg font-bold text-zinc-900">Job Opening Not Found</h2>
+      <p class="text-xs text-zinc-500 mt-1 max-w-md mx-auto">This job listing may have been filled, archived, or is currently under review by our editorial team.</p>
+      <a href="/" class="mt-5 inline-flex items-center gap-1.5 rounded-xl bg-[#1c64f2] px-5 py-2 text-xs font-bold text-white hover:bg-blue-700 transition-colors">
+        <i data-lucide="arrow-left" class="h-4 w-4"></i>
+        <span>Return to Homepage</span>
+      </a>
+    </div>
+
+    <!-- Content State -->
+    <div id="contentState" class="hidden space-y-6">
+      <!-- Main Job Card -->
+      <div class="rounded-2xl border border-zinc-200 bg-white p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-col sm:flex-row items-start justify-between gap-6 border-b border-zinc-100 pb-6">
+          <div class="flex items-start gap-4">
+            <div id="companyAvatar" class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-700 font-bold text-xl border border-blue-200/50">
+              SJ
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2">
+                <span id="jobCompany" class="text-base font-semibold text-zinc-800"></span>
+                <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-700 border border-emerald-200">
+                  <i data-lucide="shield-check" class="h-3.5 w-3.5"></i>
+                  <span>Verified Opening</span>
+                </span>
+              </div>
+              <h1 id="jobTitle" class="text-xl sm:text-2xl font-black text-zinc-900 mt-1 leading-tight"></h1>
+              <div class="mt-2 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
+                <span id="jobCategoryBadge" class="bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded font-bold"></span>
+                <span id="jobDate"></span>
+                <span id="jobViews"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="flex flex-col sm:items-end gap-2.5 w-full sm:w-auto">
+            <a id="applyTopBtn" href="#" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto text-center rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-sm px-6 py-3 shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+              <span>Apply Directly</span>
+              <i data-lucide="external-link" class="h-4 w-4"></i>
+            </a>
+            <button id="shareBtn" class="text-xs text-zinc-500 hover:text-zinc-800 inline-flex items-center justify-center gap-1 py-1">
+              <i data-lucide="share-2" class="h-3.5 w-3.5"></i>
+              <span>Share Opening</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Highlights Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-b border-zinc-100">
+          <div class="rounded-xl bg-zinc-50 p-3.5 border border-zinc-100">
+            <div class="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">Location</div>
+            <div id="jobLocation" class="text-xs sm:text-sm font-bold text-zinc-900 mt-1"></div>
+          </div>
+          <div class="rounded-xl bg-zinc-50 p-3.5 border border-zinc-100">
+            <div class="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">Salary / Scale</div>
+            <div id="jobSalary" class="text-xs sm:text-sm font-bold text-zinc-900 mt-1"></div>
+          </div>
+          <div class="rounded-xl bg-zinc-50 p-3.5 border border-zinc-100">
+            <div class="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">Experience</div>
+            <div id="jobExperience" class="text-xs sm:text-sm font-bold text-zinc-900 mt-1"></div>
+          </div>
+          <div class="rounded-xl bg-zinc-50 p-3.5 border border-zinc-100">
+            <div class="text-[11px] font-medium text-zinc-400 uppercase tracking-wider">Workplace Type</div>
+            <div id="jobWorkplace" class="text-xs sm:text-sm font-bold text-zinc-900 mt-1"></div>
+          </div>
+        </div>
+
+        <!-- Skills / Tags -->
+        <div id="skillsSection" class="py-5 border-b border-zinc-100 hidden">
+          <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2.5">Key Skills & Qualifications</h3>
+          <div id="skillsContainer" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- Detailed Description -->
+        <div class="py-6 space-y-4">
+          <h2 class="text-base font-bold text-zinc-900 flex items-center gap-2">
+            <i data-lucide="file-text" class="h-4 w-4 text-[#1c64f2]"></i>
+            <span>Detailed Job Description & Requirements</span>
+          </h2>
+          <div id="jobDescription" class="text-xs sm:text-sm text-zinc-700 leading-relaxed whitespace-pre-line bg-zinc-50/50 p-4 rounded-xl border border-zinc-100"></div>
+        </div>
+
+        <!-- Bottom Apply Banner -->
+        <div class="mt-6 rounded-xl bg-gradient-to-r from-blue-900 to-indigo-900 p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 class="font-bold text-sm sm:text-base">Ready to submit your application?</h3>
+            <p class="text-xs text-blue-200 mt-0.5">Apply now via the official recruitment process.</p>
+          </div>
+          <a id="applyBottomBtn" href="#" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-yellow-400 hover:bg-yellow-300 text-zinc-950 font-black text-xs sm:text-sm px-6 py-3 transition-colors shadow flex items-center gap-2">
+            <span>Apply on Official Website</span>
+            <i data-lucide="arrow-right" class="h-4 w-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Recruiter Verification Notice -->
+      <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm text-xs text-zinc-600">
+        <h4 class="font-bold text-zinc-900 flex items-center gap-1.5 mb-1.5">
+          <i data-lucide="shield-check" class="h-4 w-4 text-emerald-600"></i>
+          <span>Verified Editorial Notice</span>
+        </h4>
+        <p>This opening was verified and published through the editorial desk of <strong>SelectedJobs.in</strong>. Candidates are strongly advised to check the official notification document for cutoff dates, eligibility criteria, and fee instructions before applying.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-zinc-900 text-zinc-400 text-xs py-8 border-t border-zinc-800 mt-12">
+    <div class="mx-auto max-w-7xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="font-bold text-zinc-200">&copy; <span id="currentYear"></span> SelectedJobs.in &bull; A True Job Portal</p>
+        <p class="text-[11px] text-zinc-500 mt-0.5">Disclaimer: SelectedJobs.in is an informational directory. Verify details from official agency notifications.</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="/" class="text-zinc-300 hover:text-white transition-colors">Home</a>
+        <a href="/admin" class="text-zinc-300 hover:text-white transition-colors">Admin Dashboard</a>
+        <a href="/post-job" class="text-zinc-300 hover:text-white transition-colors">Post Opening</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script to load dynamic job data -->
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    function getParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has(param)) return urlParams.get(param);
+
+      // Check clean URL /jobs/job_xxxx
+      const pathParts = window.location.pathname.split('/').filter(Boolean);
+      if (pathParts.length >= 2 && pathParts[0] === 'jobs') {
+        return pathParts[1];
+      }
+      return null;
+    }
+
+    const jobId = getParam('id');
+
+    async function loadJob() {
+      if (!jobId) {
+        document.getElementById('loadingState').classList.add('hidden');
+        document.getElementById('errorState').classList.remove('hidden');
+        lucide.createIcons();
+        return;
+      }
+
+      try {
+        const res = await fetch(`api.php?action=get_job&id=${encodeURIComponent(jobId)}&_t=${Date.now()}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error('Job not found');
+        const data = await res.json();
+        if (data.success && data.job) {
+          renderJob(data.job);
+        } else {
+          throw new Error('Not found');
+        }
+      } catch (err) {
+        document.getElementById('loadingState').classList.add('hidden');
+        document.getElementById('errorState').classList.remove('hidden');
+        lucide.createIcons();
+      }
+    }
+
+    function renderJob(job) {
+      document.title = `${job.title} at ${job.company} | SelectedJobs.in`;
+      document.getElementById('breadcrumbCategory').textContent = job.category || 'Job Opening';
+      document.getElementById('jobCompany').textContent = job.company;
+      document.getElementById('jobTitle').textContent = job.title;
+      document.getElementById('jobCategoryBadge').textContent = job.category;
+      
+      const date = new Date(job.createdAt);
+      document.getElementById('jobDate').textContent = 'Posted ' + (isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }));
+      
+      document.getElementById('jobLocation').textContent = job.location || 'All India';
+      document.getElementById('jobSalary').textContent = job.salary || 'Standard Pay Scale';
+      document.getElementById('jobExperience').textContent = job.experience || 'Fresher / All';
+      document.getElementById('jobWorkplace').textContent = `${job.workplaceType || 'On-site'} • ${job.employmentType || 'Full-time'}`;
+      
+      document.getElementById('jobDescription').textContent = job.description || 'No detailed description provided.';
+
+      if (job.companyLogo) {
+        const avatar = document.getElementById('companyAvatar');
+        avatar.innerHTML = `<img src="${job.companyLogo}" alt="${job.company}" class="h-16 w-16 rounded-2xl object-cover">`;
+      } else {
+        document.getElementById('companyAvatar').textContent = job.company.substring(0, 2).toUpperCase();
+      }
+
+      // Skills
+      if (job.skills && job.skills.length > 0) {
+        const container = document.getElementById('skillsContainer');
+        container.innerHTML = '';
+        job.skills.forEach(skill => {
+          const s = document.createElement('span');
+          s.className = 'px-3 py-1 rounded-lg bg-zinc-100 border border-zinc-200 text-xs font-semibold text-zinc-800';
+          s.textContent = skill;
+          container.appendChild(s);
+        });
+        document.getElementById('skillsSection').classList.remove('hidden');
+      }
+
+      // Apply URLs
+      let applyUrl = job.applyValue || '#';
+      if (job.applyMethod === 'email') {
+        applyUrl = `mailto:${job.applyValue}?subject=Application for ${encodeURIComponent(job.title)} via SelectedJobs.in`;
+      } else if (!applyUrl.startsWith('http') && applyUrl !== '#') {
+        applyUrl = 'https://' + applyUrl;
+      }
+
+      document.getElementById('applyTopBtn').href = applyUrl;
+      document.getElementById('applyBottomBtn').href = applyUrl;
+
+      // Share button
+      document.getElementById('shareBtn').addEventListener('click', () => {
+        if (navigator.share) {
+          navigator.share({
+            title: job.title,
+            text: `Check out this opening for ${job.title} at ${job.company} on SelectedJobs.in`,
+            url: window.location.href,
+          }).catch(() => {});
+        } else {
+          navigator.clipboard.writeText(window.location.href);
+          alert('Link copied to clipboard!');
+        }
+      });
+
+      // Inject Google Jobs Schema JSON-LD
+      const schema = {
+        "@context": "https://schema.org/",
+        "@type": "JobPosting",
+        "title": job.title,
+        "description": job.description || job.title,
+        "identifier": {
+          "@type": "PropertyValue",
+          "name": "SelectedJobs.in",
+          "value": job.id
+        },
+        "datePosted": job.createdAt,
+        "employmentType": (job.employmentType || "FULL_TIME").toUpperCase().replace("-", "_"),
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": job.company
+        },
+        "jobLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": job.location || "All India",
+            "addressCountry": "IN"
+          }
+        }
+      };
+
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(schema);
+      document.head.appendChild(script);
+
+      document.getElementById('loadingState').classList.add('hidden');
+      document.getElementById('contentState').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    loadJob();
+  </script>
+</body>
+</html>

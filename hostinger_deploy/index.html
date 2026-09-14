@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selected Jobs - A True Job Portal | selectedjobs.in</title>
+  <meta name="description" content="SelectedJobs.in is India's leading job portal for All State Jobs, Central Govt, Banking, Defence, and Tech recruitment notifications.">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    @keyframes pulse-fast {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.96); }
+    }
+    .badge-new {
+      animation: pulse-fast 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .scrollbar-none::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-none {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-zinc-900 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- 1. Top Royal Blue Header Banner -->
+  <header class="w-full bg-[#1c64f2] text-white py-6 sm:py-8 px-4 text-center border-b border-blue-700 shadow-inner">
+    <div class="mx-auto max-w-7xl flex flex-col items-center justify-center">
+      <a href="/" class="inline-flex items-center gap-3 group">
+        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#1c64f2] shadow-md group-hover:scale-105 transition-transform">
+          <i data-lucide="briefcase" class="h-7 w-7 text-[#1c64f2]"></i>
+        </div>
+        <div class="text-left">
+          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Selected Jobs</h1>
+          <p class="text-xs sm:text-sm font-medium text-blue-100 tracking-wide">
+            A True Job Portal &bull; selectedjobs.in
+          </p>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <!-- 2. Crimson Red Navigation Bar -->
+  <nav class="w-full bg-[#b91c1c] text-white shadow-md sticky top-0 z-40 border-b border-red-800">
+    <div class="mx-auto max-w-7xl px-2 sm:px-4 flex items-center justify-between h-11">
+      <div class="flex items-center space-x-1 sm:space-x-2 text-xs font-bold overflow-x-auto scrollbar-none py-1">
+        <a href="/" class="px-3 py-1.5 rounded bg-[#991b1b] text-white transition-colors whitespace-nowrap">Home</a>
+        
+        <!-- Mega Menu Dropdown -->
+        <div class="relative group">
+          <button id="megaMenuBtn" class="flex items-center gap-1 px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">
+            <span>Mega Menu</span>
+            <i data-lucide="chevron-down" class="h-3 w-3"></i>
+          </button>
+          <div id="megaMenuDropdown" class="hidden absolute left-0 top-full mt-1 w-64 rounded-lg bg-white p-2 text-zinc-800 shadow-2xl border border-zinc-200 z-50">
+            <div class="text-[11px] font-bold text-zinc-400 px-3 py-1 uppercase tracking-wider">Quick Categories</div>
+            <a href="#all-state" class="block px-3 py-1.5 text-xs font-semibold rounded hover:bg-blue-50 hover:text-blue-700 transition-colors">All State Jobs</a>
+            <a href="#govt-jobs" class="block px-3 py-1.5 text-xs font-semibold rounded hover:bg-blue-50 hover:text-blue-700 transition-colors">Govt & PSU Jobs</a>
+            <a href="#defence-jobs" class="block px-3 py-1.5 text-xs font-semibold rounded hover:bg-blue-50 hover:text-blue-700 transition-colors">Defence & Police</a>
+            <a href="#bank-jobs" class="block px-3 py-1.5 text-xs font-semibold rounded hover:bg-blue-50 hover:text-blue-700 transition-colors">Bank & Finance</a>
+            <a href="#tech-jobs" class="block px-3 py-1.5 text-xs font-semibold rounded hover:bg-blue-50 hover:text-blue-700 transition-colors">Tech & Software</a>
+            <a href="#railway-jobs" class="block px-3 py-1.5 text-xs font-semibold rounded hover:bg-blue-50 hover:text-blue-700 transition-colors">Post Office & Railways</a>
+            <a href="#engineering-jobs" class="block px-3 py-1.5 text-xs font-semibold rounded hover:bg-blue-50 hover:text-blue-700 transition-colors">Engineering & Diploma</a>
+            <a href="#teaching-jobs" class="block px-3 py-1.5 text-xs font-semibold rounded hover:bg-blue-50 hover:text-blue-700 transition-colors">Teaching & Education</a>
+            <a href="#notifications" class="block px-3 py-1.5 text-xs font-semibold rounded hover:bg-blue-50 hover:text-blue-700 transition-colors">Important PDFs</a>
+          </div>
+        </div>
+
+        <a href="#all-state" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">State Jobs</a>
+        <a href="#govt-jobs" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Govt Jobs</a>
+        <a href="#bank-jobs" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Bank Jobs</a>
+        <a href="#tech-jobs" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Tech Jobs</a>
+        <a href="#notifications" class="px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">Admit Cards & PDFs</a>
+        
+        <!-- Admin Links -->
+        <a href="/admin" class="flex items-center gap-1 px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">
+          <i data-lucide="shield-check" class="h-3.5 w-3.5 text-yellow-300"></i>
+          <span>Admin Portal</span>
+        </a>
+        <a href="/post-job" class="flex items-center gap-1 px-2.5 py-1.5 rounded bg-yellow-400 text-zinc-950 font-bold hover:bg-yellow-300 transition-colors whitespace-nowrap">
+          <i data-lucide="plus-circle" class="h-3 w-3 text-zinc-900"></i>
+          <span>Post Job</span>
+        </a>
+      </div>
+
+      <!-- Search Trigger Button -->
+      <button id="searchTriggerBtn" class="flex h-11 w-11 items-center justify-center bg-[#991b1b] hover:bg-[#7f1d1d] transition-colors border-l border-red-800">
+        <i data-lucide="search" class="h-4 w-4"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Search Modal Overlay -->
+  <div id="searchModal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 pt-20 px-4 backdrop-blur-sm">
+    <div class="w-full max-w-lg rounded-2xl bg-white p-5 shadow-2xl border border-zinc-200">
+      <div class="flex items-center justify-between pb-3 border-b border-zinc-100">
+        <span class="text-sm font-bold text-zinc-900 flex items-center gap-2">
+          <i data-lucide="search" class="h-4 w-4 text-[#1c64f2]"></i>
+          <span>Search SelectedJobs.in Openings</span>
+        </span>
+        <button id="closeSearchModal" class="text-zinc-400 hover:text-zinc-700">
+          <i data-lucide="x" class="h-5 w-5"></i>
+        </button>
+      </div>
+      <form id="searchForm" class="mt-4 flex gap-2">
+        <input type="text" id="searchInput" placeholder="Search by job title, department, exam or location..." class="flex-1 rounded-xl border border-zinc-300 px-3.5 py-2.5 text-sm text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+        <button type="submit" class="rounded-xl bg-[#1c64f2] px-5 py-2.5 text-xs font-bold text-white hover:bg-blue-700 transition-colors">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Content Body -->
+  <main class="flex-1 pb-16">
+    <!-- Top Colored 8-Tile Grid (2 Rows x 4 Columns) -->
+    <div id="topColoredGridContainer" class="w-full max-w-7xl mx-auto px-2 sm:px-4 pt-4 pb-2">
+      <div id="topColoredGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-2.5">
+        <!-- Injected via JavaScript from api.php -->
+      </div>
+    </div>
+
+    <!-- Active Search Filter Banner -->
+    <div id="searchFilterBanner" class="hidden w-full max-w-7xl mx-auto px-2 sm:px-4 py-3">
+      <div class="rounded border border-blue-300 bg-white p-4 shadow-sm flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="search" class="h-4 w-4 text-[#1c64f2]"></i>
+          <span class="text-sm font-bold text-zinc-900">Filtered results for: <span id="searchKeyword" class="text-[#1c64f2]"></span></span>
+        </div>
+        <button id="clearSearchBtn" class="text-xs font-bold text-red-600 hover:underline">&larr; Show All Openings</button>
+      </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="mx-auto max-w-7xl px-2 sm:px-4 py-3 space-y-6">
+
+      <!-- 3-Column Category Box Grid (Row 1) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Box 1: ALL STATE JOBS -->
+        <div id="all-state" class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14">
+          <div class="bg-[#1d4ed8] text-white px-3.5 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+            <span>ALL STATE JOBS</span>
+          </div>
+          <div id="jobs-all-state" class="p-3 flex-1 divide-y divide-zinc-100">
+            <div class="py-4 text-center text-xs text-zinc-400">Loading openings...</div>
+          </div>
+          <div class="px-3 py-2 bg-zinc-50/70 border-t border-zinc-100 flex justify-end">
+            <a href="javascript:filterByCategory('ALL STATE JOBS')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+              <span>Show More</span>
+              <i data-lucide="chevron-right" class="h-3 w-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Box 2: GOVT JOBS -->
+        <div id="govt-jobs" class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14">
+          <div class="bg-[#1d4ed8] text-white px-3.5 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+            <span>GOVT JOBS</span>
+          </div>
+          <div id="jobs-govt-jobs" class="p-3 flex-1 divide-y divide-zinc-100">
+            <div class="py-4 text-center text-xs text-zinc-400">Loading openings...</div>
+          </div>
+          <div class="px-3 py-2 bg-zinc-50/70 border-t border-zinc-100 flex justify-end">
+            <a href="javascript:filterByCategory('GOVT & PSU JOBS')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+              <span>Show More</span>
+              <i data-lucide="chevron-right" class="h-3 w-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Box 3: DEFENCE & POLICE -->
+        <div id="defence-jobs" class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14">
+          <div class="bg-[#1d4ed8] text-white px-3.5 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+            <span>DEFENCE & POLICE JOBS</span>
+          </div>
+          <div id="jobs-defence-jobs" class="p-3 flex-1 divide-y divide-zinc-100">
+            <div class="py-4 text-center text-xs text-zinc-400">Loading openings...</div>
+          </div>
+          <div class="px-3 py-2 bg-zinc-50/70 border-t border-zinc-100 flex justify-end">
+            <a href="javascript:filterByCategory('DEFENCE & POLICE JOBS')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+              <span>Show More</span>
+              <i data-lucide="chevron-right" class="h-3 w-3"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Column Category Box Grid (Row 2) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Box 4: BANK JOBS -->
+        <div id="bank-jobs" class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14">
+          <div class="bg-[#1d4ed8] text-white px-3.5 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+            <span>BANK & FINANCIAL JOBS</span>
+          </div>
+          <div id="jobs-bank-jobs" class="p-3 flex-1 divide-y divide-zinc-100">
+            <div class="py-4 text-center text-xs text-zinc-400">Loading openings...</div>
+          </div>
+          <div class="px-3 py-2 bg-zinc-50/70 border-t border-zinc-100 flex justify-end">
+            <a href="javascript:filterByCategory('BANK & FINANCIAL JOBS')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+              <span>Show More</span>
+              <i data-lucide="chevron-right" class="h-3 w-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Box 5: TECH JOBS -->
+        <div id="tech-jobs" class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14">
+          <div class="bg-[#1d4ed8] text-white px-3.5 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+            <span>TECH & SOFTWARE JOBS</span>
+          </div>
+          <div id="jobs-tech-jobs" class="p-3 flex-1 divide-y divide-zinc-100">
+            <div class="py-4 text-center text-xs text-zinc-400">Loading openings...</div>
+          </div>
+          <div class="px-3 py-2 bg-zinc-50/70 border-t border-zinc-100 flex justify-end">
+            <a href="javascript:filterByCategory('TECH & SOFTWARE JOBS')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+              <span>Show More</span>
+              <i data-lucide="chevron-right" class="h-3 w-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Box 6: RAILWAY & POST OFFICE -->
+        <div id="railway-jobs" class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14">
+          <div class="bg-[#1d4ed8] text-white px-3.5 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+            <span>POST OFFICE & RAILWAYS</span>
+          </div>
+          <div id="jobs-railway-jobs" class="p-3 flex-1 divide-y divide-zinc-100">
+            <div class="py-4 text-center text-xs text-zinc-400">Loading openings...</div>
+          </div>
+          <div class="px-3 py-2 bg-zinc-50/70 border-t border-zinc-100 flex justify-end">
+            <a href="javascript:filterByCategory('POST OFFICE & RAILWAYS')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+              <span>Show More</span>
+              <i data-lucide="chevron-right" class="h-3 w-3"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Column Category Box Grid (Row 3) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Box 7: ENGINEERING -->
+        <div id="engineering-jobs" class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14">
+          <div class="bg-[#1d4ed8] text-white px-3.5 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+            <span>ENGINEERING & DIPLOMA</span>
+          </div>
+          <div id="jobs-engineering-jobs" class="p-3 flex-1 divide-y divide-zinc-100">
+            <div class="py-4 text-center text-xs text-zinc-400">Loading openings...</div>
+          </div>
+          <div class="px-3 py-2 bg-zinc-50/70 border-t border-zinc-100 flex justify-end">
+            <a href="javascript:filterByCategory('ENGINEERING & DIPLOMA')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+              <span>Show More</span>
+              <i data-lucide="chevron-right" class="h-3 w-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Box 8: TEACHING -->
+        <div id="teaching-jobs" class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14">
+          <div class="bg-[#1d4ed8] text-white px-3.5 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+            <span>TEACHING & EDUCATION</span>
+          </div>
+          <div id="jobs-teaching-jobs" class="p-3 flex-1 divide-y divide-zinc-100">
+            <div class="py-4 text-center text-xs text-zinc-400">Loading openings...</div>
+          </div>
+          <div class="px-3 py-2 bg-zinc-50/70 border-t border-zinc-100 flex justify-end">
+            <a href="javascript:filterByCategory('TEACHING & EDUCATION')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+              <span>Show More</span>
+              <i data-lucide="chevron-right" class="h-3 w-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Box 9: IMPORTANT PDFS -->
+        <div id="notifications" class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14">
+          <div class="bg-[#1d4ed8] text-white px-3.5 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+            <span>IMPORTANT PDF FILES</span>
+          </div>
+          <div id="jobs-notifications" class="p-3 flex-1 divide-y divide-zinc-100">
+            <div class="py-4 text-center text-xs text-zinc-400">Loading openings...</div>
+          </div>
+          <div class="px-3 py-2 bg-zinc-50/70 border-t border-zinc-100 flex justify-end">
+            <a href="javascript:filterByCategory('IMPORTANT NOTIFICATIONS & PDFS')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+              <span>Show More</span>
+              <i data-lucide="chevron-right" class="h-3 w-3"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Full-Width "READ MORE / LATEST POSTINGS" Panel -->
+      <div class="rounded border border-blue-300 bg-white shadow-sm overflow-hidden mt-6">
+        <div class="bg-[#1d4ed8] text-white px-4 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase">
+          READ MORE / LATEST POSTINGS
+        </div>
+        <div id="readMoreGrid" class="p-4 sm:p-5 grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-zinc-200">
+          <div id="readMoreCol1" class="space-y-3 pt-2 md:pt-0"></div>
+          <div id="readMoreCol2" class="space-y-3 pt-4 md:pt-0 md:pl-6"></div>
+          <div id="readMoreCol3" class="space-y-3 pt-4 md:pt-0 md:pl-6"></div>
+        </div>
+        <div class="p-3 bg-zinc-50 border-t border-zinc-100 text-center">
+          <a href="/admin" class="inline-flex items-center gap-1.5 rounded bg-[#1d4ed8] px-6 py-2 text-xs font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+            <span>Load More Openings</span>
+            <i data-lucide="chevron-right" class="h-3.5 w-3.5"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- 6. Informational Sections Relevant to SelectedJobs.in Aspirants -->
+      <div class="space-y-4 pt-2">
+        <!-- Card 1: About SelectedJobs.in -->
+        <div class="rounded border border-blue-200 bg-white p-5 shadow-sm">
+          <h2 class="text-sm font-bold text-zinc-900 border-b border-zinc-200 pb-2 mb-3 flex items-center gap-2">
+            <i data-lucide="award" class="h-4 w-4 text-[#1c64f2]"></i>
+            <span>About SelectedJobs.in – A True Job Portal for Career Aspirants</span>
+          </h2>
+          <div class="text-xs text-zinc-600 leading-relaxed space-y-2">
+            <p>
+              <strong>SelectedJobs.in</strong> is dedicated to empowering millions of career seekers and job aspirants across India by providing timely, verified, and transparent recruitment notifications. We cut through misleading advertisements, fake circulars, and cluttered redirect links to bring you direct, authoritative job alerts.
+            </p>
+            <p>
+              Our editorial desk monitors official government gazettes, the Press Information Bureau (PIB), Union & State Public Service Commissions, and corporate recruitment desks daily. Every opening listed on this platform is verified to ensure authentic application guidelines, eligible educational criteria, and accurate cutoff dates.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2: Categories Covered -->
+        <div class="rounded border border-blue-200 bg-white p-5 shadow-sm">
+          <h2 class="text-sm font-bold text-zinc-900 border-b border-zinc-200 pb-2 mb-3 flex items-center gap-2">
+            <i data-lucide="layers" class="h-4 w-4 text-[#1c64f2]"></i>
+            <span>Comprehensive Career & Recruitment Coverage Across India</span>
+          </h2>
+          <div class="text-xs text-zinc-600 leading-relaxed space-y-2.5">
+            <p>We organize employment notices into structured, easy-to-navigate category segments:</p>
+            <ul class="list-disc pl-5 space-y-2">
+              <li>
+                <strong>Central & State Public Services:</strong> Real-time alerts for UPSC (Civil Services, CDS, NDA), Staff Selection Commission (SSC CGL, CHSL, GD, MTS), Railway Recruitment Boards (RRB NTPC, Group D, ALP), and State PSC examinations across all Indian states.
+              </li>
+              <li>
+                <strong>Banking & Financial Sector:</strong> Exhaustive alerts for SBI (Probationary Officers & Clerks), IBPS PO/Clerk/RRB/SO, Reserve Bank of India (RBI Grade B & Assistant), NABARD, SEBI, and public insurance corporations (LIC, NIACL, GIC).
+              </li>
+              <li>
+                <strong>Defence & Uniformed Services:</strong> Immediate circulars for Indian Army, Navy, Air Force (Agniveer, AFCAT, Technical Entry), Central Armed Police Forces (BSF, CISF, CRPF, ITBP, SSB), and State Police Sub-Inspectors & Constables.
+              </li>
+              <li>
+                <strong>Engineering & Technical PSUs:</strong> Opportunities for Diploma and B.Tech / B.E. graduates across top Maharatna & Navratna PSUs (GATE-based recruitments in ONGC, NTPC, BHEL, IOCL, HPCL) and technical apprenticeships.
+              </li>
+              <li>
+                <strong>Teaching & IT/Software:</strong> Central & State Teacher Eligibility Tests (CTET, State TETs, KVS, NVS, DSSSB, UGC NET), alongside vetted tech openings, software developer drives, and graduate trainee walk-ins.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 3: Aspirant Guidelines & Safety Advice -->
+        <div class="rounded border border-blue-200 bg-white p-5 shadow-sm">
+          <h2 class="text-sm font-bold text-zinc-900 border-b border-zinc-200 pb-2 mb-3 flex items-center gap-2">
+            <i data-lucide="shield-check" class="h-4 w-4 text-emerald-600"></i>
+            <span>Aspirants' Verification Guide & Safe Application Practices</span>
+          </h2>
+          <div class="text-xs text-zinc-600 leading-relaxed space-y-2">
+            <p>
+              To ensure a seamless and safe application experience, candidates are advised to follow these standard practices:
+            </p>
+            <ul class="list-disc pl-5 space-y-1.5">
+              <li><strong>Direct Official Portals:</strong> Always access the recruitment notification PDF and online application module via the verified official link provided on each job page.</li>
+              <li><strong>Check Eligibility Carefully:</strong> Thoroughly read the official advertisement PDF for specific age cutoff dates, educational relaxations, category certificates (SC/ST/OBC/EWS/PwD), and physical standard tests.</li>
+              <li><strong>Never Pay Third-Party Intermediaries:</strong> SelectedJobs.in provides information 100% free of charge and never asks for donations or payment. All exam and application fees must only be paid through the official gateway of the recruiting commission.</li>
+              <li><strong>Keep Copies of Forms:</strong> Always preserve a PDF copy of your submitted application form, fee receipt, and registration registration/roll number for future admit card downloads.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-zinc-900 text-zinc-400 text-xs py-8 border-t border-zinc-800">
+    <div class="mx-auto max-w-7xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="font-bold text-zinc-200">&copy; <span id="currentYear"></span> SelectedJobs.in &bull; A True Job Portal</p>
+        <p class="text-[11px] text-zinc-500 mt-0.5">Disclaimer: SelectedJobs.in is an informational directory. Verify details from official agency notifications.</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="/admin" class="text-zinc-300 hover:text-white transition-colors">Admin Dashboard</a>
+        <a href="/post-job" class="text-zinc-300 hover:text-white transition-colors">Post Opening</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Dynamic Frontend Script -->
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    const TILE_STYLES = [
+      { bg: "bg-[#fde047]", text: "text-zinc-900", border: "border-[#eab308]", dateText: "text-zinc-700" }, // 1. Yellow/Gold
+      { bg: "bg-[#0284c7]", text: "text-white", border: "border-[#0369a1]", dateText: "text-sky-100" },       // 2. Sky Blue
+      { bg: "bg-[#fef08a]", text: "text-zinc-900", border: "border-[#facc15]", dateText: "text-zinc-700" }, // 3. Pale Yellow
+      { bg: "bg-[#7e22ce]", text: "text-white", border: "border-[#6b21a8]", dateText: "text-purple-100" },    // 4. Purple/Plum
+      { bg: "bg-[#fde047]", text: "text-zinc-900", border: "border-[#eab308]", dateText: "text-zinc-700" }, // 5. Yellow
+      { bg: "bg-[#0284c7]", text: "text-white", border: "border-[#0369a1]", dateText: "text-sky-100" },       // 6. Sky Blue
+      { bg: "bg-[#fef08a]", text: "text-zinc-900", border: "border-[#facc15]", dateText: "text-zinc-700" }, // 7. Pale Yellow
+      { bg: "bg-[#7e22ce]", text: "text-white", border: "border-[#6b21a8]", dateText: "text-purple-100" },    // 8. Purple
+    ];
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      return isNaN(d.getTime()) ? dateStr : d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+
+    let allJobs = [];
+
+    async function loadJobs(search = '', category = '') {
+      try {
+        let url = 'api.php?action=get_jobs&_t=' + Date.now();
+        if (search) url += '&search=' + encodeURIComponent(search);
+        if (category) url += '&category=' + encodeURIComponent(category);
+
+        const res = await fetch(url, { cache: 'no-store' });
+        const data = await res.json();
+        if (data.success) {
+          allJobs = data.jobs || [];
+          renderAll();
+        }
+      } catch (err) {
+        console.error('Error fetching jobs:', err);
+      }
+    }
+
+    function renderAll() {
+      renderTopGrid();
+      renderCategoryBoxes();
+      renderReadMore();
+      lucide.createIcons();
+    }
+
+    function renderTopGrid() {
+      const grid = document.getElementById('topColoredGrid');
+      grid.innerHTML = '';
+      const topJobs = allJobs.filter(j => j.featuredInTopGrid);
+      const displayJobs = (topJobs.length >= 8 ? topJobs : allJobs).slice(0, 8);
+
+      displayJobs.forEach((job, idx) => {
+        const style = TILE_STYLES[idx % TILE_STYLES.length];
+        const card = document.createElement('a');
+        card.href = '/jobs/' + job.id;
+        card.className = `block p-2.5 sm:p-3 rounded border ${style.bg} ${style.border} ${style.text} shadow-sm hover:brightness-95 transition-all group`;
+        card.innerHTML = `
+          <h3 class="text-xs font-bold leading-snug line-clamp-2 group-hover:underline">
+            ${escapeHtml(job.title)}
+          </h3>
+          <div class="mt-2 flex items-center gap-1 text-[11px] font-medium ${style.dateText}">
+            <i data-lucide="calendar" class="h-3 w-3 flex-shrink-0"></i>
+            <span>${formatDate(job.createdAt)}</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function createJobListItem(job) {
+      const div = document.createElement('div');
+      div.className = 'py-2.5 first:pt-0 last:pb-1';
+      div.innerHTML = `
+        <a href="/jobs/${job.id}" class="group block">
+          <div class="text-xs font-semibold text-zinc-900 group-hover:text-blue-700 leading-snug flex items-start gap-1.5">
+            <span class="text-blue-600 font-bold flex-shrink-0">&bull;</span>
+            <span>
+              ${escapeHtml(job.title)}
+              ${job.isNew ? '<span class="inline-block ml-1.5 px-1.5 py-0.2 rounded text-[10px] font-black text-rose-600 bg-amber-100 border border-amber-300 badge-new">NEW</span>' : ''}
+            </span>
+          </div>
+          <div class="mt-1 flex items-center gap-1 text-[11px] text-zinc-500 pl-3">
+            <i data-lucide="calendar" class="h-3 w-3 text-zinc-400"></i>
+            <span>${formatDate(job.createdAt)}</span>
+            ${job.company ? `<span class="text-zinc-400">&bull; ${escapeHtml(job.company)}</span>` : ''}
+          </div>
+        </a>
+      `;
+      return div;
+    }
+
+    function populateBox(boxId, list) {
+      const el = document.getElementById(boxId);
+      if (!el) return;
+      el.innerHTML = '';
+      if (list.length === 0) {
+        el.innerHTML = '<div class="py-6 text-center text-xs text-zinc-400">No openings currently in this category.</div>';
+        return;
+      }
+      list.slice(0, 6).forEach(job => {
+        el.appendChild(createJobListItem(job));
+      });
+    }
+
+    function renderCategoryBoxes() {
+      populateBox('jobs-all-state', allJobs.filter(j => j.category === 'ALL STATE JOBS' || (j.location && j.location.includes('State'))));
+      populateBox('jobs-govt-jobs', allJobs.filter(j => j.category === 'GOVT & PSU JOBS'));
+      populateBox('jobs-defence-jobs', allJobs.filter(j => j.category === 'DEFENCE & POLICE JOBS'));
+      populateBox('jobs-bank-jobs', allJobs.filter(j => j.category === 'BANK & FINANCIAL JOBS'));
+      populateBox('jobs-tech-jobs', allJobs.filter(j => j.category === 'TECH & SOFTWARE JOBS'));
+      populateBox('jobs-railway-jobs', allJobs.filter(j => j.category === 'POST OFFICE & RAILWAYS'));
+      populateBox('jobs-engineering-jobs', allJobs.filter(j => j.category === 'ENGINEERING & DIPLOMA'));
+      populateBox('jobs-teaching-jobs', allJobs.filter(j => j.category === 'TEACHING & EDUCATION'));
+      populateBox('jobs-notifications', allJobs.filter(j => j.category === 'IMPORTANT NOTIFICATIONS & PDFS'));
+    }
+
+    function renderReadMore() {
+      const col1 = document.getElementById('readMoreCol1');
+      const col2 = document.getElementById('readMoreCol2');
+      const col3 = document.getElementById('readMoreCol3');
+      col1.innerHTML = ''; col2.innerHTML = ''; col3.innerHTML = '';
+
+      function renderColItem(job) {
+        return `
+          <a href="/jobs/${job.id}" class="group block text-xs">
+            <div class="font-semibold text-zinc-900 group-hover:text-blue-700 leading-snug flex items-start gap-1">
+              <span class="text-blue-600 font-bold">&bull;</span>
+              <span>${escapeHtml(job.title)}</span>
+            </div>
+            <div class="mt-0.5 text-[11px] text-zinc-400 pl-2.5">
+              ${formatDate(job.createdAt)}
+            </div>
+          </a>
+        `;
+      }
+
+      allJobs.slice(0, 4).forEach(job => col1.innerHTML += renderColItem(job));
+      allJobs.slice(4, 8).forEach(job => col2.innerHTML += renderColItem(job));
+      allJobs.slice(8, 12).forEach(job => col3.innerHTML += renderColItem(job));
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    // Mega menu dropdown handling
+    const megaBtn = document.getElementById('megaMenuBtn');
+    const megaDrop = document.getElementById('megaMenuDropdown');
+    megaBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      megaDrop.classList.toggle('hidden');
+    });
+    document.addEventListener('click', () => {
+      if (!megaDrop.classList.contains('hidden')) megaDrop.classList.add('hidden');
+    });
+
+    // Search modal handling
+    const searchModal = document.getElementById('searchModal');
+    const searchTriggerBtn = document.getElementById('searchTriggerBtn');
+    const closeSearchModal = document.getElementById('closeSearchModal');
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+
+    searchTriggerBtn.addEventListener('click', () => {
+      searchModal.classList.remove('hidden');
+      searchInput.focus();
+    });
+    closeSearchModal.addEventListener('click', () => {
+      searchModal.classList.add('hidden');
+    });
+
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = searchInput.value.trim();
+      if (q) {
+        document.getElementById('searchKeyword').textContent = `"${q}"`;
+        document.getElementById('searchFilterBanner').classList.remove('hidden');
+        searchModal.classList.add('hidden');
+        loadJobs(q);
+      }
+    });
+
+    document.getElementById('clearSearchBtn').addEventListener('click', () => {
+      document.getElementById('searchFilterBanner').classList.add('hidden');
+      searchInput.value = '';
+      loadJobs();
+    });
+
+    function filterByCategory(cat) {
+      document.getElementById('searchKeyword').textContent = `Category: ${cat}`;
+      document.getElementById('searchFilterBanner').classList.remove('hidden');
+      loadJobs('', cat);
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    // Initialize
+    loadJobs();
+  </script>
+</body>
+</html>

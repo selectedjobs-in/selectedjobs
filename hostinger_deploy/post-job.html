@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Post Job | SelectedJobs.in</title>
+  
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#f8fafc] text-zinc-900 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Header Banner -->
+  <header class="w-full bg-[#1c64f2] text-white py-4 px-4 text-center border-b border-blue-700">
+    <div class="mx-auto max-w-7xl flex items-center justify-between">
+      <a href="/" class="inline-flex items-center gap-2">
+        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#1c64f2] shadow-sm">
+          <i data-lucide="briefcase" class="h-5 w-5 text-[#1c64f2]"></i>
+        </div>
+        <div class="text-left">
+          <span class="text-xl font-extrabold tracking-tight">Selected Jobs</span>
+          <span class="text-[11px] block font-medium text-blue-100">selectedjobs.in</span>
+        </div>
+      </a>
+      <div class="flex items-center gap-2">
+        <a href="/admin" class="text-xs font-bold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
+          <i data-lucide="shield-check" class="h-4 w-4 text-yellow-300"></i>
+          <span>Admin Portal</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav class="w-full bg-[#b91c1c] text-white py-2 px-4 shadow-sm border-b border-red-800 text-xs font-bold">
+    <div class="mx-auto max-w-7xl flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="/" class="hover:underline">&larr; Return to Portal</a>
+        <span class="text-red-300">/</span>
+        <span class="text-red-100 font-normal">Admin Job Publisher</span>
+      </div>
+      <div class="flex items-center gap-2 text-yellow-300">
+        <i data-lucide="lock" class="h-3.5 w-3.5"></i>
+        <span>Admin Only Area</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Form Area -->
+  <main class="flex-1 py-8 px-4 max-w-3xl mx-auto w-full">
+    <!-- Admin Auth Gate -->
+    <div id="authGate" class="bg-white rounded-2xl border border-zinc-200 p-6 sm:p-8 shadow-sm text-center">
+      <div class="mx-auto w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center mb-4">
+        <i data-lucide="shield-alert" class="h-6 w-6"></i>
+      </div>
+      <h2 class="text-lg font-bold text-zinc-900">Admin Authentication Required</h2>
+      <p class="text-xs text-zinc-500 mt-1 max-w-md mx-auto">
+        Public job submissions are currently restricted. Enter the SelectedJobs administrator passkey to publish openings.
+      </p>
+      <form id="authForm" class="mt-5 max-w-xs mx-auto flex flex-col gap-2.5">
+        <input type="password" id="adminPasskeyInput" placeholder="Enter Admin Passkey" class="rounded-xl border border-zinc-300 px-3.5 py-2.5 text-sm text-center text-zinc-900 focus:border-[#1c64f2] focus:outline-none" required>
+        <button type="submit" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs py-2.5 transition-colors">
+          Unlock Post Job Form
+        </button>
+        <p id="authError" class="text-xs text-rose-600 font-bold hidden">Invalid passkey. Default is selectedadmin2026</p>
+      </form>
+    </div>
+
+    <!-- Job Submission Form (Hidden until authenticated) -->
+    <div id="postJobFormContainer" class="hidden bg-white rounded-2xl border border-zinc-200 p-6 sm:p-8 shadow-sm">
+      <div class="border-b border-zinc-100 pb-5 mb-6 flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-black text-zinc-900 flex items-center gap-2">
+            <i data-lucide="plus-circle" class="h-5 w-5 text-[#1c64f2]"></i>
+            <span>Post a New Job Opening</span>
+          </h1>
+          <p class="text-xs text-zinc-500 mt-0.5">Fill in the fields below to publish a vacancy directly to SelectedJobs.in.</p>
+        </div>
+        <span class="inline-flex items-center gap-1 text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full">
+          <i data-lucide="check-circle" class="h-3.5 w-3.5"></i>
+          <span>Admin Session Verified</span>
+        </span>
+      </div>
+
+      <form id="jobForm" class="space-y-5">
+        <!-- 1. Title -->
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 mb-1">Job Title / Vacancy Name *</label>
+          <input type="text" id="title" required placeholder="e.g. UPSC Combined Civil Services Examination 2026 - 1250 Posts" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2.5 text-sm text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+        </div>
+
+        <!-- 2. Category & Company -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">Portal Category *</label>
+            <select id="category" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2.5 text-xs font-semibold text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+              <option value="ALL STATE JOBS">ALL STATE JOBS</option>
+              <option value="GOVT & PSU JOBS">GOVT & PSU JOBS</option>
+              <option value="DEFENCE & POLICE JOBS">DEFENCE & POLICE JOBS</option>
+              <option value="BANK & FINANCIAL JOBS">BANK & FINANCIAL JOBS</option>
+              <option value="TECH & SOFTWARE JOBS">TECH & SOFTWARE JOBS</option>
+              <option value="POST OFFICE & RAILWAYS">POST OFFICE & RAILWAYS</option>
+              <option value="ENGINEERING & DIPLOMA">ENGINEERING & DIPLOMA</option>
+              <option value="TEACHING & EDUCATION">TEACHING & EDUCATION</option>
+              <option value="IMPORTANT NOTIFICATIONS & PDFS">IMPORTANT NOTIFICATIONS & PDFS</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">Company / Department Name *</label>
+            <input type="text" id="company" required placeholder="e.g. Union Public Service Commission (UPSC)" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2.5 text-sm text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+          </div>
+        </div>
+
+        <!-- 3. Location, Salary & Workplace -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">Location *</label>
+            <input type="text" id="location" value="All India" placeholder="e.g. All India, New Delhi, Bengaluru" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2.5 text-sm text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">Salary / Pay Scale *</label>
+            <input type="text" id="salary" value="Level 10 (₹56,100 - ₹1,77,500)" placeholder="e.g. 8-14 LPA or Pay Matrix" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2.5 text-sm text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">Workplace Type</label>
+            <select id="workplaceType" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2.5 text-xs font-semibold text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+              <option value="On-site">On-site</option>
+              <option value="Remote">Remote</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 4. Employment Type & Experience -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">Employment Type</label>
+            <select id="employmentType" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2.5 text-xs font-semibold text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+              <option value="Full-time">Full-time</option>
+              <option value="Contract">Contract</option>
+              <option value="Internship">Internship</option>
+              <option value="Part-time">Part-time</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">Experience Level</label>
+            <select id="experience" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2.5 text-xs font-semibold text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+              <option value="Fresher (0-1 yrs)">Fresher (0-1 yrs)</option>
+              <option value="1-3 years">1-3 years</option>
+              <option value="3-5 years">3-5 years</option>
+              <option value="5+ years">5+ years</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 5. Skills Tags -->
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 mb-1">Required Skills / Eligibility Tags (comma separated)</label>
+          <input type="text" id="skillsInput" placeholder="e.g. Any Graduate, Age 21-32, Preliminary Exam, Main Exam" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2.5 text-sm text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+        </div>
+
+        <!-- 6. Apply URL -->
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 mb-1">Official Application Link or Notification URL *</label>
+          <input type="url" id="applyValue" required placeholder="https://upsc.gov.in/recruitment" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2.5 text-sm text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+        </div>
+
+        <!-- 7. Job Description -->
+        <div>
+          <label class="block text-xs font-bold text-zinc-700 mb-1">Detailed Job Description & Requirements *</label>
+          <textarea id="description" rows="6" required placeholder="Paste full vacancy notice, eligibility criteria, selection process, important dates, and fee structure..." class="w-full rounded-xl border border-zinc-300 p-3.5 text-sm text-zinc-900 focus:border-[#1c64f2] focus:outline-none"></textarea>
+        </div>
+
+        <!-- 8. Editorial & Display Options -->
+        <div class="rounded-xl bg-blue-50/60 border border-blue-200 p-4 space-y-3">
+          <div class="text-xs font-bold text-blue-900 uppercase tracking-wide">Portal Display Controls</div>
+          
+          <label class="flex items-center gap-2.5 cursor-pointer">
+            <input type="checkbox" id="featuredInTopGrid" class="h-4 w-4 text-blue-600 rounded">
+            <span class="text-xs font-semibold text-zinc-800">Pin to Top 8-Colored Highlights Grid (Homepage Header)</span>
+          </label>
+
+          <label class="flex items-center gap-2.5 cursor-pointer">
+            <input type="checkbox" id="isNew" checked class="h-4 w-4 text-blue-600 rounded">
+            <span class="text-xs font-semibold text-zinc-800">Show Blinking <span class="text-rose-600 font-black">NEW</span> Badge</span>
+          </label>
+
+          <label class="flex items-center gap-2.5 cursor-pointer">
+            <input type="checkbox" id="publishApproved" checked class="h-4 w-4 text-blue-600 rounded">
+            <span class="text-xs font-semibold text-zinc-800">Publish Immediately as APPROVED (Live on SelectedJobs.in)</span>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-2">
+          <button type="submit" id="submitBtn" class="w-full rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-black text-sm py-3.5 shadow-md transition-all flex items-center justify-center gap-2">
+            <i data-lucide="send" class="h-4 w-4"></i>
+            <span>Publish Job Opening Now</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+      <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-zinc-200 text-center">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="check" class="h-6 w-6"></i>
+        </div>
+        <h3 class="text-lg font-bold text-zinc-900">Job Opening Published!</h3>
+        <p class="text-xs text-zinc-500 mt-1">The vacancy has been saved and is now live on SelectedJobs.in.</p>
+        <div class="mt-6 flex flex-col gap-2">
+          <a id="viewLiveJobBtn" href="#" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs py-2.5">
+            View Live Opening
+          </a>
+          <button id="postAnotherBtn" class="rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold text-xs py-2.5">
+            Post Another Opening
+          </button>
+          <a href="/" class="text-xs text-zinc-500 hover:underline pt-2">Return to Homepage</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-zinc-900 text-zinc-400 text-xs py-6 border-t border-zinc-800 mt-12 text-center">
+    &copy; SelectedJobs.in &bull; Admin Management
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    let adminKey = localStorage.getItem('selectedjobs_admin_key') || '';
+
+    async function checkAuth() {
+      if (adminKey === 'selectedadmin2026') {
+        showForm();
+        return;
+      }
+      try {
+        const res = await fetch('api.php?action=admin_check');
+        const data = await res.json();
+        if (data.isAuthenticated) {
+          showForm();
+        } else {
+          showAuthGate();
+        }
+      } catch {
+        showAuthGate();
+      }
+    }
+
+    function showForm() {
+      document.getElementById('authGate').classList.add('hidden');
+      document.getElementById('postJobFormContainer').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function showAuthGate() {
+      document.getElementById('authGate').classList.remove('hidden');
+      document.getElementById('postJobFormContainer').classList.add('hidden');
+      lucide.createIcons();
+    }
+
+    // Auth Form Submit
+    document.getElementById('authForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const entered = document.getElementById('adminPasskeyInput').value.trim();
+      try {
+        const res = await fetch('api.php?action=admin_auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: entered })
+        });
+        const data = await res.json();
+        if (data.success) {
+          adminKey = entered;
+          localStorage.setItem('selectedjobs_admin_key', entered);
+          document.getElementById('authError').classList.add('hidden');
+          showForm();
+        } else {
+          document.getElementById('authError').classList.remove('hidden');
+        }
+      } catch {
+        if (entered === 'selectedadmin2026') {
+          adminKey = entered;
+          localStorage.setItem('selectedjobs_admin_key', entered);
+          showForm();
+        } else {
+          document.getElementById('authError').classList.remove('hidden');
+        }
+      }
+    });
+
+    // Handle Job Submission
+    document.getElementById('jobForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = 'Publishing...';
+
+      const skillsVal = document.getElementById('skillsInput').value;
+      const skillsArray = skillsVal ? skillsVal.split(',').map(s => s.trim()).filter(Boolean) : [];
+
+      const payload = {
+        title: document.getElementById('title').value.trim(),
+        category: document.getElementById('category').value,
+        company: document.getElementById('company').value.trim(),
+        location: document.getElementById('location').value.trim(),
+        salary: document.getElementById('salary').value.trim(),
+        workplaceType: document.getElementById('workplaceType').value,
+        employmentType: document.getElementById('employmentType').value,
+        experience: document.getElementById('experience').value,
+        skills: skillsArray,
+        applyMethod: 'url',
+        applyValue: document.getElementById('applyValue').value.trim(),
+        description: document.getElementById('description').value.trim(),
+        featuredInTopGrid: document.getElementById('featuredInTopGrid').checked,
+        isNew: document.getElementById('isNew').checked,
+        status: document.getElementById('publishApproved').checked ? 'APPROVED' : 'PENDING',
+        recruiterName: 'SelectedJobs Editorial Desk',
+        recruiterEmail: 'admin@selectedjobs.in'
+      };
+
+      try {
+        const res = await fetch('api.php?action=create_job', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-key': adminKey
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (data.success && data.job) {
+          document.getElementById('viewLiveJobBtn').href = '/jobs/' + data.job.id;
+          document.getElementById('successModal').classList.remove('hidden');
+          lucide.createIcons();
+        } else {
+          alert('Error publishing job: ' + (data.error || 'Check administrator passkey'));
+        }
+      } catch (err) {
+        alert('Network or server error while publishing job.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i data-lucide="send" class="h-4 w-4"></i><span>Publish Job Opening Now</span>';
+        lucide.createIcons();
+      }
+    });
+
+    document.getElementById('postAnotherBtn').addEventListener('click', () => {
+      document.getElementById('successModal').classList.add('hidden');
+      document.getElementById('jobForm').reset();
+    });
+
+    checkAuth();
+  </script>
+</body>
+</html>

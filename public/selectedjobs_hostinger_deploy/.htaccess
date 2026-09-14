@@ -1,0 +1,40 @@
+# SelectedJobs.in Apache / LiteSpeed Configuration for Hostinger Single Hosting
+
+Options -Indexes
+DirectoryIndex index.html index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Protect data folder from direct public web access
+  RewriteRule ^data/ - [F,L]
+
+  # Route API endpoints
+  RewriteRule ^api/jobs$ api.php?action=get_jobs [QSA,L]
+  RewriteRule ^api/admin/jobs$ api.php?action=admin_jobs [QSA,L]
+  RewriteRule ^api/admin/auth$ api.php?action=admin_auth [QSA,L]
+
+  # Route Clean Frontend URLs
+  RewriteRule ^jobs/([a-zA-Z0-9_\-]+)/?$ job.html?id=$1 [QSA,L]
+  RewriteRule ^post-job/?$ post-job.html [QSA,L]
+  RewriteRule ^admin/?$ admin.html [QSA,L]
+
+  # Existing files and directories serve as-is
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Compression for Speed
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
