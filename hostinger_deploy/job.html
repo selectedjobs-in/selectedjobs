@@ -264,16 +264,29 @@
         document.getElementById('skillsSection').classList.remove('hidden');
       }
 
-      // Apply URLs
+      // Apply URLs (Smart detection: email, phone call, or website link)
       let applyUrl = job.applyValue || '#';
-      if (job.applyMethod === 'email') {
+      let btnText = 'Apply Directly';
+      if (job.applyMethod === 'email' || (job.applyValue && job.applyValue.includes('@'))) {
         applyUrl = `mailto:${job.applyValue}?subject=Application for ${encodeURIComponent(job.title)} via SelectedJobs.in`;
+        btnText = 'Send CV via Email';
+      } else if (job.applyMethod === 'phone' || (job.applyValue && /^[0-9+\s\-]{10,}$/.test(job.applyValue.trim()))) {
+        const cleanNum = job.applyValue.replace(/[^0-9+]/g, '');
+        applyUrl = `tel:${cleanNum}`;
+        btnText = `Call HR (${cleanNum})`;
       } else if (!applyUrl.startsWith('http') && applyUrl !== '#') {
         applyUrl = 'https://' + applyUrl;
       }
 
-      document.getElementById('applyTopBtn').href = applyUrl;
-      document.getElementById('applyBottomBtn').href = applyUrl;
+      const topBtn = document.getElementById('applyTopBtn');
+      topBtn.href = applyUrl;
+      const topBtnSpan = topBtn.querySelector('span');
+      if (topBtnSpan) topBtnSpan.textContent = btnText;
+
+      const bottomBtn = document.getElementById('applyBottomBtn');
+      bottomBtn.href = applyUrl;
+      const bottomBtnSpan = bottomBtn.querySelector('span');
+      if (bottomBtnSpan) bottomBtnSpan.textContent = btnText;
 
       // Share button
       document.getElementById('shareBtn').addEventListener('click', () => {
