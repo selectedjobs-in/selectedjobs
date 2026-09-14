@@ -57,24 +57,24 @@ export default function Footer() {
           </div>
 
           {/* Admin Links */}
+          {/* Employers & Recruiters */}
           <div>
-            <h4 className="text-sm font-semibold text-zinc-900 dark:text-white mb-3">Administration</h4>
+            <h4 className="text-sm font-semibold text-zinc-900 dark:text-white mb-3">Recruiter Desk</h4>
             <ul className="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
               <li>
                 <Link href="/post-job" className="text-blue-600 font-medium hover:underline flex items-center gap-1">
-                  + Post New Job (Admin) &rarr;
+                  + Post Job Opening &rarr;
                 </Link>
               </li>
               <li>
-                <Link href="/admin" className="hover:text-blue-600 transition-colors flex items-center gap-1">
-                  <ShieldCheck className="h-3.5 w-3.5 text-zinc-500" />
-                  Admin Moderation Panel
-                </Link>
+                <a href="https://wa.me/919325293667?text=Hello%20SelectedJobs%20Admin,%20I%20want%20to%20post%20a%20job%20opening%20on%20SelectedJobs.in" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-600 transition-colors flex items-center gap-1">
+                  WhatsApp: +91 9325293667
+                </a>
               </li>
               <li className="pt-2">
                 <span className="text-xs text-zinc-500 block">Editorial Desk:</span>
-                <a href="mailto:editorial@selectedjobs.in" className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-blue-600 flex items-center gap-1 mt-0.5">
-                  <Mail className="h-3 w-3" /> editorial@selectedjobs.in
+                <a href="mailto:admin@selectedjobs.in" className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-blue-600 flex items-center gap-1 mt-0.5">
+                  <Mail className="h-3 w-3" /> admin@selectedjobs.in
                 </a>
               </li>
             </ul>

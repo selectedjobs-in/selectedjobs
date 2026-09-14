@@ -45,6 +45,28 @@ function request(method, pathUrl, data = null) {
 async function sync() {
   const args = process.argv.slice(2);
   const isPull = args.includes('--pull');
+  const isFiles = args.includes('--files');
+
+  if (isFiles) {
+    console.log('Attempting remote file deployment to live server...');
+    const filesToDeploy = ['api.php', 'index.html', 'admin.html', 'post-job.html', 'job.html', '.htaccess'];
+    for (const f of filesToDeploy) {
+      const fullPath = path.join(__dirname, 'hostinger_deploy', f);
+      if (fs.existsSync(fullPath)) {
+        const content = fs.readFileSync(fullPath, 'utf8');
+        const res = await request('POST', '/api.php?action=admin_update_file', {
+          filename: f,
+          content: content,
+        });
+        if (res && res.success) {
+          console.log(`+ Remotely updated: ${f}`);
+        } else {
+          console.log(`- ${f} needs zip package upload (server returned: ${JSON.stringify(res)})`);
+        }
+      }
+    }
+    return;
+  }
 
   console.log('1. Fetching live jobs from server...');
   const liveData = await request('GET', '/api.php?action=get_jobs');

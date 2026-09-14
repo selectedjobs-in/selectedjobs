@@ -50,8 +50,8 @@
         <span class="text-red-100 font-normal">Editorial & Moderation Console</span>
       </div>
       <div class="flex items-center gap-1.5 text-yellow-300">
-        <i data-lucide="shield-check" class="h-4 w-4"></i>
-        <span>Passkey: selectedadmin2026</span>
+        <i data-lucide="lock" class="h-4 w-4"></i>
+        <span>Restricted Area</span>
       </div>
     </div>
   </nav>
@@ -63,15 +63,15 @@
       <div class="w-12 h-12 rounded-2xl bg-blue-50 text-[#1c64f2] flex items-center justify-center mx-auto mb-4">
         <i data-lucide="shield-check" class="h-6 w-6"></i>
       </div>
-      <h2 class="text-lg font-black text-zinc-900">Administrator Login</h2>
-      <p class="text-xs text-zinc-500 mt-1">Enter your admin passkey to manage jobs, approve postings, and edit vacancies.</p>
+      <h2 class="text-xl font-black text-zinc-900">Admin Portal Sign In</h2>
+      <p class="text-xs text-zinc-500 mt-1.5">Enter your administrator password to manage jobs and vacancies.</p>
       
       <form id="adminLoginForm" class="mt-6 flex flex-col gap-3">
-        <input type="password" id="loginPasskey" placeholder="Enter passkey (e.g. selectedadmin2026)" required class="rounded-xl border border-zinc-300 px-4 py-2.5 text-sm text-center text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+        <input type="password" id="loginPasskey" placeholder="Enter Administrator Password" required autofocus class="rounded-xl border border-zinc-300 px-4 py-2.5 text-sm text-center text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
         <button type="submit" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs py-2.5 transition-colors">
           Sign In to Admin Portal
         </button>
-        <p id="loginError" class="text-xs text-rose-600 font-bold hidden">Invalid administrator passkey.</p>
+        <p id="loginError" class="text-xs text-rose-600 font-bold hidden">Invalid administrator password.</p>
       </form>
     </div>
 

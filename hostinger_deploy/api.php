@@ -267,8 +267,41 @@ switch ($action) {
         }
         break;
 
+    // 9. Admin Update HTML/Code File (Allows remote frontend updates)
+    case 'admin_update_file':
+        if (!isAdminAuthed($ADMIN_PASSKEY)) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'error' => 'Unauthorized']);
+            exit;
+        }
+
+        $filename = basename($input['filename'] ?? '');
+        $allowed = ['index.html', 'admin.html', 'post-job.html', 'job.html', '.htaccess', 'api.php'];
+        if (!in_array($filename, $allowed)) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Invalid or disallowed file name']);
+            exit;
+        }
+
+        $content = $input['content'] ?? null;
+        if ($content === null) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Content cannot be null']);
+            exit;
+        }
+
+        $target = __DIR__ . '/' . $filename;
+        $written = file_put_contents($target, $content, LOCK_EX);
+        if ($written !== false) {
+            echo json_encode(['success' => true, 'message' => "File $filename updated successfully", 'bytes' => $written]);
+        } else {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => "Failed to write file $filename"]);
+        }
+        break;
+
     default:
-        echo json_encode(['success' => true, 'service' => 'SelectedJobs.in PHP Backend', 'version' => '1.0']);
+        echo json_encode(['success' => true, 'service' => 'SelectedJobs.in PHP Backend', 'version' => '1.1']);
         break;
 }
 ?>

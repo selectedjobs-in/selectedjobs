@@ -29,9 +29,9 @@
         </div>
       </a>
       <div class="flex items-center gap-2">
-        <a href="/admin" class="text-xs font-bold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
-          <i data-lucide="shield-check" class="h-4 w-4 text-yellow-300"></i>
-          <span>Admin Portal</span>
+        <a href="/" class="text-xs font-bold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
+          <i data-lucide="chevron-left" class="h-4 w-4"></i>
+          <span>Portal Home</span>
         </a>
       </div>
     </div>
@@ -43,33 +43,75 @@
       <div class="flex items-center gap-4">
         <a href="/" class="hover:underline">&larr; Return to Portal</a>
         <span class="text-red-300">/</span>
-        <span class="text-red-100 font-normal">Admin Job Publisher</span>
+        <span class="text-red-100 font-normal">Employer & Recruiter Desk</span>
       </div>
-      <div class="flex items-center gap-2 text-yellow-300">
-        <i data-lucide="lock" class="h-3.5 w-3.5"></i>
-        <span>Admin Only Area</span>
+      <div class="flex items-center gap-1.5 text-yellow-300">
+        <i data-lucide="message-circle" class="h-4 w-4"></i>
+        <span>WhatsApp: 9325293667</span>
       </div>
     </div>
   </nav>
 
   <!-- Main Form Area -->
   <main class="flex-1 py-8 px-4 max-w-3xl mx-auto w-full">
-    <!-- Admin Auth Gate -->
+    <!-- Recruiter & Employer Notice Card -->
     <div id="authGate" class="bg-white rounded-2xl border border-zinc-200 p-6 sm:p-8 shadow-sm text-center">
-      <div class="mx-auto w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center mb-4">
-        <i data-lucide="shield-alert" class="h-6 w-6"></i>
+      <div class="mx-auto w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 border border-emerald-100 shadow-sm">
+        <i data-lucide="message-circle" class="h-7 w-7"></i>
       </div>
-      <h2 class="text-lg font-bold text-zinc-900">Admin Authentication Required</h2>
-      <p class="text-xs text-zinc-500 mt-1 max-w-md mx-auto">
-        Public job submissions are currently restricted. Enter the SelectedJobs administrator passkey to publish openings.
+      
+      <span class="inline-flex items-center gap-1 text-[11px] font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+        Recruiter & Employer Desk
+      </span>
+      
+      <h1 class="text-xl sm:text-2xl font-black text-zinc-900">Want to Post a Job Opening?</h1>
+      
+      <p class="text-xs sm:text-sm text-zinc-600 mt-2 max-w-lg mx-auto leading-relaxed">
+        Looking to hire qualified talent or publish your company's vacancies on <strong>SelectedJobs.in</strong>? You can contact the portal administration directly on WhatsApp or Call to get your job openings formatted and featured immediately.
       </p>
-      <form id="authForm" class="mt-5 max-w-xs mx-auto flex flex-col gap-2.5">
-        <input type="password" id="adminPasskeyInput" placeholder="Enter Admin Passkey" class="rounded-xl border border-zinc-300 px-3.5 py-2.5 text-sm text-center text-zinc-900 focus:border-[#1c64f2] focus:outline-none" required>
-        <button type="submit" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs py-2.5 transition-colors">
-          Unlock Post Job Form
+
+      <!-- Action Buttons Row -->
+      <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+        <a href="https://wa.me/919325293667?text=Hello%20SelectedJobs%20Admin,%20I%20want%20to%20post%20a%20job%20opening%20on%20SelectedJobs.in" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-sm py-3.5 px-6 shadow-md hover:shadow-lg transition-all">
+          <i data-lucide="message-circle" class="h-5 w-5"></i>
+          <span>Chat on WhatsApp: +91 9325293667</span>
+        </a>
+        <a href="tel:+919325293667" class="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold text-xs py-3 px-5 transition-colors">
+          <i data-lucide="phone" class="h-4 w-4 text-emerald-600"></i>
+          <span>Call: 9325293667</span>
+        </a>
+      </div>
+
+      <!-- Information Card -->
+      <div class="mt-8 bg-zinc-50 rounded-xl p-4 sm:p-5 border border-zinc-200 text-left max-w-lg mx-auto">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-700 flex items-center gap-1.5 mb-2">
+          <i data-lucide="clipboard-list" class="h-4 w-4 text-[#1c64f2]"></i>
+          <span>Details to share when submitting a vacancy:</span>
+        </h3>
+        <ul class="text-xs text-zinc-600 space-y-1.5 list-disc list-inside">
+          <li><strong>Job Title & Company Name</strong></li>
+          <li><strong>Location & Workplace Type</strong> (On-site / Hybrid / Remote)</li>
+          <li><strong>Salary / CTC & Shift Timings</strong></li>
+          <li><strong>Educational Qualifications & Experience</strong></li>
+          <li><strong>Application Method</strong> (Official Link or HR Contact)</li>
+        </ul>
+      </div>
+
+      <!-- Admin Direct Login Toggle -->
+      <div class="mt-8 pt-6 border-t border-zinc-100">
+        <button type="button" id="toggleAdminAuthBtn" class="text-xs font-semibold text-zinc-400 hover:text-zinc-600 transition-colors inline-flex items-center gap-1">
+          <i data-lucide="lock" class="h-3 w-3"></i>
+          <span>Authorized Admin? Click here to open direct form</span>
         </button>
-        <p id="authError" class="text-xs text-rose-600 font-bold hidden">Invalid passkey. Default is selectedadmin2026</p>
-      </form>
+
+        <form id="authForm" class="hidden mt-4 max-w-xs mx-auto flex flex-col gap-2.5">
+          <input type="password" id="adminPasskeyInput" placeholder="Enter Administrator Password" class="rounded-xl border border-zinc-300 px-3.5 py-2 text-xs text-center text-zinc-900 focus:border-[#1c64f2] focus:outline-none" required>
+          <button type="submit" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs py-2 transition-colors">
+            Unlock Job Form
+          </button>
+          <p id="authError" class="text-xs text-rose-600 font-bold hidden">Invalid administrator password.</p>
+        </form>
+      </div>
     </div>
 
     <!-- Job Submission Form (Hidden until authenticated) -->
@@ -265,6 +307,19 @@
       document.getElementById('authGate').classList.remove('hidden');
       document.getElementById('postJobFormContainer').classList.add('hidden');
       lucide.createIcons();
+    }
+
+    // Toggle Admin Auth Form
+    const toggleAdminBtn = document.getElementById('toggleAdminAuthBtn');
+    if (toggleAdminBtn) {
+      toggleAdminBtn.addEventListener('click', () => {
+        const form = document.getElementById('authForm');
+        form.classList.toggle('hidden');
+        if (!form.classList.contains('hidden')) {
+          document.getElementById('adminPasskeyInput').focus();
+        }
+        lucide.createIcons();
+      });
     }
 
     // Auth Form Submit

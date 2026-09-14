@@ -36,14 +36,14 @@ export default function Navbar() {
               Home
             </Link>
 
-            {/* Mega Menu / All Categories dropdown */}
+            {/* All Categories dropdown */}
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setShowMegaMenu(!showMegaMenu)}
                 className="flex items-center gap-1 px-3 py-1.5 rounded hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap"
               >
-                <span>Mega Menu</span>
+                <span>All Categories</span>
                 <ChevronDown className="h-3 w-3" />
               </button>
 
@@ -104,17 +104,7 @@ export default function Navbar() {
               Admit Cards & PDFs
             </Link>
 
-            {/* Admin Links */}
-            <Link
-              href="/admin"
-              className={`flex items-center gap-1 px-3 py-1.5 rounded transition-colors whitespace-nowrap ${
-                pathname?.startsWith("/admin") ? "bg-[#991b1b]" : "hover:bg-[#991b1b]/80"
-              }`}
-            >
-              <ShieldCheck className="h-3.5 w-3.5 text-yellow-300" />
-              <span>Admin Portal</span>
-            </Link>
-
+            {/* Post Job Button */}
             <Link
               href="/post-job"
               className="flex items-center gap-1 px-2.5 py-1.5 rounded bg-yellow-400 text-zinc-950 font-bold hover:bg-yellow-300 transition-colors whitespace-nowrap"
