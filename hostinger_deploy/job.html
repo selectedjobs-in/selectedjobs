@@ -28,10 +28,15 @@
           <span class="text-[11px] block font-medium text-blue-100">selectedjobs.in</span>
         </div>
       </a>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- WhatsApp Channel Link -->
+        <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-black shadow transition-transform hover:scale-105 whitespace-nowrap" title="Follow Selected Jobs Channel on WhatsApp">
+          <i data-lucide="message-circle" class="h-3.5 w-3.5 fill-white"></i>
+          <span>WhatsApp Channel</span>
+        </a>
         <div class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/25 text-white border border-white/10 text-[11px] font-bold shadow-inner" title="Total Unique Job Seekers on SelectedJobs.in">
           <i data-lucide="users" class="h-3.5 w-3.5 text-yellow-300"></i>
-          <span><strong id="headerVisitorsCount">143</strong> Unique Seekers</span>
+          <span><strong id="headerVisitorsCount">146</strong> Unique Seekers</span>
         </div>
         <a href="/" class="text-xs font-bold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
           <i data-lucide="chevron-left" class="h-4 w-4"></i>
@@ -50,6 +55,11 @@
         <a id="breadcrumbCategory" href="/" class="text-red-100 hover:text-white font-normal hover:underline">Job Detail</a>
       </div>
       <div class="flex items-center gap-2">
+        <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="bg-[#25D366] text-white hover:bg-emerald-600 px-3 py-1 rounded text-[11px] font-bold flex items-center gap-1 shadow-sm transition-colors" title="Follow Selected Jobs on WhatsApp">
+          <i data-lucide="message-circle" class="h-3.5 w-3.5 fill-white"></i>
+          <span class="hidden sm:inline">WhatsApp Channel</span>
+          <span class="sm:hidden">WhatsApp</span>
+        </a>
         <a href="/post-job" class="bg-yellow-400 text-zinc-950 px-3 py-1 rounded text-[11px] font-bold hover:bg-yellow-300 flex items-center gap-1">
           <i data-lucide="plus-circle" class="h-3 w-3 text-zinc-950"></i>
           <span>Post Job</span>
@@ -159,6 +169,27 @@
           </div>
           <a id="applyBottomBtn" href="#" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-yellow-400 hover:bg-yellow-300 text-zinc-950 font-black text-xs sm:text-sm px-6 py-3 transition-colors shadow flex items-center gap-2">
             <span>Apply on Official Website</span>
+            <i data-lucide="arrow-right" class="h-4 w-4"></i>
+          </a>
+        </div>
+
+        <!-- WhatsApp Channel Follow Card -->
+        <div class="mt-4 rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 p-5 text-white shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 hover:shadow-lg transition-all group">
+          <div class="flex items-center gap-3">
+            <div class="h-12 w-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 text-white border border-white/20">
+              <i data-lucide="bell-ring" class="h-6 w-6 text-yellow-300 animate-pulse"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-black text-sm sm:text-base text-white">Never Miss Instant Job Alerts!</span>
+                <span class="bg-white/20 text-[10px] uppercase font-bold px-1.5 py-0.5 rounded text-white tracking-wider">Free</span>
+              </div>
+              <p class="text-xs text-emerald-100 mt-0.5">Follow the official <strong>Selected Jobs ✅</strong> channel on WhatsApp for daily job openings & recruitment updates.</p>
+            </div>
+          </div>
+          <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto text-center rounded-xl bg-white text-emerald-800 hover:bg-yellow-300 hover:text-zinc-950 font-black text-xs sm:text-sm px-5 py-3 transition-colors shadow flex items-center justify-center gap-2 flex-shrink-0">
+            <i data-lucide="message-circle" class="h-4 w-4 fill-emerald-700"></i>
+            <span>Join WhatsApp Channel</span>
             <i data-lucide="arrow-right" class="h-4 w-4"></i>
           </a>
         </div>
@@ -374,5 +405,11 @@
 
     loadJob();
   </script>
+
+  <!-- Floating WhatsApp Channel Follow Button -->
+  <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-3 shadow-2xl hover:shadow-green-500/50 transition-all transform hover:scale-105 group border-2 border-white" title="Follow Selected Jobs Channel on WhatsApp">
+    <i data-lucide="message-circle" class="h-5 w-5 fill-white"></i>
+    <span class="text-xs font-black tracking-wide hidden sm:inline">Follow on WhatsApp</span>
+  </a>
 </body>
 </html>
