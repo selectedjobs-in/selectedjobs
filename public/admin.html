@@ -144,7 +144,7 @@
         return;
       }
       try {
-        const res = await fetch('/api.php?action=admin_check');
+        const res = await fetch('api.php?action=admin_check');
         const data = await res.json();
         if (data.isAuthenticated) {
           showDashboard();
@@ -175,7 +175,7 @@
       e.preventDefault();
       const entered = document.getElementById('loginPasskey').value.trim();
       try {
-        const res = await fetch('/api.php?action=admin_auth', {
+        const res = await fetch('api.php?action=admin_auth', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ key: entered })
@@ -203,13 +203,13 @@
     document.getElementById('logoutBtn').addEventListener('click', async () => {
       adminKey = '';
       localStorage.removeItem('selectedjobs_admin_key');
-      await fetch('/api.php?action=admin_logout');
+      await fetch('api.php?action=admin_logout');
       showLogin();
     });
 
     async function loadAdminJobs() {
       try {
-        const res = await fetch(`/api.php?action=admin_jobs&status=ALL&_t=${Date.now()}`, {
+        const res = await fetch(`api.php?action=admin_jobs&status=ALL&_t=${Date.now()}`, {
           cache: 'no-store',
           headers: { 'x-admin-key': adminKey }
         });
@@ -331,7 +331,7 @@
         return;
       }
       try {
-        const res = await fetch('/api.php?action=admin_action', {
+        const res = await fetch('api.php?action=admin_action', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

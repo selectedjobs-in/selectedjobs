@@ -243,7 +243,7 @@
         return;
       }
       try {
-        const res = await fetch('/api.php?action=admin_check');
+        const res = await fetch('api.php?action=admin_check');
         const data = await res.json();
         if (data.isAuthenticated) {
           showForm();
@@ -272,7 +272,7 @@
       e.preventDefault();
       const entered = document.getElementById('adminPasskeyInput').value.trim();
       try {
-        const res = await fetch('/api.php?action=admin_auth', {
+        const res = await fetch('api.php?action=admin_auth', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ key: entered })
@@ -328,7 +328,7 @@
       };
 
       try {
-        const res = await fetch('/api.php?action=create_job', {
+        const res = await fetch('api.php?action=create_job', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

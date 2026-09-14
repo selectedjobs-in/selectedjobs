@@ -421,7 +421,7 @@
 
     async function loadJobs(search = '', category = '') {
       try {
-        let url = '/api.php?action=get_jobs&_t=' + Date.now();
+        let url = 'api.php?action=get_jobs&_t=' + Date.now();
         if (search) url += '&search=' + encodeURIComponent(search);
         if (category) url += '&category=' + encodeURIComponent(category);
 
