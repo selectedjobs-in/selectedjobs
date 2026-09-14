@@ -191,12 +191,20 @@ function normalizeJobUrl($url) {
 // Helper to extract Requisition / Job ID numbers
 function extractRequisitionId($text) {
     if (empty($text)) return '';
+    
+    // Ignore if string is a 10-12 digit phone number
+    $digitsOnly = preg_replace('/[^0-9]/', '', $text);
+    if (strlen($digitsOnly) >= 10 && strlen($digitsOnly) <= 12 && preg_match('/^[6-9][0-9]{9}$/', substr($digitsOnly, -10))) {
+        return '';
+    }
+
     // Look for explicit prefix in URL or text
     if (preg_match('/(?:gh_jid=|jobid=|req_id=|job\/|jobs\/|apply\/|roles\/|jobdetail\/|job-details\/)([a-zA-Z0-9_-]+)/i', $text, $m)) {
         return strtolower($m[1]);
     }
+
     // Look for standard corporate requisition codes (e.g. R171037, JR-0000115941, P-100247, 522236)
-    if (preg_match('/\b(JR-[0-9]{4,}|[RP]-[0-9]{4,}|R[0-9]{5,}|[0-9]{6,})\b/i', $text, $m)) {
+    if (preg_match('/\b(JR-[0-9]{4,}|[RP]-[0-9]{4,}|R[0-9]{5,}|[0-9]{5,8})\b/i', $text, $m)) {
         return strtolower($m[1]);
     }
     return '';
@@ -223,6 +231,13 @@ function extractCoreTitleTokens($title) {
     }));
 }
 
+// Helper to test if string is a Web URL
+function isWebUrl($str) {
+    if (empty($str)) return false;
+    $s = trim($str);
+    return strpos($s, 'http://') === 0 || strpos($s, 'https://') === 0 || strpos($s, 'www.') === 0;
+}
+
 // Master duplicate detector
 function findDuplicateJob($existingJobs, $newJob, $excludeId = null) {
     $newUrl = normalizeJobUrl($newJob['applyValue'] ?? '');
@@ -230,16 +245,36 @@ function findDuplicateJob($existingJobs, $newJob, $excludeId = null) {
     $newCompany = preg_replace('/[^a-z0-9]/', '', strtolower($newJob['company'] ?? ''));
     $newTitleNorm = normalizeTitle($newJob['title'] ?? '');
     $newTokens = extractCoreTitleTokens($newJob['title'] ?? '');
+    $newApplyRaw = preg_replace('/[^a-z0-9@.]/', '', strtolower($newJob['applyValue'] ?? ''));
 
     foreach ($existingJobs as $j) {
         if ($excludeId && ($j['id'] ?? '') === $excludeId) continue;
 
-        // 1. Exact or normalized URL match
-        if (!empty($newUrl)) {
-            $existingUrl = normalizeJobUrl($j['applyValue'] ?? '');
-            if (!empty($existingUrl) && $newUrl === $existingUrl) {
+        $existingCompany = preg_replace('/[^a-z0-9]/', '', strtolower($j['company'] ?? ''));
+        $existingTokens = extractCoreTitleTokens($j['title'] ?? '');
+        $existingApplyRaw = preg_replace('/[^a-z0-9@.]/', '', strtolower($j['applyValue'] ?? ''));
+
+        // 1. Exact or normalized Web URL match (for actual career links)
+        if (!empty($newUrl) && isWebUrl($newJob['applyValue'] ?? '')) {
+            $existingApply = $j['applyValue'] ?? '';
+            if (isWebUrl($existingApply)) {
+                $existingUrl = normalizeJobUrl($existingApply);
+                if (!empty($existingUrl) && $newUrl === $existingUrl) {
+                    return [
+                        'reason' => 'Target application URL is identical to an existing listing',
+                        'duplicate_job' => $j
+                    ];
+                }
+            }
+        }
+
+        // 2. Phone or Email match: Duplicate if same contact AND matching company or title
+        if (!empty($newApplyRaw) && !isWebUrl($newJob['applyValue'] ?? '') && $newApplyRaw === $existingApplyRaw) {
+            $hasCompanyMatch = (!empty($newCompany) && !empty($existingCompany) && ($newCompany === $existingCompany || strpos($newCompany, $existingCompany) !== false || strpos($existingCompany, $newCompany) !== false));
+            $intersect = array_intersect($newTokens, $existingTokens);
+            if ($hasCompanyMatch || count($intersect) >= 2) {
                 return [
-                    'reason' => 'Target application URL is identical to an existing listing',
+                    'reason' => 'Application contact details and role match an existing opening',
                     'duplicate_job' => $j
                 ];
             }
