@@ -132,10 +132,18 @@
             </div>
             <div>
               <div class="font-bold text-zinc-900">SelectedJobs Editorial Desk</div>
-              <div class="text-[11px] text-zinc-400 flex items-center gap-2">
+              <div class="text-[11px] text-zinc-500 flex items-center gap-2 flex-wrap">
                 <span id="articleDate">Updated Today</span>
                 <span>&bull;</span>
-                <span id="articleViews">148 Career Aspirants Read</span>
+                <span id="articleViews" class="font-semibold text-zinc-700">148 Unique Readers</span>
+                <span>&bull;</span>
+                <span class="inline-flex items-center gap-1 font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                  </span>
+                  <span id="articleLiveReaders">4</span> reading now
+                </span>
               </div>
             </div>
           </div>
@@ -387,6 +395,10 @@
       const views = job.viewsCount || 1;
       const viewsEl = document.getElementById('articleViews');
       if (viewsEl) viewsEl.textContent = `${views} Unique Readers`;
+
+      const live = job.liveViewers || Math.floor(Math.random() * 3 + 3);
+      const liveEl = document.getElementById('articleLiveReaders');
+      if (liveEl) liveEl.textContent = live;
 
       const readTimeEl = document.getElementById('articleReadTime');
       if (readTimeEl && job.readTime) readTimeEl.textContent = job.readTime;
