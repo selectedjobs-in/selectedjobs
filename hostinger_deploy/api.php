@@ -1,4 +1,7 @@
 <?php
+if (!ob_get_level() && extension_loaded('zlib') && !ini_get('zlib.output_compression')) {
+    @ob_start('ob_gzhandler');
+}
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
@@ -385,11 +388,34 @@ switch ($action) {
             });
         }
 
+        $jobsSummary = array_map(function($j) {
+            return [
+                'id' => $j['id'] ?? '',
+                'title' => $j['title'] ?? '',
+                'company' => $j['company'] ?? '',
+                'category' => $j['category'] ?? '',
+                'location' => $j['location'] ?? '',
+                'salary' => $j['salary'] ?? '',
+                'experience' => $j['experience'] ?? '',
+                'workplaceType' => $j['workplaceType'] ?? '',
+                'employmentType' => $j['employmentType'] ?? '',
+                'applyUrl' => $j['applyUrl'] ?? '',
+                'skills' => $j['skills'] ?? [],
+                'isNew' => $j['isNew'] ?? false,
+                'featuredInTopGrid' => $j['featuredInTopGrid'] ?? false,
+                'isBlog' => $j['isBlog'] ?? false,
+                'readTime' => $j['readTime'] ?? '',
+                'channelUrl' => $j['channelUrl'] ?? '',
+                'viewsCount' => $j['viewsCount'] ?? 1,
+                'createdAt' => $j['createdAt'] ?? ''
+            ];
+        }, array_values($approved));
+
         echo json_encode([
             'success' => true,
-            'jobs' => array_values($approved),
+            'jobs' => $jobsSummary,
             'site_unique_visitors' => $siteVisitors,
-            'total_jobs' => count($approved)
+            'total_jobs' => count($jobsSummary)
         ]);
         break;
 

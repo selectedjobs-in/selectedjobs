@@ -986,8 +986,20 @@
       }
     });
 
-    // Initialize: load jobs and check URL query
+    // Initialize: load jobs with instant cache rendering and background refresh
     async function loadJobs() {
+      // 1. Instant Cache Render (Zero-latency initial display)
+      try {
+        const cached = localStorage.getItem('sj_cached_jobs_v2');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed && Array.isArray(parsed.jobs) && parsed.jobs.length > 0) {
+            allJobs = parsed.jobs;
+            renderAll();
+          }
+        }
+      } catch (e) {}
+
       try {
         const vid = getVisitorId();
         const url = '/api.php?action=get_jobs&vid=' + encodeURIComponent(vid) + '&_t=' + Date.now();
@@ -995,6 +1007,10 @@
         const data = await res.json();
         if (data.success) {
           allJobs = data.jobs || [];
+
+          try {
+            localStorage.setItem('sj_cached_jobs_v2', JSON.stringify({ jobs: allJobs, time: Date.now() }));
+          } catch (e) {}
 
           // Update unique site visitors counter
           const count = data.site_unique_visitors || 143;

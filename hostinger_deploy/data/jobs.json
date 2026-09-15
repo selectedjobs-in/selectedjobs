@@ -1,5 +1,319 @@
 [
   {
+    "id": "blog_chatgpt_prompts_students_study_prep",
+    "title": "🎓 10 Powerful ChatGPT Prompts for Students (Study & Exam Prep)",
+    "company": "SelectedJobs Academic & Exam Desk",
+    "category": "CAREER BLOGS & GUIDES",
+    "location": "Study Skills & Exam Revision",
+    "salary": "Free Academic Resource",
+    "experience": "Students, School & College",
+    "workplaceType": "Academic Study Tips",
+    "employmentType": "full-time",
+    "isBlog": true,
+    "type": "blog",
+    "readTime": "6 min read",
+    "applyUrl": "https://selectedjobs.in/blogs/blog_chatgpt_prompts_students_study_prep",
+    "canonicalApplyUrl": "https://selectedjobs.in/blogs/blog_chatgpt_prompts_students_study_prep",
+    "skills": [
+      "Students",
+      "Study Tips",
+      "Exam Preparation",
+      "Revision Plan",
+      "Flashcards",
+      "Problem Solving",
+      "Study Routine"
+    ],
+    "channelUrl": "https://whatsapp.com/channel/0029VbDeiF1GE56ioYDWSh2S",
+    "channelName": "Study Tips Channel",
+    "prompts": [
+      {
+        "num": 1,
+        "title": "1. Study Any Textbook Chapter",
+        "role": "Expert Academic Tutor",
+        "prompt": "Act as an expert academic tutor. I will give you a textbook chapter or study material. Break it down into the key concepts I actually need to understand. Explain each concept in simple language, connect related ideas, give useful examples, point out common misconceptions, and finish with questions that test my understanding."
+      },
+      {
+        "num": 2,
+        "title": "2. Create a Last-Minute Revision Plan",
+        "role": "High-Impact Revision Coach",
+        "prompt": "I have [NUMBER OF HOURS/DAYS] left before my exam in [SUBJECT]. These are the topics I need to cover: [TOPICS]. My preparation level is [LEVEL]. Create the highest-impact revision plan possible. Prioritize topics based on importance and difficulty, include active recall and practice questions, and tell me what I can safely deprioritize if time runs out."
+      },
+      {
+        "num": 3,
+        "title": "3. Learn From Previous Exam Papers",
+        "role": "Exam Pattern Analyst",
+        "prompt": "Analyze these previous exam papers for [SUBJECT/EXAM]. Identify recurring topics, question patterns, frequently tested concepts, difficulty trends, and areas that appear to carry more importance. Then create a prioritized list of what I should study and the types of questions I should practice.\n[PASTE EXAM PAPERS]"
+      },
+      {
+        "num": 4,
+        "title": "4. Improve My Answers",
+        "role": "Helpful Examiner",
+        "prompt": "Act as a strict but helpful examiner. Evaluate my answer to the following question according to accuracy, relevance, structure, clarity, depth, and use of appropriate terminology. Identify exactly what is missing or incorrect, then show me how to improve the answer so it would score better.\nQuestion: [QUESTION]\nMy answer: [ANSWER]"
+      },
+      {
+        "num": 5,
+        "title": "5. Turn a Topic Into Flashcards",
+        "role": "Active Recall Specialist",
+        "prompt": "Convert the following study material into high-quality flashcards for active recall. Focus on important concepts rather than trivial details. Make questions specific and answers concise. Include definitions, comparisons, processes, formulas, applications, and common mistakes where relevant.\n[PASTE MATERIAL]"
+      },
+      {
+        "num": 6,
+        "title": "6. Solve Problems Without Giving Me the Answer",
+        "role": "Socratic Tutor",
+        "prompt": "Act as my tutor for [SUBJECT]. I will give you a problem. Do not immediately solve it for me. Guide me through the reasoning step by step by asking questions and giving only the amount of help I need. If I make a mistake, identify where my reasoning went wrong and help me correct it."
+      },
+      {
+        "num": 7,
+        "title": "7. Make Boring Topics Interesting",
+        "role": "Engaging Concept Educator",
+        "prompt": "Teach me [TOPIC] in a way that makes it genuinely interesting and easier to remember. Start with why the topic matters, connect it to real-world situations, use intuitive examples and analogies, explain the core ideas clearly, and finish with a few questions to test my understanding."
+      },
+      {
+        "num": 8,
+        "title": "8. Identify What to Study First",
+        "role": "Exam Prioritization Strategist",
+        "prompt": "I need to study these topics for [EXAM]: [TOPICS]. Rank them into high, medium, and low priority based on exam importance, conceptual difficulty, prerequisites, and potential marks. Explain the reasoning behind the ranking and give me the best order to study them."
+      },
+      {
+        "num": 9,
+        "title": "9. Build a Daily Study Routine",
+        "role": "Study Schedule Designer",
+        "prompt": "Create a realistic daily study routine for me based on these details:\nSubjects: [SUBJECTS]\nAvailable study time: [HOURS]\nClasses/commitments: [SCHEDULE]\nExam date: [DATE]\nStrong subjects: [SUBJECTS]\nWeak subjects: [SUBJECTS]\n\nInclude focused study sessions, breaks, active recall, practice, revision, and enough flexibility to handle unexpected tasks. Avoid creating an unrealistic schedule."
+      },
+      {
+        "num": 10,
+        "title": "10. Become My Personal Study Coach",
+        "role": "Dedicated Study Mentor",
+        "prompt": "Act as my personal study coach for the next [NUMBER OF WEEKS]. Help me plan what to study, test my understanding, identify weak areas, revise older material, and adjust my plan based on my progress. At the beginning of each session, ask me what I completed and where I struggled. Use that information to decide what I should work on next."
+      }
+    ],
+    "description": "🎓 10 Powerful ChatGPT Prompts for Students\n\n1. Study Any Textbook Chapter\n2. Create a Last-Minute Revision Plan\n3. Learn From Previous Exam Papers\n4. Improve My Answers\n5. Turn a Topic Into Flashcards\n6. Solve Problems Without Giving Me the Answer\n7. Make Boring Topics Interesting\n8. Identify What to Study First\n9. Build a Daily Study Routine\n10. Become My Personal Study Coach\n\nStudy Tips Channel: https://whatsapp.com/channel/0029VbDeiF1GE56ioYDWSh2S\nDouble Tap ❤️ For More Useful Prompts!",
+    "isNew": true,
+    "viewsCount": 215,
+    "createdAt": "2026-09-15T10:22:53.784Z"
+  },
+  {
+    "id": "blog_chatgpt_prompts_students_part2",
+    "title": "🎓 10 Powerful ChatGPT Prompts for Students: Part-2 (Career Guidance)",
+    "company": "SelectedJobs Student Career Desk",
+    "category": "CAREER BLOGS & GUIDES",
+    "location": "Higher Education & Career Direction",
+    "salary": "Free Student Guide",
+    "experience": "Students & Recent Graduates",
+    "workplaceType": "Student Career Advice",
+    "employmentType": "full-time",
+    "isBlog": true,
+    "type": "blog",
+    "readTime": "6 min read",
+    "applyUrl": "https://selectedjobs.in/blogs/blog_chatgpt_prompts_students_part2",
+    "canonicalApplyUrl": "https://selectedjobs.in/blogs/blog_chatgpt_prompts_students_part2",
+    "skills": [
+      "Students",
+      "Career Roadmap",
+      "Portfolio Building",
+      "Skill Roadmaps",
+      "First Job Search",
+      "Degree Career Paths"
+    ],
+    "channelUrl": "https://whatsapp.com/channel/0029VbD4OI50VycJw6TIx63D",
+    "channelName": "Career Tips Channel",
+    "prompts": [
+      {
+        "num": 1,
+        "title": "1. Discover the Right Career",
+        "role": "Expert Career Counselor",
+        "prompt": "Act as an expert career counselor. Help me identify career paths that could suit me based on my interests, strengths, personality, preferred work style, subjects I enjoy, and long-term goals. Ask me the most useful questions first, then analyze my answers and suggest suitable career options with reasons."
+      },
+      {
+        "num": 2,
+        "title": "2. Choose Between Career Options",
+        "role": "Career Comparison Analyst",
+        "prompt": "I am considering these career options: [CAREER OPTIONS]. Compare them based on required skills, education, difficulty, earning potential, job opportunities, work-life balance, growth potential, future relevance, and suitability for my strengths. Create a clear comparison and help me identify which option may fit me best."
+      },
+      {
+        "num": 3,
+        "title": "3. Find My Career Direction",
+        "role": "Career Strategist",
+        "prompt": "Act as a career strategist. I am currently studying [DEGREE/COURSE] and I am unsure what career direction to take. Based on my interests, strengths, weaknesses, preferred type of work, and goals, identify several realistic career paths I could pursue. For each path, explain what I should learn, how I can gain experience, and what entry-level opportunities I should target."
+      },
+      {
+        "num": 4,
+        "title": "4. Skills I Should Learn",
+        "role": "Skill Roadmap Advisor",
+        "prompt": "Based on my target career of [CAREER], create a prioritized skill roadmap for me. Separate the skills into essential, valuable, and optional. Explain why each skill matters, how I can learn it, how I can practice it through projects, and how I can demonstrate it to employers."
+      },
+      {
+        "num": 5,
+        "title": "5. Career Roadmap From Student to Professional",
+        "role": "Student-to-Pro Career Mentor",
+        "prompt": "Create a step-by-step career roadmap from where I am today to becoming job-ready for [CAREER]. I am currently [YEAR/LEVEL OF STUDY]. Include what I should learn, projects I should complete, experience I should gain, certifications that may actually be useful, networking activities, resume preparation, and interview preparation. Organize the roadmap by stages."
+      },
+      {
+        "num": 6,
+        "title": "6. Find Careers With Strong Future Potential",
+        "role": "Career-Market Analyst",
+        "prompt": "Act as a career-market analyst. Help me identify career fields that are likely to remain valuable as technology and AI continue to change the workplace. Consider demand for human skills, technical skills, adaptability, barriers to entry, career growth, and opportunities for specialization. Then identify which options could realistically fit a student with my background: [BACKGROUND]."
+      },
+      {
+        "num": 7,
+        "title": "7. Build a Job-Ready Portfolio",
+        "role": "Hiring Manager",
+        "prompt": "Act as a hiring manager for [CAREER]. Tell me what would make a student portfolio stand out for entry-level roles in this field. Recommend 3–5 projects I could build, explain what each project should demonstrate, what skills employers would see, and how I should present the projects professionally."
+      },
+      {
+        "num": 8,
+        "title": "8. Identify My Career Gaps",
+        "role": "Candidate Assessment Lead",
+        "prompt": "Act as a hiring manager for [TARGET ROLE]. Here is my current profile:\nEducation: [EDUCATION]\nSkills: [SKILLS]\nProjects: [PROJECTS]\nExperience: [EXPERIENCE]\nTarget role: [ROLE]\n\nIdentify the biggest gaps between my current profile and a strong entry-level candidate. Rank the gaps by importance and create a practical plan to close them."
+      },
+      {
+        "num": 9,
+        "title": "9. Plan My First Job Search",
+        "role": "Entry-Level Career Coach",
+        "prompt": "Act as an entry-level career coach. Help me create a job-search strategy for [TARGET ROLE]. Tell me which types of companies and roles I should target, how to identify suitable openings, how to tailor my resume, how to approach networking, how many applications to aim for, and how to track and improve my results."
+      },
+      {
+        "num": 10,
+        "title": "10. Find the Best Career Based on My Degree",
+        "role": "Academic Career Advisor",
+        "prompt": "Act as an expert career advisor. I am pursuing [DEGREE/COURSE]. Analyze the major career paths available after this degree, including traditional and less obvious options. For each path, explain the required skills, typical entry-level roles, growth opportunities, and what I should start doing as a student to become competitive."
+      }
+    ],
+    "description": "🎓 10 Powerful ChatGPT Prompts for Students: Part-2\n\n1. Discover the Right Career\n2. Choose Between Career Options\n3. Find My Career Direction\n4. Skills I Should Learn\n5. Career Roadmap From Student to Professional\n6. Find Careers With Strong Future Potential\n7. Build a Job-Ready Portfolio\n8. Identify My Career Gaps\n9. Plan My First Job Search\n10. Find the Best Career Based on My Degree\n\nCareer Tips Channel: https://whatsapp.com/channel/0029VbD4OI50VycJw6TIx63D\nDouble Tap ❤️ For More Useful Prompts!",
+    "isNew": true,
+    "viewsCount": 194,
+    "createdAt": "2026-09-15T10:22:53.784Z"
+  },
+  {
+    "id": "blog_chatgpt_personal_development_prompts",
+    "title": "🤖 Useful ChatGPT Prompts for Personal Development",
+    "company": "SelectedJobs Self-Growth Desk",
+    "category": "CAREER BLOGS & GUIDES",
+    "location": "Personal Development & Skills",
+    "salary": "Free Growth Guide",
+    "experience": "All Career Levels & Students",
+    "workplaceType": "Personal Development",
+    "employmentType": "full-time",
+    "isBlog": true,
+    "type": "blog",
+    "readTime": "6 min read",
+    "applyUrl": "https://selectedjobs.in/blogs/blog_chatgpt_personal_development_prompts",
+    "canonicalApplyUrl": "https://selectedjobs.in/blogs/blog_chatgpt_personal_development_prompts",
+    "skills": [
+      "Personal Development",
+      "Self-Discipline",
+      "Communication",
+      "Habit Building",
+      "Time Management",
+      "Critical Thinking"
+    ],
+    "channelUrl": "https://whatsapp.com/channel/0029Vb95EKU0wajqFAi2uK04",
+    "channelName": "Personal Development Tips",
+    "prompts": [
+      {
+        "num": 1,
+        "title": "1. Build Self-Discipline",
+        "role": "Practical Self-Discipline Coach",
+        "prompt": "Act as a practical self-discipline coach. Help me build stronger discipline without relying on motivation. Analyze my current habits, identify what is preventing consistency, and create a simple system using clear routines, triggers, environment design, and accountability. Make the system realistic for a student."
+      },
+      {
+        "num": 2,
+        "title": "2. Improve My Communication",
+        "role": "Communication Coach",
+        "prompt": "Act as a communication coach. Help me become better at speaking clearly, confidently, and professionally. Assess the communication habits I describe below, identify my biggest weaknesses, and create daily exercises to improve my clarity, vocabulary, listening, confidence, and ability to express ideas.\n[DESCRIBE CURRENT CHALLENGES]"
+      },
+      {
+        "num": 3,
+        "title": "3. Overcome Procrastination",
+        "role": "Behavioral Coach",
+        "prompt": "Act as a behavioral coach. I keep procrastinating on [TASK]. Help me identify the likely reasons behind my procrastination and design a practical system to start the task, reduce distractions, maintain focus, and finish it. Give me specific actions rather than generic motivational advice."
+      },
+      {
+        "num": 4,
+        "title": "4. Build Better Habits",
+        "role": "Habit System Architect",
+        "prompt": "Help me build these habits: [HABITS]. Design a habit system based on small starting steps, environmental cues, consistency, tracking, and gradual progression. Identify potential obstacles and create an if-then plan for situations where I lose motivation or miss a day."
+      },
+      {
+        "num": 5,
+        "title": "5. Improve My Confidence",
+        "role": "Practical Confidence Coach",
+        "prompt": "Act as a practical confidence coach. I struggle with confidence in [SITUATION]. Help me understand what may be causing this difficulty and create a gradual exposure plan with small challenges that will help me become more comfortable and confident over time."
+      },
+      {
+        "num": 6,
+        "title": "6. Learn Time Management",
+        "role": "Student Productivity Coach",
+        "prompt": "Act as a productivity coach for students. Here is my typical schedule: [SCHEDULE]. Help me identify where my time is being wasted and create a realistic time-management system that balances studying, assignments, career development, personal activities, rest, and unexpected tasks."
+      },
+      {
+        "num": 7,
+        "title": "7. Improve Decision-Making",
+        "role": "Decision-Making Framework Coach",
+        "prompt": "Act as a decision-making coach. I need to decide whether to [DECISION]. Help me separate facts, assumptions, emotions, risks, and long-term consequences. Analyze the available options, identify potential second-order effects, and create a decision framework that helps me choose rationally without ignoring important personal factors."
+      },
+      {
+        "num": 8,
+        "title": "8. Develop Critical Thinking",
+        "role": "Critical-Thinking Tutor",
+        "prompt": "Act as a critical-thinking tutor. Give me real-world situations, arguments, claims, or problems that require careful reasoning. Ask me to analyze them before revealing your assessment. After each response, identify logical strengths, weaknesses, assumptions, biases, and alternative perspectives, then give me a harder challenge."
+      },
+      {
+        "num": 9,
+        "title": "9. Become More Independent",
+        "role": "Life-Skills Mentor",
+        "prompt": "Act as a life-skills mentor. Help me identify the practical skills a student should develop to become more independent and capable. Cover areas such as money management, communication, problem-solving, organization, decision-making, digital skills, basic professional skills, and everyday responsibilities. Prioritize the skills by importance and suggest ways to practice them."
+      },
+      {
+        "num": 10,
+        "title": "10. Create a Personal Growth Plan",
+        "role": "Personal Development Coach",
+        "prompt": "Act as my personal development coach. Based on my current situation, strengths, weaknesses, goals, habits, academic responsibilities, and career aspirations, create a 6-month personal growth plan. Focus on the highest-impact areas and give me measurable weekly actions rather than vague goals.\n[MY CURRENT SITUATION]"
+      }
+    ],
+    "description": "🤖 Useful ChatGPT Prompts for Personal Development\n\n1. Build Self-Discipline\n2. Improve My Communication\n3. Overcome Procrastination\n4. Build Better Habits\n5. Improve My Confidence\n6. Learn Time Management\n7. Improve Decision-Making\n8. Develop Critical Thinking\n9. Become More Independent\n10. Create a Personal Growth Plan\n\nPersonal Development Tips Channel: https://whatsapp.com/channel/0029Vb95EKU0wajqFAi2uK04\nDouble Tap ❤️ For More Useful Prompts!",
+    "isNew": true,
+    "viewsCount": 182,
+    "createdAt": "2026-09-15T10:22:53.784Z"
+  },
+  {
+    "id": "blog_chatgpt_profitable_business_ideas",
+    "title": "How to use ChatGPT to find profitable business ideas 💡💼",
+    "company": "SelectedJobs Business & Startup Desk",
+    "category": "CAREER BLOGS & GUIDES",
+    "location": "Business & Startup Advice",
+    "salary": "Free Entrepreneur Guide",
+    "experience": "Entrepreneurs & Freelancers",
+    "workplaceType": "Business Strategy",
+    "employmentType": "full-time",
+    "isBlog": true,
+    "type": "blog",
+    "readTime": "4 min read",
+    "applyUrl": "https://selectedjobs.in/blogs/blog_chatgpt_profitable_business_ideas",
+    "canonicalApplyUrl": "https://selectedjobs.in/blogs/blog_chatgpt_profitable_business_ideas",
+    "skills": [
+      "Business Ideas",
+      "ChatGPT Prompts",
+      "Market Validation",
+      "Entrepreneurship",
+      "Side Hustles"
+    ],
+    "channelUrl": "https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x",
+    "channelName": "Selected Jobs Official Channel",
+    "prompts": [
+      {
+        "num": 1,
+        "title": "Comprehensive Business Idea Strategist Prompt",
+        "role": "Business Idea Strategist & Startup Advisor",
+        "prompt": "I want you to act as my business idea strategist.\n\nI want to start a business but haven't decided what to build yet.\n\nMy skills are [YOUR SKILLS].\n\nMy interests are [YOUR INTERESTS].\n\nMy budget is [BUDGET].\n\nThe time I can dedicate is [HOURS PER WEEK].\n\nHelp me by:\n\n• Identifying business opportunities that match my skills and interests\n• Finding real problems people are willing to pay to solve\n• Suggesting business ideas with different levels of investment and difficulty\n• Evaluating each idea based on demand, competition, profitability, and scalability\n• Identifying the ideal target customer for each idea\n• Explaining how each business could make money\n• Highlighting the biggest risks and challenges\n• Ranking the ideas from strongest to weakest and explaining why\n• Creating a simple validation plan for the best idea before I invest significant money\n\nDon't give me generic ideas. Focus on realistic opportunities that match my situation.\n\nStart by asking me the most important questions you need to identify the right business opportunities."
+      }
+    ],
+    "description": "How to use ChatGPT to find profitable business ideas 💡💼\n\nPrompt:\nI want you to act as my business idea strategist.\nI want to start a business but haven't decided what to build yet.\nMy skills are [YOUR SKILLS].\nMy interests are [YOUR INTERESTS].\nMy budget is [BUDGET].\nThe time I can dedicate is [HOURS PER WEEK].\n\nHelp me by:\n• Identifying business opportunities that match my skills and interests\n• Finding real problems people are willing to pay to solve\n• Suggesting business ideas with different levels of investment and difficulty\n• Evaluating each idea based on demand, competition, profitability, and scalability\n• Identifying the ideal target customer for each idea\n• Explaining how each business could make money\n• Highlighting the biggest risks and challenges\n• Ranking the ideas from strongest to weakest and explaining why\n• Creating a simple validation plan for the best idea before I invest significant money\n\nDon't give me generic ideas. Focus on realistic opportunities that match my situation.\nStart by asking me the most important questions you need to identify the right business opportunities.\n\nDouble Tap ❤️ For More Useful Prompts!",
+    "isNew": true,
+    "viewsCount": 165,
+    "createdAt": "2026-09-15T10:22:53.783Z"
+  },
+  {
     "id": "blog_10_chatgpt_career_prompts",
     "title": "10 Powerful ChatGPT Prompts for Work & Career Growth",
     "company": "SelectedJobs Editorial Desk",
