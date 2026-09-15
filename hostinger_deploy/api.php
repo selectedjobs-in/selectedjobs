@@ -380,6 +380,7 @@ switch ($action) {
                 if (strpos($catLower, 'defence') !== false && strpos($itemCat, 'defence') !== false) return true;
                 if (strpos($catLower, 'railway') !== false && strpos($itemCat, 'railway') !== false) return true;
                 if (strpos($catLower, 'teaching') !== false && strpos($itemCat, 'teaching') !== false) return true;
+                if ((strpos($catLower, 'blog') !== false || strpos($catLower, 'guide') !== false) && (strpos($itemCat, 'blog') !== false || strpos($itemCat, 'guide') !== false || !empty($j['isBlog']))) return true;
                 return false;
             });
         }
@@ -635,7 +636,7 @@ switch ($action) {
         }
 
         $filename = basename($input['filename'] ?? '');
-        $allowed = ['index.html', 'admin.html', 'post-job.html', 'job.html', '.htaccess', 'api.php', 'jobs.json', 'stats.json'];
+        $allowed = ['index.html', 'admin.html', 'post-job.html', 'job.html', 'blog.html', '.htaccess', 'api.php', 'jobs.json', 'stats.json'];
         if (!in_array($filename, $allowed)) {
             http_response_code(400);
             echo json_encode(['success' => false, 'error' => 'Invalid or disallowed file name']);

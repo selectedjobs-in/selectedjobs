@@ -267,6 +267,9 @@
           if (data.site_unique_visitors) {
             const hCount = document.getElementById('headerVisitorsCount');
             if (hCount) hCount.textContent = data.site_unique_visitors.toLocaleString('en-IN');
+          if (data.job.isBlog || data.job.category === 'CAREER BLOGS & GUIDES' || data.job.type === 'blog') {
+            window.location.replace('/blogs/' + data.job.id);
+            return;
           }
           renderJob(data.job);
         } else {

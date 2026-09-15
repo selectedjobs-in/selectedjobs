@@ -17,6 +17,9 @@ DirectoryIndex index.html index.php
 
   # Route Clean Frontend URLs
   RewriteRule ^jobs/([a-zA-Z0-9_\-]+)/?$ job.html?id=$1 [QSA,L]
+  RewriteRule ^blogs/([a-zA-Z0-9_\-]+)/?$ blog.html?id=$1 [QSA,L]
+  RewriteRule ^blogs/?$ index.html?category=CAREER%20BLOGS%20%26%20GUIDES [QSA,L]
+  RewriteRule ^blog/?$ index.html?category=CAREER%20BLOGS%20%26%20GUIDES [QSA,L]
   RewriteRule ^post-job/?$ post-job.html [QSA,L]
   RewriteRule ^admin/?$ admin.html [QSA,L]
 

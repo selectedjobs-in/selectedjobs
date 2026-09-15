@@ -49,7 +49,7 @@ async function sync() {
 
   if (isFiles) {
     console.log('Attempting remote file deployment to live server...');
-    const filesToDeploy = ['api.php', 'index.html', 'admin.html', 'post-job.html', 'job.html', '.htaccess'];
+    const filesToDeploy = ['api.php', 'index.html', 'admin.html', 'post-job.html', 'job.html', 'blog.html', '.htaccess'];
     for (const f of filesToDeploy) {
       const fullPath = path.join(__dirname, 'hostinger_deploy', f);
       if (fs.existsSync(fullPath)) {
