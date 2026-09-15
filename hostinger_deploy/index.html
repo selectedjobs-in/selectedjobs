@@ -309,9 +309,9 @@
           <div id="readMoreCol3" class="space-y-3 pt-4 md:pt-0 md:pl-6"></div>
         </div>
         <div class="p-3 bg-zinc-50 border-t border-zinc-100 text-center">
-          <a href="/admin" class="inline-flex items-center gap-1.5 rounded bg-[#1d4ed8] px-6 py-2 text-xs font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
-            <span>Load More Openings</span>
-            <i data-lucide="chevron-right" class="h-3.5 w-3.5"></i>
+          <a href="#categoryScrollContainer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="inline-flex items-center gap-1.5 rounded bg-[#1d4ed8] px-6 py-2 text-xs font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
+            <span>Browse All Categories & Openings</span>
+            <i data-lucide="chevron-up" class="h-3.5 w-3.5"></i>
           </a>
         </div>
       </div>
@@ -472,6 +472,7 @@
 
       displayJobs.forEach((job, idx) => {
         const style = TILE_STYLES[idx % TILE_STYLES.length];
+        const card = document.createElement('a');
         const isBlog = job.isBlog || job.category === 'CAREER BLOGS & GUIDES' || job.type === 'blog';
         card.href = isBlog ? ('/blogs/' + job.id) : ('/jobs/' + job.id);
         card.className = `block p-2.5 sm:p-3 rounded border ${style.bg} ${style.border} ${style.text} shadow-sm hover:brightness-95 transition-all group`;
@@ -567,21 +568,26 @@
       const boxesGrid = document.getElementById('dynamicCategoryBoxesGrid');
       if (boxesGrid) {
         boxesGrid.innerHTML = activeCats.map(cat => {
+          const isBlogCat = cat.toUpperCase().includes('BLOG') || cat.toUpperCase().includes('GUIDE');
           const jobsList = catJobs[cat] || [];
           const listHtml = jobsList.slice(0, 6).map(j => createJobListItem(j)).join('');
+          const badgeText = isBlogCat ? 'Career Guides' : 'Verified Openings';
+          const footerSub = isBlogCat ? 'Read expert tips & AI prompts' : 'Explore active vacancies';
+          const btnText = isBlogCat ? 'Read Guides' : 'Show More';
+          const headerBg = isBlogCat ? 'bg-gradient-to-r from-purple-800 to-indigo-800' : 'bg-[#1d4ed8]';
           return `
-            <div class="rounded border border-blue-300 bg-white shadow-sm flex flex-col h-full scroll-mt-14 hover:shadow transition-shadow">
-              <div class="bg-[#1d4ed8] text-white px-3.5 py-2.5 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+            <div class="rounded border ${isBlogCat ? 'border-purple-300' : 'border-blue-300'} bg-white shadow-sm flex flex-col h-full scroll-mt-14 hover:shadow transition-shadow">
+              <div class="${headerBg} text-white px-3.5 py-2.5 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
                 <span>${escapeHtml(cat)}</span>
-                <span class="text-[10px] bg-blue-900/80 text-yellow-300 px-2 py-0.5 rounded font-black border border-blue-400/50">${catCounts[cat]} ${catCounts[cat] === 1 ? 'Opening' : 'Openings'}</span>
+                <span class="text-[10px] bg-black/30 text-yellow-300 px-2 py-0.5 rounded font-black border border-white/20">${badgeText}</span>
               </div>
               <div class="p-3 flex-1 divide-y divide-zinc-100">
                 ${listHtml}
               </div>
               <div class="px-3 py-2.5 bg-zinc-50/80 border-t border-zinc-100 flex items-center justify-between">
-                <span class="text-[11px] text-zinc-500 font-medium">${catCounts[cat]} ${catCounts[cat] === 1 ? 'opening' : 'openings'} available</span>
-                <a href="javascript:filterByCategory('${escapeHtml(cat)}')" class="inline-flex items-center gap-1 rounded bg-[#1d4ed8] px-3 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
-                  <span>Show More</span>
+                <span class="text-[11px] text-zinc-500 font-medium">${footerSub}</span>
+                <a href="javascript:filterByCategory('${escapeHtml(cat)}')" class="inline-flex items-center gap-1 rounded ${isBlogCat ? 'bg-purple-700 hover:bg-purple-800' : 'bg-[#1d4ed8] hover:bg-blue-800'} px-3 py-1 text-[11px] font-bold text-white shadow-sm transition-colors">
+                  <span>${btnText}</span>
                   <i data-lucide="chevron-right" class="h-3 w-3"></i>
                 </a>
               </div>
@@ -789,7 +795,8 @@
       const gridEl = document.getElementById('singleCategoryJobsGrid');
       const emptyEl = document.getElementById('singleCategoryEmptyState');
 
-      badgeEl.textContent = `${matchedJobs.length} ${matchedJobs.length === 1 ? 'Opening' : 'Openings'} Available`;
+      const isBlogCat = cat.toUpperCase().includes('BLOG') || cat.toUpperCase().includes('GUIDE');
+      badgeEl.textContent = isBlogCat ? 'Verified Career Guides' : 'Verified Openings';
 
       if (matchedJobs.length === 0) {
         gridEl.innerHTML = '';
