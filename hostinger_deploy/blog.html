@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Permanent Anti-Cache Headers -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, post-check=0, pre-check=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+  <script>
+    // Permanent Cache Buster: Force unregister legacy Service Workers & clear CacheStorage
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        for (var r of regs) { r.unregister(); }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (var name of names) { caches.delete(name); }
+      });
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>10 Powerful ChatGPT Prompts for Work & Career Growth | SelectedJobs.in</title>
@@ -365,7 +382,11 @@
     async function loadBlog() {
       try {
         const vid = getVisitorId();
-        const res = await fetch(`/api.php?action=get_job&id=${encodeURIComponent(blogId)}&vid=${encodeURIComponent(vid)}&_t=${Date.now()}`);
+        const cacheBuster = Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+        const res = await fetch(`/api.php?action=get_job&id=${encodeURIComponent(blogId)}&vid=${encodeURIComponent(vid)}&_cb=${cacheBuster}`, {
+          cache: 'no-store',
+          headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
+        });
         if (res.ok) {
           const data = await res.json();
           if (data.success && data.job) {
@@ -563,7 +584,11 @@
 
     async function loadRelatedJobs() {
       try {
-        const res = await fetch('/api.php?action=get_jobs&_t=' + Date.now());
+        const cacheBuster = Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+        const res = await fetch('/api.php?action=get_jobs&_cb=' + cacheBuster, {
+          cache: 'no-store',
+          headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
+        });
         const data = await res.json();
         if (data.success && data.jobs) {
           const jobsList = data.jobs.filter(j => !j.isBlog && j.category !== 'CAREER BLOGS & GUIDES').slice(0, 4);

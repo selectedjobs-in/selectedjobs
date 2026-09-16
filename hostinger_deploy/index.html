@@ -5,9 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Selected Jobs - A True Job Portal | selectedjobs.in</title>
   <meta name="description" content="Find your dream job now on SelectedJobs.in. Over 5 lakh+ verified career openings, MNC, Tech, Banking, Remote, and Startup notifications across India.">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <!-- Permanent Anti-Cache Headers -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, post-check=0, pre-check=0">
   <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Expires" content="-1">
+  <script>
+    // Permanent Cache Buster: Force unregister legacy Service Workers & clear CacheStorage
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        for (var r of regs) { r.unregister(); }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (var name of names) { caches.delete(name); }
+      });
+    }
+  </script>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -1394,31 +1408,81 @@
       }
     });
 
-    // Initialize: load jobs with cache and API
-    async function loadJobs() {
-      // 1. Instant Cache Render
+    let currentDataVersion = null;
+
+    // Fast Data Version Check (2ms latency ping to check if new jobs/changes occurred)
+    async function checkDataVersion() {
       try {
-        const cached = localStorage.getItem('sj_cached_jobs_v2');
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          if (parsed && Array.isArray(parsed.jobs) && parsed.jobs.length > 0) {
-            allJobs = parsed.jobs;
-            renderAll();
+        const cacheBuster = Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+        const res = await fetch('/api.php?action=version&_cb=' + cacheBuster, { 
+          cache: 'no-store',
+          headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
+        });
+        const data = await res.json();
+        if (data.success && data.data_version) {
+          if (currentDataVersion && data.data_version !== currentDataVersion) {
+            console.log('[SelectedJobs] New data version detected:', data.data_version, 'Updating view...');
+            loadJobs(true);
           }
         }
       } catch (e) {}
+    }
 
-      // 2. Fetch fresh from server
+    // Auto-refresh when tab is focused, un-minimized, or device is unlocked on mobile
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        checkDataVersion();
+      }
+    });
+    window.addEventListener('focus', () => {
+      checkDataVersion();
+    });
+
+    // Background version polling every 30 seconds for real-time live synchronization
+    setInterval(checkDataVersion, 30000);
+
+    // Initialize: load jobs with cache and API
+    async function loadJobs(forceFresh = false) {
+      // 1. Instant Cache Render (only on first load for 0ms initial paint)
+      if (!forceFresh) {
+        try {
+          const cached = localStorage.getItem('sj_cached_jobs_v2');
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (parsed && Array.isArray(parsed.jobs) && parsed.jobs.length > 0) {
+              allJobs = parsed.jobs;
+              currentDataVersion = parsed.data_version || null;
+              renderAll();
+            }
+          }
+        } catch (e) {}
+      }
+
+      // 2. Fetch fresh from server with strict anti-cache parameters
       try {
         const vid = getVisitorId();
-        const url = '/api.php?action=get_jobs&vid=' + encodeURIComponent(vid) + '&_t=' + Date.now();
-        const res = await fetch(url, { cache: 'no-store' });
+        const cacheBuster = Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+        const url = '/api.php?action=get_jobs&vid=' + encodeURIComponent(vid) + '&_cb=' + cacheBuster;
+        const res = await fetch(url, { 
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache'
+          }
+        });
         const data = await res.json();
         if (data.success) {
-          allJobs = data.jobs || [];
+          const newJobs = data.jobs || [];
+          const newVersion = data.data_version || Date.now();
+          currentDataVersion = newVersion;
+          allJobs = newJobs;
 
           try {
-            localStorage.setItem('sj_cached_jobs_v2', JSON.stringify({ jobs: allJobs, time: Date.now() }));
+            localStorage.setItem('sj_cached_jobs_v2', JSON.stringify({ 
+              jobs: allJobs, 
+              data_version: newVersion, 
+              time: Date.now() 
+            }));
           } catch (e) {}
 
           const uniqueCount = data.site_unique_visitors || 1460;

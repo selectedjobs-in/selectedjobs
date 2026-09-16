@@ -3,9 +3,10 @@ if (!ob_get_level() && extension_loaded('zlib') && !ini_get('zlib.output_compres
     @ob_start('ob_gzhandler');
 }
 header('Content-Type: application/json; charset=utf-8');
-header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, s-maxage=0, post-check=0, pre-check=0');
 header('Pragma: no-cache');
-header('Expires: 0');
+header('Expires: -1');
+header('X-Accel-Expires: 0');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, x-admin-key');
@@ -22,6 +23,10 @@ $DATA_FILE = __DIR__ . '/data/jobs.json';
 $STATS_FILE = __DIR__ . '/data/stats.json';
 $IG_CONFIG_FILE = __DIR__ . '/data/instagram_config.json';
 $BANNERS_DIR = __DIR__ . '/assets/banners';
+
+$dataVersion = file_exists($DATA_FILE) ? filemtime($DATA_FILE) : time();
+header('ETag: "' . $dataVersion . '"');
+header('X-Data-Version: ' . $dataVersion);
 
 // Helper to check admin authentication
 function isAdminAuthed($passkey) {
@@ -770,6 +775,15 @@ $input = json_decode(file_get_contents('php://input'), true) ?? [];
 
 // Route handling
 switch ($action) {
+    // 0. Lightweight Data Version Check (Instant 2ms latency)
+    case 'version':
+        echo json_encode([
+            'success' => true,
+            'data_version' => $dataVersion,
+            'timestamp' => time()
+        ]);
+        break;
+
     // 1. Get Public Approved Jobs + Site Visitors
     case 'get_jobs':
     case 'jobs':
@@ -845,6 +859,8 @@ switch ($action) {
         echo json_encode([
             'success' => true,
             'jobs' => $jobsSummary,
+            'data_version' => $dataVersion,
+            'timestamp' => time(),
             'site_unique_visitors' => $siteVisitors,
             'live_visitors' => $liveVisitors,
             'total_jobs' => count($jobsSummary)

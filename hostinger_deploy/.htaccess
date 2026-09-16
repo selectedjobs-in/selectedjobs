@@ -1,4 +1,5 @@
-# SelectedJobs.in Apache / LiteSpeed Configuration for Hostinger Single Hosting
+# SelectedJobs.in Apache & LiteSpeed Configuration for Hostinger Single Hosting
+# Permanent Anti-Cache & Instant Invalidation Engine
 
 Options -Indexes
 DirectoryIndex index.html index.php
@@ -6,6 +7,10 @@ DirectoryIndex index.html index.php
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Disable LiteSpeed Cache for all requests
+  RewriteRule .* - [E=Cache-Control:no-cache]
+  RewriteRule .* - [E=Cache-Control:max-age=0]
 
   # Protect data folder from direct public web access
   RewriteRule ^data/ - [F,L]
@@ -29,31 +34,37 @@ DirectoryIndex index.html index.php
   RewriteRule ^ - [L]
 </IfModule>
 
-# Security Headers
-<IfModule mod_headers.c>
-  Header set X-Content-Type-Options "nosniff"
-  Header set X-Frame-Options "SAMEORIGIN"
-  Header set X-XSS-Protection "1; mode=block"
-  Header set Referrer-Policy "strict-origin-when-cross-origin"
+# Disable mod_expires for HTML, PHP, and JSON so browser never caches stale versions
+<IfModule mod_expires.c>
+  ExpiresActive Off
+</IfModule>
 
-  # Automatic Cache Invalidation: Never cache dynamic files (HTML, PHP, JSON)
+# Permanent Anti-Cache Headers: Force Browsers (Mobile + Desktop), CDNs & LiteSpeed to NEVER cache dynamic files
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Apply strict anti-cache headers to HTML, PHP, and JSON files
   <FilesMatch "\.(html|htm|php|json)$">
-    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
-    Header set Pragma "no-cache"
-    Header set Expires "0"
+    Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0, s-maxage=0, post-check=0, pre-check=0"
+    Header always set Pragma "no-cache"
+    Header always set Expires "-1"
+    Header always set X-Accel-Expires "0"
+    Header always set Surrogate-Control "no-store"
+    Header always set X-LiteSpeed-Cache-Control "no-cache, no-store, max-age=0"
   </FilesMatch>
 </IfModule>
 
-# Disable LiteSpeed Server Cache so updates appear immediately
+# Disable LiteSpeed Server Cache so updates appear immediately across all devices
 <IfModule LiteSpeed>
   CacheLookup off
-</IfModule>
-<IfModule mod_headers.c>
-  Header set X-LiteSpeed-Cache-Control "no-cache"
 </IfModule>
 
 # Compression for Speed
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
 </IfModule>
+
 
