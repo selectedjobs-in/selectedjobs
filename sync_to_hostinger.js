@@ -93,6 +93,34 @@ async function sync() {
         console.log('+ Remotely updated: data/stats.json');
       }
     }
+
+    // Also sync data/instagram_config.json if present
+    const igConfigPath = path.join(__dirname, 'hostinger_deploy', 'data', 'instagram_config.json');
+    if (fs.existsSync(igConfigPath)) {
+      const igContent = fs.readFileSync(igConfigPath, 'utf8');
+      const res = await request('POST', '/api.php?action=admin_update_file', {
+        filename: 'instagram_config.json',
+        content: igContent,
+      });
+      if (res && res.success) {
+        console.log('+ Remotely updated: data/instagram_config.json');
+      }
+    }
+
+    // Also sync assets/fonts/Inter-Bold.ttf if present (base64)
+    const fontPath = path.join(__dirname, 'hostinger_deploy', 'assets', 'fonts', 'Inter-Bold.ttf');
+    if (fs.existsSync(fontPath)) {
+      const fontContent = fs.readFileSync(fontPath).toString('base64');
+      const res = await request('POST', '/api.php?action=admin_update_file', {
+        filename: 'Inter-Bold.ttf',
+        content: fontContent,
+        encoding: 'base64',
+      });
+      if (res && res.success) {
+        console.log('+ Remotely updated: assets/fonts/Inter-Bold.ttf');
+      }
+    }
+
     console.log('All files and data pushed to live server!');
     return;
   }
