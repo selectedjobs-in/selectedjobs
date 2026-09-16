@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Selected Jobs - A True Job Portal | selectedjobs.in</title>
-  <meta name="description" content="SelectedJobs.in is India's leading job portal for All State Jobs, Central Govt, Banking, Defence, and Tech recruitment notifications.">
+  <meta name="description" content="Find your dream job now on SelectedJobs.in. Over 5 lakh+ verified career openings, MNC, Tech, Banking, Remote, and Startup notifications across India.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -29,191 +29,632 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+    .pill-card {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .pill-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.08);
+    }
+    .company-card {
+      transition: all 0.25s ease;
+    }
+    .company-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.08);
+    }
   </style>
 </head>
-<body class="bg-[#f8fafc] text-zinc-900 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-[#f8fafc] text-slate-900 font-sans antialiased min-h-screen flex flex-col">
 
-  <!-- 1. Top Royal Blue Header Banner -->
-  <header class="w-full bg-[#1c64f2] text-white py-6 sm:py-7 px-4 text-center border-b border-blue-700 shadow-inner">
-    <div class="mx-auto max-w-7xl flex flex-col items-center justify-center">
-      <a href="/" class="inline-flex items-center gap-3 group">
-        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#1c64f2] shadow-md group-hover:scale-105 transition-transform">
-          <i data-lucide="briefcase" class="h-7 w-7 text-[#1c64f2]"></i>
-        </div>
-        <div class="text-left">
-          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Selected Jobs</h1>
-          <p class="text-xs sm:text-sm font-medium text-blue-100 tracking-wide">
-            A True Job Portal &bull; selectedjobs.in
-          </p>
-        </div>
-      </a>
+  <!-- 1. Modern Clean Header (Matching Image 2 with crossed-out Login/Register removed) -->
+  <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+    <div class="mx-auto max-w-7xl px-3 sm:px-6 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Left: Brand Logo -->
+      <div class="flex items-center gap-8 flex-shrink-0">
+        <a href="/" onclick="clearCategoryFilter(event)" class="flex items-center gap-2.5 group">
+          <div class="h-10 w-10 rounded-xl bg-[#1c64f2] text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            <i data-lucide="briefcase" class="h-5 w-5"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 leading-none">selected<span class="text-[#1c64f2]">jobs</span></span>
+            <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">A True Job Portal</span>
+          </div>
+        </a>
 
-      <!-- Real-Time Portal Metrics Bar -->
-      <div class="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-semibold">
-        <!-- Live Online Viewers -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-sm" title="Live active job seekers currently browsing SelectedJobs.in">
-          <span class="relative flex h-2.5 w-2.5">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
-          </span>
-          <span><strong id="headerLiveViewers" class="text-emerald-300 font-extrabold text-sm">24</strong> Live Online</span>
-        </div>
-
-        <!-- Total Job Openings -->
-        <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-sm" title="Total active verified openings and career guides">
-          <i data-lucide="briefcase" class="h-3.5 w-3.5 text-yellow-300"></i>
-          <span><strong id="headerTotalJobs" class="text-yellow-300 font-extrabold text-sm">86</strong> Total Openings</span>
-        </div>
-
-        <!-- Unique Visitors -->
-        <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-sm" title="Total unique visitors on SelectedJobs.in">
-          <i data-lucide="users" class="h-3.5 w-3.5 text-blue-200"></i>
-          <span><strong id="headerUniqueVisitors" class="text-white font-extrabold text-sm">1,460</strong> Unique Visitors</span>
-        </div>
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+          <a href="#jobsFeedSection" onclick="clearCategoryFilter(event)" class="hover:text-[#1c64f2] transition-colors">Jobs</a>
+          <a href="#topCompaniesSection" class="hover:text-[#1c64f2] transition-colors">Companies</a>
+          <a href="/blog.html" class="hover:text-[#1c64f2] transition-colors flex items-center gap-1">
+            <span>Career Guides</span>
+            <span class="text-[10px] font-black uppercase px-1.5 py-0.2 rounded bg-purple-100 text-purple-700">AI</span>
+          </a>
+          <a href="/post-job" class="hover:text-[#1c64f2] transition-colors">For Employers</a>
+        </nav>
       </div>
-    </div>
-  </header>
 
-  <!-- 2. Crimson Red Navigation Bar -->
-  <nav class="w-full bg-[#b91c1c] text-white shadow-md sticky top-0 z-40 border-b border-red-800">
-    <div class="mx-auto max-w-7xl px-2 sm:px-4 flex items-center justify-between h-12 gap-2">
-      <!-- Left: Home & All Categories Dropdown -->
-      <div class="flex items-center gap-1 sm:gap-1.5 flex-shrink-0 text-xs font-bold">
-        <a href="/" onclick="clearCategoryFilter(event)" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-[#991b1b] hover:bg-[#7f1d1d] text-white transition-colors whitespace-nowrap">Home</a>
+      <!-- Right: Actions (WhatsApp, Post Job, Live Viewers, NO Login/Register) -->
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         
-        <!-- All Categories Dropdown -->
-        <div class="relative group">
-          <button id="megaMenuBtn" class="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-lg hover:bg-[#991b1b]/80 transition-colors whitespace-nowrap">
-            <i data-lucide="layout-grid" class="h-3.5 w-3.5"></i>
-            <span>All Categories</span>
-            <i data-lucide="chevron-down" class="h-3 w-3"></i>
-          </button>
-          <div id="megaMenuDropdown" class="hidden absolute left-0 top-full mt-1 w-64 rounded-xl bg-white p-2 text-zinc-800 shadow-2xl border border-zinc-200 z-50">
-            <div class="text-[11px] font-bold text-zinc-400 px-3 py-1 uppercase tracking-wider">Active Job Categories</div>
-            <div id="dynamicDropdownCategories" class="space-y-0.5">
-              <!-- Dynamically populated from active categories only -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Center: Scrollable Categories Strip with Left/Right Buttons & Desktop Wheel/Drag Sliding -->
-      <div class="relative flex items-center min-w-0 flex-1 px-1">
-        <!-- Left scroll button (visible on desktop) -->
-        <button id="navScrollLeft" type="button" class="hidden sm:flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 rounded-full bg-red-950/80 hover:bg-red-950 text-white shadow-md flex-shrink-0 mr-1 z-10 transition-all cursor-pointer" title="Scroll categories left">
-          <i data-lucide="chevron-left" class="h-4 w-4"></i>
-        </button>
-
-        <!-- Category Scroll Container -->
-        <div id="categoryScrollContainer" class="flex items-center space-x-1.5 overflow-x-auto scroll-smooth py-1 flex-1 scrollbar-none select-none cursor-grab">
-          <div id="dynamicNavCategories" class="flex items-center space-x-1.5">
-            <!-- Dynamically populated from active categories only -->
-          </div>
-        </div>
-
-        <!-- Right scroll button (visible on desktop) -->
-        <button id="navScrollRight" type="button" class="hidden sm:flex items-center justify-center h-6 w-6 sm:h-7 sm:w-7 rounded-full bg-red-950/80 hover:bg-red-950 text-white shadow-md flex-shrink-0 ml-1 z-10 transition-all cursor-pointer" title="Scroll categories right">
-          <i data-lucide="chevron-right" class="h-4 w-4"></i>
-        </button>
-      </div>
-
-      <!-- Right: Action Buttons (WhatsApp Channel, Post Job, Visitors, Search) -->
-      <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
         <!-- WhatsApp Channel Follow Button -->
-        <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-black shadow transition-transform hover:scale-105 whitespace-nowrap flex-shrink-0" title="Follow Selected Jobs on WhatsApp">
+        <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold shadow-xs hover:shadow-md transition-all whitespace-nowrap">
           <i data-lucide="message-circle" class="h-3.5 w-3.5 fill-white"></i>
           <span>WhatsApp Channel</span>
         </a>
 
-        <!-- Post Job Button (Always visible & prominent!) -->
-        <button id="postJobNavBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-yellow-400 hover:bg-yellow-300 text-zinc-950 text-xs font-black shadow-sm transition-all whitespace-nowrap flex-shrink-0">
-          <i data-lucide="plus-circle" class="h-3.5 w-3.5 text-zinc-950"></i>
+        <!-- Post Job Button (Yellow/Amber Pill) -->
+        <button id="postJobNavBtn" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black shadow-xs hover:shadow-md transition-all whitespace-nowrap">
+          <i data-lucide="plus-circle" class="h-3.5 w-3.5"></i>
           <span>Post Job</span>
         </button>
 
-        <!-- Live Viewers & Unique Visitors Badge -->
-        <div class="flex items-center gap-1.5 sm:gap-2 px-2.5 py-1 rounded-full bg-black/30 text-white border border-white/15 text-[11px] font-bold shadow-inner" title="Live active job seekers on SelectedJobs.in">
+        <!-- Live Viewers Badge -->
+        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200/80 text-slate-700 text-xs font-bold" title="Live active seekers on SelectedJobs.in">
           <span class="relative flex h-2 w-2">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
           </span>
-          <span><strong id="navLiveViewers" class="text-emerald-300">24</strong> Live</span>
-          <span class="text-white/40 hidden lg:inline">|</span>
-          <span class="hidden lg:inline text-zinc-200"><strong id="siteVisitorsCount" class="text-white">1,460</strong> Seekers</span>
+          <span><strong id="headerLiveViewers" class="text-emerald-600 font-extrabold">24</strong> Live</span>
         </div>
 
-        <!-- Search Trigger Button -->
-        <button id="searchTriggerBtn" class="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-[#991b1b] hover:bg-[#7f1d1d] transition-colors border border-red-800">
-          <i data-lucide="search" class="h-4 w-4"></i>
-        </button>
       </div>
-    </div>
-  </nav>
 
-  <!-- Official WhatsApp Channel Hero Banner -->
-  <div class="w-full max-w-7xl mx-auto px-2 sm:px-4 pt-3 pb-1">
-    <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="group flex flex-col sm:flex-row items-center justify-between gap-3 bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 hover:from-emerald-700 hover:to-teal-900 text-white p-3.5 sm:px-5 sm:py-3 rounded-2xl shadow-md hover:shadow-xl transition-all border border-emerald-400/40">
-      <div class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0 text-white shadow-inner">
-          <i data-lucide="message-circle" class="h-6 w-6 fill-white"></i>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="text-[10px] font-black tracking-wider uppercase bg-white/25 px-2 py-0.5 rounded-full text-emerald-100">Official Channel</span>
-            <span class="text-xs font-extrabold text-emerald-100 flex items-center gap-1">Selected Jobs <i data-lucide="check-circle" class="h-3.5 w-3.5 text-yellow-300"></i></span>
+    </div>
+  </header>
+
+  <!-- Main Body Content -->
+  <main class="flex-1 pb-16">
+
+    <!-- 2. Hero Section (Matching Image 2: "Find your dream job now" & 3-segment search pill) -->
+    <section class="w-full bg-gradient-to-b from-blue-50/60 via-slate-50 to-white pt-10 sm:pt-14 pb-8 px-4 sm:px-6">
+      <div class="mx-auto max-w-5xl text-center">
+        
+        <!-- Heading -->
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+          Find your dream job now
+        </h1>
+        
+        <!-- Subheading -->
+        <p class="mt-2.5 text-sm sm:text-base md:text-lg font-medium text-slate-500">
+          5 lakh+ jobs for you to explore
+        </p>
+
+        <!-- Unified 3-Segment Pill Search Bar -->
+        <div class="mt-7 max-w-4xl mx-auto bg-white rounded-2xl md:rounded-full border border-slate-200/90 shadow-xl shadow-slate-200/60 p-2 md:p-2.5 flex flex-col md:flex-row items-center gap-2 md:gap-0 transition-all focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100">
+          
+          <!-- Segment 1: Skills / Designations / Companies -->
+          <div class="flex items-center gap-3 px-4 py-2 flex-1 w-full">
+            <i data-lucide="search" class="h-5 w-5 text-slate-400 flex-shrink-0"></i>
+            <input 
+              id="heroKeywordInput" 
+              type="text" 
+              placeholder="Enter skills / designations / companies" 
+              class="w-full bg-transparent text-sm text-slate-800 placeholder-slate-400 focus:outline-none font-medium"
+              onkeydown="if(event.key==='Enter') executeHeroSearch()"
+            >
           </div>
-          <h3 class="text-xs sm:text-sm font-bold text-white mt-0.5 leading-snug">
-            Follow the Selected Jobs ✅ channel on WhatsApp for instant daily alerts & job openings!
-          </h3>
+
+          <!-- Divider 1 -->
+          <div class="hidden md:block h-8 w-px bg-slate-200"></div>
+
+          <!-- Segment 2: Select Experience -->
+          <div class="flex items-center gap-2 px-4 py-2 w-full md:w-auto relative">
+            <select id="heroExpSelect" class="appearance-none bg-transparent text-sm text-slate-600 font-medium focus:outline-none cursor-pointer pr-7 w-full md:w-auto">
+              <option value="">Select experience</option>
+              <option value="fresher">Fresher (0-1 yrs)</option>
+              <option value="1-3">1-3 Years</option>
+              <option value="3-5">3-5 Years</option>
+              <option value="5-7">5-7 Years</option>
+              <option value="7+">7+ Years</option>
+            </select>
+            <i data-lucide="chevron-down" class="h-4 w-4 text-slate-400 absolute right-4 pointer-events-none"></i>
+          </div>
+
+          <!-- Divider 2 -->
+          <div class="hidden md:block h-8 w-px bg-slate-200"></div>
+
+          <!-- Segment 3: Enter Location -->
+          <div class="flex items-center gap-2.5 px-4 py-2 flex-1 w-full">
+            <i data-lucide="map-pin" class="h-5 w-5 text-slate-400 flex-shrink-0"></i>
+            <input 
+              id="heroLocationInput" 
+              type="text" 
+              placeholder="Enter location" 
+              class="w-full bg-transparent text-sm text-slate-800 placeholder-slate-400 focus:outline-none font-medium"
+              onkeydown="if(event.key==='Enter') executeHeroSearch()"
+            >
+          </div>
+
+          <!-- Search Button (Royal Blue Pill) -->
+          <button 
+            id="heroSearchBtn" 
+            onclick="executeHeroSearch()" 
+            class="w-full md:w-auto px-8 py-3.5 rounded-xl md:rounded-full bg-[#1c64f2] hover:bg-blue-700 text-white font-black text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 flex-shrink-0"
+          >
+            <span>Search</span>
+          </button>
+
+        </div>
+
+        <!-- Dynamic Portal Stats Strip -->
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-slate-500 font-medium">
+          <span class="inline-flex items-center gap-1.5"><i data-lucide="shield-check" class="h-4 w-4 text-emerald-500"></i> 100% Verified Openings</span>
+          <span class="text-slate-300 hidden sm:inline">&bull;</span>
+          <span class="inline-flex items-center gap-1.5"><i data-lucide="building-2" class="h-4 w-4 text-blue-500"></i> <strong id="headerTotalJobs">110</strong> Active Listings</span>
+          <span class="text-slate-300 hidden sm:inline">&bull;</span>
+          <span class="inline-flex items-center gap-1.5"><i data-lucide="users" class="h-4 w-4 text-purple-500"></i> <strong id="headerUniqueVisitors">1,460</strong> Aspirants Served</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. Staggered Two-Row Category Filter Pills (Matching Image 3) -->
+    <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6">
+      <div class="flex flex-col gap-3.5">
+        
+        <!-- Row 1: Remote, MNC, Startup, Project Mgmt, HR, Software & Tech -->
+        <div class="flex items-center gap-3 overflow-x-auto pb-1 scrollbar-none">
+          
+          <!-- Remote -->
+          <button onclick="filterByFilterPill('remote')" class="pill-card inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 hover:border-blue-400 cursor-pointer shadow-xs flex-shrink-0 group">
+            <div class="h-8 w-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="home" class="h-4 w-4"></i>
+            </div>
+            <span class="text-sm font-bold group-hover:text-blue-600 transition-colors">Remote</span>
+            <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all"></i>
+          </button>
+
+          <!-- MNC -->
+          <button onclick="filterByFilterPill('mnc')" class="pill-card inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 hover:border-amber-400 cursor-pointer shadow-xs flex-shrink-0 group">
+            <div class="h-8 w-8 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="building-2" class="h-4 w-4"></i>
+            </div>
+            <span class="text-sm font-bold group-hover:text-amber-600 transition-colors">MNC</span>
+            <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:text-amber-600 group-hover:translate-x-0.5 transition-all"></i>
+          </button>
+
+          <!-- Startup -->
+          <button onclick="filterByFilterPill('startup')" class="pill-card inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 hover:border-purple-400 cursor-pointer shadow-xs flex-shrink-0 group">
+            <div class="h-8 w-8 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="rocket" class="h-4 w-4"></i>
+            </div>
+            <span class="text-sm font-bold group-hover:text-purple-600 transition-colors">Startup</span>
+            <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:text-purple-600 group-hover:translate-x-0.5 transition-all"></i>
+          </button>
+
+          <!-- Project Mgmt -->
+          <button onclick="filterByFilterPill('project-mgmt')" class="pill-card inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 hover:border-emerald-400 cursor-pointer shadow-xs flex-shrink-0 group">
+            <div class="h-8 w-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="check-circle-2" class="h-4 w-4"></i>
+            </div>
+            <span class="text-sm font-bold group-hover:text-emerald-600 transition-colors">Project Mgmt</span>
+            <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all"></i>
+          </button>
+
+          <!-- HR -->
+          <button onclick="filterByFilterPill('hr')" class="pill-card inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 hover:border-orange-400 cursor-pointer shadow-xs flex-shrink-0 group">
+            <div class="h-8 w-8 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="users" class="h-4 w-4"></i>
+            </div>
+            <span class="text-sm font-bold group-hover:text-orange-600 transition-colors">HR</span>
+            <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:text-orange-600 group-hover:translate-x-0.5 transition-all"></i>
+          </button>
+
+          <!-- Software & Tech -->
+          <button onclick="filterByFilterPill('tech')" class="pill-card inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 hover:border-indigo-400 cursor-pointer shadow-xs flex-shrink-0 group">
+            <div class="h-8 w-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="laptop" class="h-4 w-4"></i>
+            </div>
+            <span class="text-sm font-bold group-hover:text-indigo-600 transition-colors whitespace-nowrap">Software & Tech</span>
+            <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-0.5 transition-all"></i>
+          </button>
+
+        </div>
+
+        <!-- Row 2: Supply Chain, Analytics, Data Science, Fortune 500, Banking & Finance -->
+        <div class="flex items-center gap-3 overflow-x-auto pb-1 scrollbar-none">
+          
+          <!-- Supply Chain -->
+          <button onclick="filterByFilterPill('supply-chain')" class="pill-card inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 hover:border-cyan-400 cursor-pointer shadow-xs flex-shrink-0 group">
+            <div class="h-8 w-8 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="package" class="h-4 w-4"></i>
+            </div>
+            <span class="text-sm font-bold group-hover:text-cyan-600 transition-colors whitespace-nowrap">Supply Chain</span>
+            <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:text-cyan-600 group-hover:translate-x-0.5 transition-all"></i>
+          </button>
+
+          <!-- Analytics -->
+          <button onclick="filterByFilterPill('analytics')" class="pill-card inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 hover:border-sky-400 cursor-pointer shadow-xs flex-shrink-0 group">
+            <div class="h-8 w-8 rounded-full bg-sky-50 text-sky-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="pie-chart" class="h-4 w-4"></i>
+            </div>
+            <span class="text-sm font-bold group-hover:text-sky-600 transition-colors">Analytics</span>
+            <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:text-sky-600 group-hover:translate-x-0.5 transition-all"></i>
+          </button>
+
+          <!-- Data Science -->
+          <button onclick="filterByFilterPill('data-science')" class="pill-card inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 hover:border-violet-400 cursor-pointer shadow-xs flex-shrink-0 group">
+            <div class="h-8 w-8 rounded-full bg-violet-50 text-violet-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="bar-chart-3" class="h-4 w-4"></i>
+            </div>
+            <span class="text-sm font-bold group-hover:text-violet-600 transition-colors whitespace-nowrap">Data Science</span>
+            <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:text-violet-600 group-hover:translate-x-0.5 transition-all"></i>
+          </button>
+
+          <!-- Fortune 500 -->
+          <button onclick="filterByFilterPill('fortune-500')" class="pill-card inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 hover:border-rose-400 cursor-pointer shadow-xs flex-shrink-0 group">
+            <div class="h-8 w-8 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="award" class="h-4 w-4"></i>
+            </div>
+            <span class="text-sm font-bold group-hover:text-rose-600 transition-colors whitespace-nowrap">Fortune 500</span>
+            <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:text-rose-600 group-hover:translate-x-0.5 transition-all"></i>
+          </button>
+
+          <!-- Banking & Finance -->
+          <button onclick="filterByFilterPill('banking')" class="pill-card inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 hover:border-green-400 cursor-pointer shadow-xs flex-shrink-0 group">
+            <div class="h-8 w-8 rounded-full bg-green-50 text-green-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+              <i data-lucide="landmark" class="h-4 w-4"></i>
+            </div>
+            <span class="text-sm font-bold group-hover:text-green-600 transition-colors whitespace-nowrap">Banking & Finance</span>
+            <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:text-green-600 group-hover:translate-x-0.5 transition-all"></i>
+          </button>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. "Top companies hiring now" Carousel (Matching Image 1) -->
+    <section id="topCompaniesSection" class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-4">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+            Top companies hiring now
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">Explore active drives from world-class employers</p>
+        </div>
+
+        <!-- Carousel navigation buttons -->
+        <div class="flex items-center gap-2">
+          <button onclick="scrollCompanyCarousel(-1)" class="h-8 w-8 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 flex items-center justify-center shadow-xs transition-colors" title="Previous">
+            <i data-lucide="chevron-left" class="h-4 w-4"></i>
+          </button>
+          <button onclick="scrollCompanyCarousel(1)" class="h-8 w-8 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 flex items-center justify-center shadow-xs transition-colors" title="Next">
+            <i data-lucide="chevron-right" class="h-4 w-4"></i>
+          </button>
         </div>
       </div>
-      <div class="inline-flex items-center gap-1.5 rounded-xl bg-white text-emerald-800 group-hover:bg-emerald-50 font-black text-xs px-4 py-2 shadow-sm transition-all whitespace-nowrap flex-shrink-0">
-        <span>Follow on WhatsApp</span>
-        <i data-lucide="external-link" class="h-3.5 w-3.5"></i>
-      </div>
-    </a>
-  </div>
 
-  <!-- Search Modal Overlay -->
-  <div id="searchModal" class="hidden fixed inset-0 z-50 flex items-start justify-center bg-black/60 pt-20 px-4 backdrop-blur-sm">
-    <div class="w-full max-w-lg rounded-2xl bg-white p-5 shadow-2xl border border-zinc-200">
-      <div class="flex items-center justify-between pb-3 border-b border-zinc-100">
-        <span class="text-sm font-bold text-zinc-900 flex items-center gap-2">
-          <i data-lucide="search" class="h-4 w-4 text-[#1c64f2]"></i>
-          <span>Search SelectedJobs.in Openings</span>
-        </span>
-        <button id="closeSearchModal" class="text-zinc-400 hover:text-zinc-700">
-          <i data-lucide="x" class="h-5 w-5"></i>
-        </button>
+      <!-- Carousel Track -->
+      <div id="companyCarousel" class="flex items-stretch gap-4 overflow-x-auto pb-3 scrollbar-none scroll-smooth">
+        
+        <!-- Card 1: MNCs -->
+        <div onclick="filterByCompanyCategory('mncs')" class="company-card w-64 sm:w-72 flex-shrink-0 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs hover:border-blue-300 cursor-pointer flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-black text-slate-900 group-hover:text-blue-600 transition-colors flex items-center gap-1">
+                <span>MNCs</span>
+                <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+              </h3>
+            </div>
+            <p class="text-xs text-slate-500 mt-1 font-medium">2.3K+ are actively hiring</p>
+            
+            <!-- Logo Grid -->
+            <div class="mt-4 grid grid-cols-4 gap-2">
+              <div class="h-11 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center p-1 font-black text-[10px] text-blue-900" title="Cognizant">CTS</div>
+              <div class="h-11 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center p-1 font-black text-[10px] text-blue-700" title="Infosys">INFY</div>
+              <div class="h-11 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center p-1 font-black text-[10px] text-blue-600" title="Capgemini">CAP</div>
+              <div class="h-11 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center p-1 font-black text-[10px] text-emerald-700" title="Wipro">WIPRO</div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-blue-600 group-hover:underline">
+            <span>View MNC Jobs</span>
+            <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i>
+          </div>
+        </div>
+
+        <!-- Card 2: Edtech -->
+        <div onclick="filterByCompanyCategory('edtech')" class="company-card w-64 sm:w-72 flex-shrink-0 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs hover:border-purple-300 cursor-pointer flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-black text-slate-900 group-hover:text-purple-600 transition-colors flex items-center gap-1">
+                <span>Edtech</span>
+                <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+              </h3>
+            </div>
+            <p class="text-xs text-slate-500 mt-1 font-medium">172 are actively hiring</p>
+            
+            <!-- Logo Grid -->
+            <div class="mt-4 grid grid-cols-4 gap-2">
+              <div class="h-11 rounded-xl bg-slate-900 text-white flex items-center justify-center p-1 font-black text-[10px]" title="PhysicsWallah">PW</div>
+              <div class="h-11 rounded-xl bg-purple-100 text-purple-800 border border-purple-200 flex items-center justify-center p-1 font-black text-[10px]" title="Mindtickle">MT</div>
+              <div class="h-11 rounded-xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center p-1 font-black text-[10px]" title="Unacademy">UNA</div>
+              <div class="h-11 rounded-xl bg-orange-50 text-orange-600 border border-orange-200 flex items-center justify-center p-1 font-black text-[10px]" title="Vedantu">VED</div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-purple-600 group-hover:underline">
+            <span>View Edtech Jobs</span>
+            <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i>
+          </div>
+        </div>
+
+        <!-- Card 3: Healthcare -->
+        <div onclick="filterByCompanyCategory('healthcare')" class="company-card w-64 sm:w-72 flex-shrink-0 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs hover:border-rose-300 cursor-pointer flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-black text-slate-900 group-hover:text-rose-600 transition-colors flex items-center gap-1">
+                <span>Healthcare</span>
+                <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+              </h3>
+            </div>
+            <p class="text-xs text-slate-500 mt-1 font-medium">739 are actively hiring</p>
+            
+            <!-- Logo Grid -->
+            <div class="mt-4 grid grid-cols-4 gap-2">
+              <div class="h-11 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 flex items-center justify-center p-1 font-black text-[10px]" title="Apollo">APOLLO</div>
+              <div class="h-11 rounded-xl bg-blue-50 text-blue-800 border border-blue-200 flex items-center justify-center p-1 font-black text-[10px]" title="Medpace">MEDP</div>
+              <div class="h-11 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center p-1 font-black text-[10px]" title="Fortis">FORTIS</div>
+              <div class="h-11 rounded-xl bg-cyan-50 text-cyan-800 border border-cyan-200 flex items-center justify-center p-1 font-black text-[10px]" title="Cipla">CIPLA</div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-rose-600 group-hover:underline">
+            <span>View Healthcare Jobs</span>
+            <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i>
+          </div>
+        </div>
+
+        <!-- Card 4: Unicorns -->
+        <div onclick="filterByCompanyCategory('unicorns')" class="company-card w-64 sm:w-72 flex-shrink-0 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs hover:border-amber-300 cursor-pointer flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-black text-slate-900 group-hover:text-amber-600 transition-colors flex items-center gap-1">
+                <span>Unicorns</span>
+                <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+              </h3>
+            </div>
+            <p class="text-xs text-slate-500 mt-1 font-medium">99 are actively hiring</p>
+            
+            <!-- Logo Grid -->
+            <div class="mt-4 grid grid-cols-4 gap-2">
+              <div class="h-11 rounded-xl bg-orange-500 text-white flex items-center justify-center p-1 font-black text-[10px]" title="Swiggy">SWIG</div>
+              <div class="h-11 rounded-xl bg-red-600 text-white flex items-center justify-center p-1 font-black text-[10px]" title="Zomato">ZOM</div>
+              <div class="h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center p-1 font-black text-[10px]" title="Razorpay">RAZOR</div>
+              <div class="h-11 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 flex items-center justify-center p-1 font-black text-[10px]" title="Udaan">UDAAN</div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-amber-600 group-hover:underline">
+            <span>View Unicorn Jobs</span>
+            <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i>
+          </div>
+        </div>
+
+        <!-- Card 5: Internet & Product -->
+        <div onclick="filterByCompanyCategory('internet')" class="company-card w-64 sm:w-72 flex-shrink-0 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs hover:border-indigo-300 cursor-pointer flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-black text-slate-900 group-hover:text-indigo-600 transition-colors flex items-center gap-1">
+                <span>Internet</span>
+                <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+              </h3>
+            </div>
+            <p class="text-xs text-slate-500 mt-1 font-medium">230 are actively hiring</p>
+            
+            <!-- Logo Grid -->
+            <div class="mt-4 grid grid-cols-4 gap-2">
+              <div class="h-11 rounded-xl bg-sky-50 text-sky-700 border border-sky-200 flex items-center justify-center p-1 font-black text-[10px]" title="Snowflake">SNOW</div>
+              <div class="h-11 rounded-xl bg-purple-50 text-purple-700 border border-purple-200 flex items-center justify-center p-1 font-black text-[10px]" title="Netomi">NETOMI</div>
+              <div class="h-11 rounded-xl bg-slate-900 text-white flex items-center justify-center p-1 font-black text-[10px]" title="Amazon">AMZN</div>
+              <div class="h-11 rounded-xl bg-amber-50 text-amber-800 border border-amber-200 flex items-center justify-center p-1 font-black text-[10px]" title="Google">GOOG</div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-indigo-600 group-hover:underline">
+            <span>View Internet Jobs</span>
+            <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i>
+          </div>
+        </div>
+
+        <!-- Card 6: Banking & BFSI -->
+        <div onclick="filterByCompanyCategory('bfsi')" class="company-card w-64 sm:w-72 flex-shrink-0 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-xs hover:border-emerald-300 cursor-pointer flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-black text-slate-900 group-hover:text-emerald-600 transition-colors flex items-center gap-1">
+                <span>BFSI & Banks</span>
+                <i data-lucide="chevron-right" class="h-4 w-4 text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+              </h3>
+            </div>
+            <p class="text-xs text-slate-500 mt-1 font-medium">450+ are actively hiring</p>
+            
+            <!-- Logo Grid -->
+            <div class="mt-4 grid grid-cols-4 gap-2">
+              <div class="h-11 rounded-xl bg-slate-800 text-white flex items-center justify-center p-1 font-black text-[9px]" title="JPMorgan">JPM</div>
+              <div class="h-11 rounded-xl bg-blue-900 text-white flex items-center justify-center p-1 font-black text-[9px]" title="Morgan Stanley">MS</div>
+              <div class="h-11 rounded-xl bg-purple-900 text-white flex items-center justify-center p-1 font-black text-[9px]" title="NatWest">NATW</div>
+              <div class="h-11 rounded-xl bg-sky-600 text-white flex items-center justify-center p-1 font-black text-[9px]" title="SBI">SBI</div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-emerald-600 group-hover:underline">
+            <span>View Banking Jobs</span>
+            <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i>
+          </div>
+        </div>
+
       </div>
-      <form id="searchForm" class="mt-4 flex gap-2">
-        <input type="text" id="searchInput" placeholder="Search by job title, department, exam or location..." class="flex-1 rounded-xl border border-zinc-300 px-3.5 py-2.5 text-sm text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
-        <button type="submit" class="rounded-xl bg-[#1c64f2] px-5 py-2.5 text-xs font-bold text-white hover:bg-blue-700 transition-colors">Search</button>
-      </form>
+    </section>
+
+    <!-- 5. Official WhatsApp Channel Alert Banner -->
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-2 pb-4">
+      <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="group flex flex-col sm:flex-row items-center justify-between gap-3 bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 hover:from-emerald-700 hover:to-teal-900 text-white p-4 sm:px-6 sm:py-3.5 rounded-2xl shadow-md hover:shadow-xl transition-all border border-emerald-400/40">
+        <div class="flex items-center gap-3.5">
+          <div class="h-11 w-11 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0 text-white shadow-inner">
+            <i data-lucide="message-circle" class="h-6 w-6 fill-white"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-black tracking-wider uppercase bg-white/25 px-2 py-0.5 rounded-full text-emerald-100">Official Channel</span>
+              <span class="text-xs font-extrabold text-emerald-100 flex items-center gap-1">Selected Jobs <i data-lucide="check-circle" class="h-3.5 w-3.5 text-yellow-300"></i></span>
+            </div>
+            <h3 class="text-xs sm:text-sm font-bold text-white mt-0.5 leading-snug">
+              Follow the Selected Jobs ✅ channel on WhatsApp for instant daily alerts & job openings!
+            </h3>
+          </div>
+        </div>
+        <div class="inline-flex items-center gap-1.5 rounded-xl bg-white text-emerald-800 group-hover:bg-emerald-50 font-black text-xs px-4 py-2.5 shadow-sm transition-all whitespace-nowrap flex-shrink-0">
+          <span>Follow on WhatsApp</span>
+          <i data-lucide="external-link" class="h-3.5 w-3.5"></i>
+        </div>
+      </a>
     </div>
-  </div>
+
+    <!-- 6. Filtered / Single Category View (Appears when search or pill is clicked) -->
+    <div id="singleCategoryContainer" class="hidden w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-5">
+      <!-- Category Header Banner -->
+      <div class="rounded-2xl border border-blue-200 bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white p-5 sm:p-6 shadow-md">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-semibold text-blue-200 mb-1">
+              <a href="/" onclick="clearCategoryFilter(event)" class="hover:text-white transition-colors">Home</a>
+              <span>/</span>
+              <span>Explore</span>
+              <span>/</span>
+              <span id="currentCategoryBreadcrumb" class="text-white font-bold">Category</span>
+            </div>
+            <div class="flex items-center gap-3 mt-1">
+              <h2 id="singleCategoryTitle" class="text-xl sm:text-2xl font-black text-white tracking-tight leading-tight">Category Name</h2>
+              <span id="singleCategoryBadge" class="inline-flex items-center rounded-full bg-yellow-400 text-slate-950 text-xs font-black px-3 py-1 shadow-sm">0 Openings</span>
+            </div>
+            <p id="singleCategorySubtitle" class="text-xs text-blue-100 mt-1 max-w-2xl">Verified recruitment notices and active vacancies curated by SelectedJobs.in.</p>
+          </div>
+
+          <button onclick="clearCategoryFilter(event)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-bold backdrop-blur-sm transition-all shadow-sm flex-shrink-0 cursor-pointer">
+            <i data-lucide="arrow-left" class="h-4 w-4"></i>
+            <span>&larr; Show All Openings</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Single Category Job Cards Grid -->
+      <div id="singleCategoryJobsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Empty State Card -->
+      <div id="singleCategoryEmptyState" class="hidden rounded-2xl border border-dashed border-slate-300 bg-white p-10 sm:p-14 text-center shadow-sm">
+        <div class="h-16 w-16 rounded-2xl bg-blue-50 text-[#1c64f2] flex items-center justify-center mx-auto mb-4 border border-blue-100">
+          <i data-lucide="folder-search" class="h-8 w-8 text-[#1c64f2]"></i>
+        </div>
+        <h3 id="emptyCategoryTitle" class="text-lg font-black text-slate-900">No Current Openings Found</h3>
+        <p class="text-xs text-slate-600 mt-2 max-w-md mx-auto leading-relaxed">
+          Our editorial team verifies and uploads new vacancies daily. New recruitment notices for this sector will appear here as soon as official circulars or hiring drives are announced.
+        </p>
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <button onclick="clearCategoryFilter(event)" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white text-xs font-bold px-5 py-2.5 shadow-sm transition-colors flex items-center gap-2">
+            <i data-lucide="grid" class="h-3.5 w-3.5"></i>
+            <span>Browse All Categories</span>
+          </button>
+          <button onclick="document.getElementById('postJobModal').classList.remove('hidden'); lucide.createIcons();" class="rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold px-5 py-2.5 shadow-sm transition-colors flex items-center gap-2">
+            <i data-lucide="message-circle" class="h-3.5 w-3.5"></i>
+            <span>Post a Job via WhatsApp</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Main All-Jobs Feed & Category Boxes Section -->
+    <div id="mainCategoryBoxesContainer" class="mx-auto max-w-7xl px-4 sm:px-6 py-3 space-y-6">
+
+      <!-- Top Featured 8-Tile Colored Grid -->
+      <div id="topColoredGridContainer" class="w-full">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
+            <i data-lucide="flame" class="h-4 w-4 text-orange-500"></i>
+            <span>Trending Highlights & Immediate Walk-Ins</span>
+          </h3>
+          <span class="text-xs font-bold text-slate-400">Updated Today</span>
+        </div>
+        <div id="topColoredGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
+          <!-- Injected via JavaScript from api.php -->
+        </div>
+      </div>
+
+      <!-- Dynamic Active Category Boxes Grid (Only categories with active jobs appear) -->
+      <div id="jobsFeedSection">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              Verified Job Openings by Sector
+            </h2>
+            <p class="text-xs text-slate-500 mt-0.5">Explore by industry department and employment categories</p>
+          </div>
+        </div>
+
+        <div id="dynamicCategoryBoxesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <!-- Injected dynamically via JavaScript for active categories only -->
+        </div>
+      </div>
+
+      <!-- 8. Full-Width "READ MORE / LATEST POSTINGS" Panel -->
+      <div class="rounded-2xl border border-blue-200 bg-white shadow-xs overflow-hidden mt-6">
+        <div class="bg-[#1c64f2] text-white px-5 py-3 font-black text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+          <span>READ MORE / LATEST POSTINGS</span>
+          <span class="text-[11px] font-bold text-blue-100">Live Continuous Feed</span>
+        </div>
+        <div id="readMoreGrid" class="p-5 grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+          <div id="readMoreCol1" class="space-y-3 pt-2 md:pt-0"></div>
+          <div id="readMoreCol2" class="space-y-3 pt-4 md:pt-0 md:pl-6"></div>
+          <div id="readMoreCol3" class="space-y-3 pt-4 md:pt-0 md:pl-6"></div>
+        </div>
+        <div class="p-3 bg-slate-50 border-t border-slate-100 text-center">
+          <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="inline-flex items-center gap-1.5 rounded-full bg-[#1c64f2] px-6 py-2 text-xs font-bold text-white shadow-xs hover:bg-blue-800 transition-colors">
+            <span>Back to Top & Search</span>
+            <i data-lucide="chevron-up" class="h-3.5 w-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 9. Informational Guide for Aspirants -->
+      <div id="servicesSection" class="space-y-4 pt-2">
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-xs">
+          <h3 class="text-sm font-bold text-slate-900 border-b border-slate-200 pb-2 mb-3 flex items-center gap-2">
+            <i data-lucide="award" class="h-4 w-4 text-[#1c64f2]"></i>
+            <span>About SelectedJobs.in – A True Job Portal for Career Aspirants</span>
+          </h3>
+          <div class="text-xs text-slate-600 leading-relaxed space-y-2">
+            <p>
+              <strong>SelectedJobs.in</strong> is dedicated to empowering career seekers across India by providing timely, verified, and transparent recruitment notifications. We cut through misleading advertisements, fake circulars, and cluttered redirect links to bring you direct, authoritative job alerts.
+            </p>
+            <p>
+              Our editorial desk monitors official government gazettes, leading MNC recruitment drives, startup portals, and verified industry desks daily. Every opening listed on this platform is reviewed to ensure authentic application guidelines and accurate cutoff dates.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
 
   <!-- Post Job / Recruiter WhatsApp Modal -->
   <div id="postJobModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-zinc-200 text-center">
-      <div class="flex items-center justify-between pb-3 border-b border-zinc-100">
+    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-slate-200 text-center">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
         <div class="flex items-center gap-2 text-left">
           <div class="h-9 w-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
             <i data-lucide="message-circle" class="h-5 w-5"></i>
           </div>
           <div>
             <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Employers & Recruiters</span>
-            <h3 class="text-sm font-black text-zinc-900 leading-tight">Post a Job Opening</h3>
+            <h3 class="text-sm font-black text-slate-900 leading-tight">Post a Job Opening</h3>
           </div>
         </div>
-        <button id="closePostJobModal" class="text-zinc-400 hover:text-zinc-700 p-1 rounded-lg">
+        <button id="closePostJobModal" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
           <i data-lucide="x" class="h-5 w-5"></i>
         </button>
       </div>
 
       <div class="py-4 space-y-3.5 text-left">
-        <p class="text-xs text-zinc-600 leading-relaxed">
-          Looking to hire talent or publish your company's vacancies on <strong class="text-zinc-900">SelectedJobs.in</strong>?
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Looking to hire talent or publish your company's vacancies on <strong class="text-slate-900">SelectedJobs.in</strong>?
         </p>
         
         <div class="bg-emerald-50/80 rounded-xl p-3.5 border border-emerald-200/70 text-xs text-emerald-950 space-y-1">
@@ -231,12 +672,12 @@
         </a>
 
         <!-- Direct Call Button -->
-        <a href="tel:+919325293667" class="flex items-center justify-center gap-2 w-full rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold text-xs py-2.5 px-4 transition-colors">
+        <a href="tel:+919325293667" class="flex items-center justify-center gap-2 w-full rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs py-2.5 px-4 transition-colors">
           <i data-lucide="phone" class="h-3.5 w-3.5 text-emerald-600"></i>
           <span>Direct Call Admin: 9325293667</span>
         </a>
 
-        <div class="pt-2 border-t border-zinc-100 flex items-center justify-between text-[11px] text-zinc-400">
+        <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
           <span>Fast verification & instant listing</span>
           <a href="/post-job" class="font-bold text-blue-600 hover:underline">Recruiter Guidelines &rarr;</a>
         </div>
@@ -244,208 +685,49 @@
     </div>
   </div>
 
-
-  <!-- Main Content Body -->
-  <main class="flex-1 pb-16">
-    <!-- Top Colored 8-Tile Grid (2 Rows x 4 Columns) -->
-    <div id="topColoredGridContainer" class="w-full max-w-7xl mx-auto px-2 sm:px-4 pt-4 pb-2">
-      <div id="topColoredGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-2.5">
-        <!-- Injected via JavaScript from api.php -->
-      </div>
-    </div>
-
-    <!-- Active Search Filter Banner -->
-    <div id="searchFilterBanner" class="hidden w-full max-w-7xl mx-auto px-2 sm:px-4 py-3">
-      <div class="rounded border border-blue-300 bg-white p-4 shadow-sm flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <i data-lucide="search" class="h-4 w-4 text-[#1c64f2]"></i>
-          <span class="text-sm font-bold text-zinc-900">Filtered results for: <span id="searchKeyword" class="text-[#1c64f2]"></span></span>
-        </div>
-        <button id="clearSearchBtn" class="text-xs font-bold text-red-600 hover:underline">&larr; Show All Openings</button>
-      </div>
-    </div>
-
-    <!-- Dedicated Single Category View (Shown when a category is selected or searched) -->
-    <div id="singleCategoryContainer" class="hidden w-full max-w-7xl mx-auto px-2 sm:px-4 py-4 space-y-5">
-      <!-- Category Header Banner -->
-      <div class="rounded-2xl border border-blue-200 bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white p-5 sm:p-6 shadow-md">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <div class="flex items-center gap-2 text-xs font-semibold text-blue-200 mb-1">
-              <a href="/" onclick="clearCategoryFilter(event)" class="hover:text-white transition-colors">Home</a>
-              <span>/</span>
-              <span>Categories</span>
-              <span>/</span>
-              <span id="currentCategoryBreadcrumb" class="text-white font-bold">Category</span>
-            </div>
-            <div class="flex items-center gap-3 mt-1">
-              <h1 id="singleCategoryTitle" class="text-xl sm:text-2xl font-black text-white tracking-tight leading-tight">Category Name</h1>
-              <span id="singleCategoryBadge" class="inline-flex items-center rounded-full bg-yellow-400 text-zinc-950 text-xs font-black px-3 py-1 shadow-sm">0 Openings</span>
-            </div>
-            <p id="singleCategorySubtitle" class="text-xs text-blue-100 mt-1 max-w-2xl">Verified recruitment notices and active vacancies curated by SelectedJobs.in.</p>
-          </div>
-
-          <button onclick="clearCategoryFilter(event)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-bold backdrop-blur-sm transition-all shadow-sm flex-shrink-0">
-            <i data-lucide="arrow-left" class="h-4 w-4"></i>
-            <span>&larr; Show All Categories</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Single Category Job Cards Grid -->
-      <div id="singleCategoryJobsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Injected via JavaScript -->
-      </div>
-
-      <!-- Empty State Card -->
-      <div id="singleCategoryEmptyState" class="hidden rounded-2xl border border-dashed border-zinc-300 bg-white p-10 sm:p-14 text-center shadow-sm">
-        <div class="h-16 w-16 rounded-2xl bg-blue-50 text-[#1c64f2] flex items-center justify-center mx-auto mb-4 border border-blue-100">
-          <i data-lucide="folder-search" class="h-8 w-8 text-[#1c64f2]"></i>
-        </div>
-        <h3 id="emptyCategoryTitle" class="text-lg font-black text-zinc-900">No Current Openings in this Category</h3>
-        <p class="text-xs text-zinc-600 mt-2 max-w-md mx-auto leading-relaxed">
-          Our editorial team verifies and uploads new vacancies daily. New recruitment notices for this sector will appear here as soon as official circulars or hiring drives are announced.
-        </p>
-        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <button onclick="clearCategoryFilter(event)" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white text-xs font-bold px-5 py-2.5 shadow-sm transition-colors flex items-center gap-2">
-            <i data-lucide="grid" class="h-3.5 w-3.5"></i>
-            <span>Browse All Categories</span>
-          </button>
-          <button onclick="document.getElementById('postJobModal').classList.remove('hidden'); lucide.createIcons();" class="rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold px-5 py-2.5 shadow-sm transition-colors flex items-center gap-2">
-            <i data-lucide="message-circle" class="h-3.5 w-3.5"></i>
-            <span>Post a Job via WhatsApp</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Main Container (9-Box Grid & Informational Sections) -->
-    <div id="mainCategoryBoxesContainer" class="mx-auto max-w-7xl px-2 sm:px-4 py-3 space-y-6">
-
-      <!-- Dynamic Active Category Boxes Grid (Only categories with active jobs appear) -->
-      <div id="dynamicCategoryBoxesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-        <!-- Injected dynamically via JavaScript for active categories only -->
-      </div>
-
-      <!-- 5. Full-Width "READ MORE / LATEST POSTINGS" Panel -->
-      <div class="rounded border border-blue-300 bg-white shadow-sm overflow-hidden mt-6">
-        <div class="bg-[#1d4ed8] text-white px-4 py-2 font-bold text-xs sm:text-sm tracking-wide uppercase">
-          READ MORE / LATEST POSTINGS
-        </div>
-        <div id="readMoreGrid" class="p-4 sm:p-5 grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-zinc-200">
-          <div id="readMoreCol1" class="space-y-3 pt-2 md:pt-0"></div>
-          <div id="readMoreCol2" class="space-y-3 pt-4 md:pt-0 md:pl-6"></div>
-          <div id="readMoreCol3" class="space-y-3 pt-4 md:pt-0 md:pl-6"></div>
-        </div>
-        <div class="p-3 bg-zinc-50 border-t border-zinc-100 text-center">
-          <a href="#categoryScrollContainer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="inline-flex items-center gap-1.5 rounded bg-[#1d4ed8] px-6 py-2 text-xs font-bold text-white shadow-sm hover:bg-blue-800 transition-colors">
-            <span>Browse All Categories & Openings</span>
-            <i data-lucide="chevron-up" class="h-3.5 w-3.5"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- 6. Informational Sections Relevant to SelectedJobs.in Aspirants -->
-      <div class="space-y-4 pt-2">
-        <!-- Card 1: About SelectedJobs.in -->
-        <div class="rounded border border-blue-200 bg-white p-5 shadow-sm">
-          <h2 class="text-sm font-bold text-zinc-900 border-b border-zinc-200 pb-2 mb-3 flex items-center gap-2">
-            <i data-lucide="award" class="h-4 w-4 text-[#1c64f2]"></i>
-            <span>About SelectedJobs.in – A True Job Portal for Career Aspirants</span>
-          </h2>
-          <div class="text-xs text-zinc-600 leading-relaxed space-y-2">
-            <p>
-              <strong>SelectedJobs.in</strong> is dedicated to empowering millions of career seekers and job aspirants across India by providing timely, verified, and transparent recruitment notifications. We cut through misleading advertisements, fake circulars, and cluttered redirect links to bring you direct, authoritative job alerts.
-            </p>
-            <p>
-              Our editorial desk monitors official government gazettes, the Press Information Bureau (PIB), Union & State Public Service Commissions, and corporate recruitment desks daily. Every opening listed on this platform is verified to ensure authentic application guidelines, eligible educational criteria, and accurate cutoff dates.
-            </p>
-          </div>
-        </div>
-
-        <!-- Card 2: Categories Covered -->
-        <div class="rounded border border-blue-200 bg-white p-5 shadow-sm">
-          <h2 class="text-sm font-bold text-zinc-900 border-b border-zinc-200 pb-2 mb-3 flex items-center gap-2">
-            <i data-lucide="layers" class="h-4 w-4 text-[#1c64f2]"></i>
-            <span>Comprehensive Career & Recruitment Coverage Across India</span>
-          </h2>
-          <div class="text-xs text-zinc-600 leading-relaxed space-y-2.5">
-            <p>We organize employment notices into structured, easy-to-navigate category segments:</p>
-            <ul class="list-disc pl-5 space-y-2">
-              <li>
-                <strong>Central & State Public Services:</strong> Real-time alerts for UPSC (Civil Services, CDS, NDA), Staff Selection Commission (SSC CGL, CHSL, GD, MTS), Railway Recruitment Boards (RRB NTPC, Group D, ALP), and State PSC examinations across all Indian states.
-              </li>
-              <li>
-                <strong>Banking & Financial Sector:</strong> Exhaustive alerts for SBI (Probationary Officers & Clerks), IBPS PO/Clerk/RRB/SO, Reserve Bank of India (RBI Grade B & Assistant), NABARD, SEBI, and public insurance corporations (LIC, NIACL, GIC).
-              </li>
-              <li>
-                <strong>Defence & Uniformed Services:</strong> Immediate circulars for Indian Army, Navy, Air Force (Agniveer, AFCAT, Technical Entry), Central Armed Police Forces (BSF, CISF, CRPF, ITBP, SSB), and State Police Sub-Inspectors & Constables.
-              </li>
-              <li>
-                <strong>Engineering & Technical PSUs:</strong> Opportunities for Diploma and B.Tech / B.E. graduates across top Maharatna & Navratna PSUs (GATE-based recruitments in ONGC, NTPC, BHEL, IOCL, HPCL) and technical apprenticeships.
-              </li>
-              <li>
-                <strong>Teaching & IT/Software:</strong> Central & State Teacher Eligibility Tests (CTET, State TETs, KVS, NVS, DSSSB, UGC NET), alongside vetted tech openings, software developer drives, and graduate trainee walk-ins.
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Card 3: Aspirant Guidelines & Safety Advice -->
-        <div class="rounded border border-blue-200 bg-white p-5 shadow-sm">
-          <h2 class="text-sm font-bold text-zinc-900 border-b border-zinc-200 pb-2 mb-3 flex items-center gap-2">
-            <i data-lucide="shield-check" class="h-4 w-4 text-emerald-600"></i>
-            <span>Aspirants' Verification Guide & Safe Application Practices</span>
-          </h2>
-          <div class="text-xs text-zinc-600 leading-relaxed space-y-2">
-            <p>
-              To ensure a seamless and safe application experience, candidates are advised to follow these standard practices:
-            </p>
-            <ul class="list-disc pl-5 space-y-1.5">
-              <li><strong>Direct Official Portals:</strong> Always access the recruitment notification PDF and online application module via the verified official link provided on each job page.</li>
-              <li><strong>Check Eligibility Carefully:</strong> Thoroughly read the official advertisement PDF for specific age cutoff dates, educational relaxations, category certificates (SC/ST/OBC/EWS/PwD), and physical standard tests.</li>
-              <li><strong>Never Pay Third-Party Intermediaries:</strong> SelectedJobs.in provides information 100% free of charge and never asks for donations or payment. All exam and application fees must only be paid through the official gateway of the recruiting commission.</li>
-              <li><strong>Keep Copies of Forms:</strong> Always preserve a PDF copy of your submitted application form, fee receipt, and registration registration/roll number for future admit card downloads.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </main>
-
   <!-- Footer -->
-  <footer class="bg-zinc-900 text-zinc-400 text-xs py-8 border-t border-zinc-800">
+  <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800">
     <div class="mx-auto max-w-7xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
-        <p class="font-bold text-zinc-200">&copy; <span id="currentYear"></span> SelectedJobs.in &bull; A True Job Portal</p>
-        <p class="text-[11px] text-zinc-500 mt-0.5">Disclaimer: SelectedJobs.in is an informational directory. Verify details from official agency notifications.</p>
-        <p class="text-[11px] text-zinc-400 mt-1 flex items-center gap-1.5">
+        <p class="font-bold text-slate-200">&copy; <span id="currentYear"></span> SelectedJobs.in &bull; A True Job Portal</p>
+        <p class="text-[11px] text-slate-500 mt-0.5">Disclaimer: SelectedJobs.in is an informational directory. Verify details from official agency notifications.</p>
+        <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5">
           <i data-lucide="eye" class="h-3 w-3 text-emerald-400"></i>
-          <span>Site Traffic: <strong id="footerVisitorsCount" class="text-white">143</strong> Unique Aspirants Served</span>
+          <span>Site Traffic: <strong id="footerVisitorsCount" class="text-white">1,460</strong> Unique Aspirants Served</span>
         </p>
       </div>
       <div class="flex items-center gap-4">
-        <a href="/post-job" class="text-zinc-300 hover:text-white transition-colors flex items-center gap-1.5">
+        <a href="/post-job" class="text-slate-300 hover:text-white transition-colors flex items-center gap-1.5">
           <i data-lucide="message-circle" class="h-3.5 w-3.5 text-emerald-400"></i>
           <span>Post Job Openings (WhatsApp: 9325293667)</span>
+        </a>
+        <span class="text-slate-700">|</span>
+        <a href="/admin.html" class="text-slate-400 hover:text-white transition-colors flex items-center gap-1">
+          <i data-lucide="lock" class="h-3 w-3"></i>
+          <span>Admin</span>
         </a>
       </div>
     </div>
   </footer>
 
-  <!-- Dynamic Frontend Script -->
+  <!-- Floating WhatsApp Channel Follow Button -->
+  <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-3 shadow-2xl hover:shadow-green-500/50 transition-all transform hover:scale-105 group border-2 border-white" title="Follow Selected Jobs Channel on WhatsApp">
+    <i data-lucide="message-circle" class="h-5 w-5 fill-white"></i>
+    <span class="text-xs font-black tracking-wide hidden sm:inline">Follow on WhatsApp</span>
+  </a>
+
+  <!-- Frontend JavaScript Logic -->
   <script>
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
     const TILE_STYLES = [
-      { bg: "bg-[#fde047]", text: "text-zinc-900", border: "border-[#eab308]", dateText: "text-zinc-700" }, // 1. Yellow/Gold
+      { bg: "bg-[#fde047]", text: "text-slate-900", border: "border-[#eab308]", dateText: "text-slate-700" }, // 1. Yellow/Gold
       { bg: "bg-[#0284c7]", text: "text-white", border: "border-[#0369a1]", dateText: "text-sky-100" },       // 2. Sky Blue
-      { bg: "bg-[#fef08a]", text: "text-zinc-900", border: "border-[#facc15]", dateText: "text-zinc-700" }, // 3. Pale Yellow
+      { bg: "bg-[#fef08a]", text: "text-slate-900", border: "border-[#facc15]", dateText: "text-slate-700" }, // 3. Pale Yellow
       { bg: "bg-[#7e22ce]", text: "text-white", border: "border-[#6b21a8]", dateText: "text-purple-100" },    // 4. Purple/Plum
-      { bg: "bg-[#fde047]", text: "text-zinc-900", border: "border-[#eab308]", dateText: "text-zinc-700" }, // 5. Yellow
+      { bg: "bg-[#fde047]", text: "text-slate-900", border: "border-[#eab308]", dateText: "text-slate-700" }, // 5. Yellow
       { bg: "bg-[#0284c7]", text: "text-white", border: "border-[#0369a1]", dateText: "text-sky-100" },       // 6. Sky Blue
-      { bg: "bg-[#fef08a]", text: "text-zinc-900", border: "border-[#facc15]", dateText: "text-zinc-700" }, // 7. Pale Yellow
+      { bg: "bg-[#fef08a]", text: "text-slate-900", border: "border-[#facc15]", dateText: "text-slate-700" }, // 7. Pale Yellow
       { bg: "bg-[#7e22ce]", text: "text-white", border: "border-[#6b21a8]", dateText: "text-purple-100" },    // 8. Purple
     ];
 
@@ -470,35 +752,6 @@
       }
     }
 
-    function getCategoryIcon(cat) {
-      if (!cat) return 'briefcase';
-      const c = cat.toUpperCase();
-      if (c.includes('BLOG') || c.includes('GUIDE')) return 'book-open';
-      if (c.includes('TECH')) return 'code-2';
-      if (c.includes('BPO') || c.includes('PRIVATE')) return 'building-2';
-      if (c.includes('BANK')) return 'landmark';
-      if (c.includes('ENGINEERING')) return 'wrench';
-      if (c.includes('STATE')) return 'map-pin';
-      if (c.includes('GOVT')) return 'shield';
-      return 'briefcase';
-    }
-
-    function getCategoryShortName(cat) {
-      if (!cat) return 'Openings';
-      const c = cat.toUpperCase();
-      if (c.includes('BLOG')) return 'Career Blogs & Guides';
-      if (c.includes('TECH')) return 'Tech & Software';
-      if (c.includes('BPO') || c.includes('PRIVATE')) return 'Private & BPO';
-      if (c.includes('BANK')) return 'Bank & Finance';
-      if (c.includes('ENGINEERING')) return 'Engineering';
-      if (c.includes('GOVT')) return 'Govt & PSU';
-      if (c.includes('STATE')) return 'State Jobs';
-      if (c.includes('DEFENCE')) return 'Defence & Police';
-      if (c.includes('RAILWAY')) return 'Railways';
-      if (c.includes('TEACHING')) return 'Teaching';
-      return cat;
-    }
-
     function renderAll() {
       renderTopGrid();
       renderDynamicCategories();
@@ -508,6 +761,7 @@
 
     function renderTopGrid() {
       const grid = document.getElementById('topColoredGrid');
+      if (!grid) return;
       grid.innerHTML = '';
       const topJobs = allJobs.filter(j => j.featuredInTopGrid);
       const displayJobs = (topJobs.length >= 8 ? topJobs : allJobs).slice(0, 8);
@@ -517,7 +771,7 @@
         const card = document.createElement('a');
         const isBlog = job.isBlog || job.category === 'CAREER BLOGS & GUIDES' || job.type === 'blog';
         card.href = isBlog ? ('/blogs/' + job.id) : ('/jobs/' + job.id);
-        card.className = `block p-2.5 sm:p-3 rounded border ${style.bg} ${style.border} ${style.text} shadow-sm hover:brightness-95 transition-all group`;
+        card.className = `block p-2.5 sm:p-3 rounded-xl border ${style.bg} ${style.border} ${style.text} shadow-xs hover:brightness-95 transition-all group`;
         card.innerHTML = `
           <h3 class="text-xs font-bold leading-snug line-clamp-2 group-hover:underline">
             ${escapeHtml(job.title)}
@@ -543,7 +797,7 @@
       return `
         <div class="py-2.5 first:pt-0 last:pb-1">
           <a href="${itemUrl}" class="group block">
-            <div class="text-xs font-semibold text-zinc-900 group-hover:text-blue-700 leading-snug flex items-start gap-1.5">
+            <div class="text-xs font-semibold text-slate-900 group-hover:text-blue-700 leading-snug flex items-start gap-1.5">
               <span class="${isBlog ? 'text-purple-600' : 'text-blue-600'} font-bold flex-shrink-0">&bull;</span>
               <span>
                 ${escapeHtml(job.title)}
@@ -551,13 +805,13 @@
                 ${job.isNew && !isBlog ? '<span class="inline-block ml-1.5 px-1.5 py-0.2 rounded text-[10px] font-black text-rose-600 bg-amber-100 border border-amber-300 badge-new">NEW</span>' : ''}
               </span>
             </div>
-            <div class="mt-1 flex items-center gap-2 text-[11px] text-zinc-500 pl-3">
+            <div class="mt-1 flex items-center gap-2 text-[11px] text-slate-500 pl-3">
               <span class="flex items-center gap-1">
-                <i data-lucide="calendar" class="h-3 w-3 text-zinc-400"></i>
+                <i data-lucide="calendar" class="h-3 w-3 text-slate-400"></i>
                 <span>${formatDate(job.createdAt)}</span>
               </span>
-              ${job.company ? `<span class="text-zinc-400">&bull; ${escapeHtml(job.company)}</span>` : ''}
-              <span class="ml-auto flex items-center gap-1 text-[10px] text-zinc-400 bg-zinc-100 px-1.5 py-0.2 rounded">
+              ${job.company ? `<span class="text-slate-400">&bull; ${escapeHtml(job.company)}</span>` : ''}
+              <span class="ml-auto flex items-center gap-1 text-[10px] text-slate-400 bg-slate-100 px-1.5 py-0.2 rounded">
                 <i data-lucide="eye" class="h-2.5 w-2.5 text-blue-500"></i>
                 <span>${job.viewsCount || 1} ${isBlog ? 'reads' : 'views'}</span>
               </span>
@@ -567,7 +821,7 @@
       `;
     }
 
-    // Dynamic Category Derivation & Rendering (Only active categories are shown)
+    // Dynamic Category Boxes Rendering
     function renderDynamicCategories() {
       const activeCats = [];
       const catCounts = {};
@@ -585,31 +839,6 @@
         catJobs[c].push(j);
       });
 
-      // 1. Render Navbar Dynamic Buttons (Modern rounded pills with smooth sliding)
-      const navContainer = document.getElementById('dynamicNavCategories');
-      if (navContainer) {
-        navContainer.innerHTML = activeCats.map(cat => {
-          const shortName = getCategoryShortName(cat);
-          const icon = getCategoryIcon(cat);
-          return `<button onclick="filterByCategory('${escapeHtml(cat)}')" data-cat="${escapeHtml(cat)}" class="nav-cat-pill px-3.5 py-1 rounded-full bg-white/10 hover:bg-white/25 hover:border-white/40 border border-white/15 transition-all whitespace-nowrap text-xs font-bold flex items-center gap-1.5 text-white shadow-sm flex-shrink-0 cursor-pointer"><i data-lucide="${icon}" class="h-3 w-3 opacity-80"></i><span>${escapeHtml(shortName)}</span></button>`;
-        }).join('');
-      }
-
-      // 2. Render Dropdown Menu (Only active categories)
-      const dropContainer = document.getElementById('dynamicDropdownCategories');
-      if (dropContainer) {
-        dropContainer.innerHTML = activeCats.map(cat => {
-          const icon = getCategoryIcon(cat);
-          return `
-            <a href="javascript:void(0)" onclick="filterByCategory('${escapeHtml(cat)}')" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
-              <i data-lucide="${icon}" class="h-3.5 w-3.5 text-blue-600 flex-shrink-0"></i>
-              <span>${escapeHtml(cat)}</span>
-            </a>
-          `;
-        }).join('');
-      }
-
-      // 3. Render Homepage Category Boxes Grid (Only active categories)
       const boxesGrid = document.getElementById('dynamicCategoryBoxesGrid');
       if (boxesGrid) {
         boxesGrid.innerHTML = activeCats.map(cat => {
@@ -619,19 +848,19 @@
           const badgeText = isBlogCat ? 'Career Guides' : 'Verified Openings';
           const footerSub = isBlogCat ? 'Read expert tips & AI prompts' : 'Explore active vacancies';
           const btnText = isBlogCat ? 'Read Guides' : 'Show More';
-          const headerBg = isBlogCat ? 'bg-gradient-to-r from-purple-800 to-indigo-800' : 'bg-[#1d4ed8]';
+          const headerBg = isBlogCat ? 'bg-gradient-to-r from-purple-800 to-indigo-800' : 'bg-[#1c64f2]';
           return `
-            <div class="rounded border ${isBlogCat ? 'border-purple-300' : 'border-blue-300'} bg-white shadow-sm flex flex-col h-full scroll-mt-14 hover:shadow transition-shadow">
-              <div class="${headerBg} text-white px-3.5 py-2.5 font-bold text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between">
+            <div class="rounded-2xl border ${isBlogCat ? 'border-purple-200' : 'border-slate-200'} bg-white shadow-xs flex flex-col h-full scroll-mt-14 hover:shadow-md transition-all">
+              <div class="${headerBg} text-white px-4 py-3 font-black text-xs sm:text-sm tracking-wide uppercase flex items-center justify-between rounded-t-2xl">
                 <span>${escapeHtml(cat)}</span>
-                <span class="text-[10px] bg-black/30 text-yellow-300 px-2 py-0.5 rounded font-black border border-white/20">${badgeText}</span>
+                <span class="text-[10px] bg-black/25 text-yellow-300 px-2 py-0.5 rounded-full font-black border border-white/20">${badgeText}</span>
               </div>
-              <div class="p-3 flex-1 divide-y divide-zinc-100">
+              <div class="p-3.5 flex-1 divide-y divide-slate-100">
                 ${listHtml}
               </div>
-              <div class="px-3 py-2.5 bg-zinc-50/80 border-t border-zinc-100 flex items-center justify-between">
-                <span class="text-[11px] text-zinc-500 font-medium">${footerSub}</span>
-                <a href="javascript:filterByCategory('${escapeHtml(cat)}')" class="inline-flex items-center gap-1 rounded ${isBlogCat ? 'bg-purple-700 hover:bg-purple-800' : 'bg-[#1d4ed8] hover:bg-blue-800'} px-3 py-1 text-[11px] font-bold text-white shadow-sm transition-colors">
+              <div class="px-4 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between rounded-b-2xl">
+                <span class="text-[11px] text-slate-500 font-medium">${footerSub}</span>
+                <a href="javascript:filterByCategory('${escapeHtml(cat)}')" class="inline-flex items-center gap-1 rounded-full ${isBlogCat ? 'bg-purple-700 hover:bg-purple-800' : 'bg-[#1c64f2] hover:bg-blue-800'} px-3.5 py-1 text-[11px] font-bold text-white shadow-xs transition-colors">
                   <span>${btnText}</span>
                   <i data-lucide="chevron-right" class="h-3 w-3"></i>
                 </a>
@@ -646,18 +875,19 @@
       const col1 = document.getElementById('readMoreCol1');
       const col2 = document.getElementById('readMoreCol2');
       const col3 = document.getElementById('readMoreCol3');
+      if (!col1 || !col2 || !col3) return;
       col1.innerHTML = ''; col2.innerHTML = ''; col3.innerHTML = '';
 
       function renderColItem(job) {
         return `
           <a href="/jobs/${job.id}" class="group block text-xs">
-            <div class="font-semibold text-zinc-900 group-hover:text-blue-700 leading-snug flex items-start gap-1">
+            <div class="font-semibold text-slate-900 group-hover:text-blue-700 leading-snug flex items-start gap-1">
               <span class="text-blue-600 font-bold">&bull;</span>
               <span>${escapeHtml(job.title)}</span>
             </div>
-            <div class="mt-0.5 flex items-center justify-between text-[11px] text-zinc-400 pl-2.5">
+            <div class="mt-0.5 flex items-center justify-between text-[11px] text-slate-400 pl-2.5">
               <span>${formatDate(job.createdAt)}</span>
-              <span class="text-[10px] text-zinc-400">${job.viewsCount || 1} views</span>
+              <span class="text-[10px] text-slate-400">${job.viewsCount || 1} views</span>
             </div>
           </a>
         `;
@@ -678,7 +908,7 @@
           : ['ChatGPT Prompts', 'Career Growth', 'Promotion Strategy', 'Executive Thinking', 'Workplace Communication'];
 
         return `
-          <div class="rounded-2xl border border-purple-200 hover:border-purple-400 bg-gradient-to-b from-white via-white to-purple-50/40 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group col-span-1 sm:col-span-2">
+          <div class="rounded-2xl border border-purple-200 hover:border-purple-400 bg-gradient-to-b from-white via-white to-purple-50/40 p-5 sm:p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group col-span-1 sm:col-span-2">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
                 <div class="flex items-center gap-2 flex-wrap">
@@ -695,23 +925,23 @@
                 <span class="text-[10px] font-bold uppercase tracking-wider text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded border border-purple-100">AI & Career Tips</span>
               </div>
 
-              <h3 class="text-base sm:text-xl font-black text-zinc-900 leading-snug group-hover:text-purple-700 transition-colors">
+              <h3 class="text-base sm:text-xl font-black text-slate-900 leading-snug group-hover:text-purple-700 transition-colors">
                 <a href="${itemUrl}">
                   ${escapeHtml(job.title)}
                 </a>
               </h3>
 
-              <p class="text-xs sm:text-sm text-zinc-600 mt-2.5 leading-relaxed">
-                Copy, customize, and paste 10 high-leverage prompts into ChatGPT to supercharge workplace performance, prepare for promotions, handle difficult conversations, and build an irreplaceable career moat.
+              <p class="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed line-clamp-3">
+                ${escapeHtml(job.description ? job.description.substring(0, 180) + '...' : 'Master high-leverage prompts and career strategies.')}
               </p>
 
               <div class="mt-3.5 flex flex-wrap gap-1.5">
-                ${skillsList.slice(0, 7).map(s => `<span class="inline-block bg-purple-50 text-purple-800 border border-purple-200/80 rounded-lg text-[10px] font-bold px-2 py-0.5">${escapeHtml(s)}</span>`).join('')}
+                ${skillsList.slice(0, 6).map(s => `<span class="inline-block bg-purple-50 text-purple-800 border border-purple-200/80 rounded-lg text-[10px] font-bold px-2 py-0.5">${escapeHtml(s)}</span>`).join('')}
               </div>
             </div>
 
             <div class="mt-5 pt-3.5 border-t border-purple-100 flex flex-wrap items-center justify-between gap-3">
-              <div class="flex items-center gap-3 text-[11px] text-zinc-400">
+              <div class="flex items-center gap-3 text-[11px] text-slate-400">
                 <div class="flex items-center gap-1">
                   <i data-lucide="calendar" class="h-3 w-3"></i>
                   <span>${formatDate(job.createdAt)}</span>
@@ -722,7 +952,7 @@
                 </div>
               </div>
 
-              <a href="${itemUrl}" class="inline-flex items-center gap-1.5 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-black text-xs px-4 py-2.5 shadow-sm transition-all flex-shrink-0">
+              <a href="${itemUrl}" class="inline-flex items-center gap-1.5 rounded-full bg-purple-700 hover:bg-purple-800 text-white font-black text-xs px-4 py-2 shadow-xs transition-all flex-shrink-0">
                 <span>Read Guide & Copy Prompts</span>
                 <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i>
               </a>
@@ -733,42 +963,42 @@
 
       const skillsHtml = (job.skills && Array.isArray(job.skills) && job.skills.length > 0)
         ? `<div class="mt-3 flex flex-wrap gap-1.5">
-            ${job.skills.slice(0, 5).map(s => `<span class="inline-block bg-zinc-100 text-zinc-700 border border-zinc-200/80 rounded-lg text-[10px] font-semibold px-2 py-0.5">${escapeHtml(s)}</span>`).join('')}
-            ${job.skills.length > 5 ? `<span class="text-[10px] text-zinc-400 font-medium self-center">+${job.skills.length - 5} more</span>` : ''}
+            ${job.skills.slice(0, 5).map(s => `<span class="inline-block bg-slate-100 text-slate-700 border border-slate-200/80 rounded-lg text-[10px] font-semibold px-2 py-0.5">${escapeHtml(s)}</span>`).join('')}
+            ${job.skills.length > 5 ? `<span class="text-[10px] text-slate-400 font-medium self-center">+${job.skills.length - 5} more</span>` : ''}
            </div>`
         : '';
 
       return `
-        <div class="rounded-2xl border border-zinc-200 hover:border-blue-300 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+        <div class="rounded-2xl border border-slate-200 hover:border-blue-300 bg-white p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
             <!-- Top meta row -->
             <div class="flex items-center justify-between gap-2 mb-2.5">
               <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="text-xs font-bold text-zinc-800">${escapeHtml(job.company || 'SelectedJobs Verified')}</span>
+                <span class="text-xs font-black text-slate-900">${escapeHtml(job.company || 'SelectedJobs Verified')}</span>
                 <span class="inline-flex items-center gap-0.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700 border border-emerald-200">
                   <i data-lucide="shield-check" class="h-3 w-3"></i>
                   <span>Verified</span>
                 </span>
                 ${job.isNew ? '<span class="px-1.5 py-0.2 rounded text-[10px] font-black text-rose-600 bg-amber-100 border border-amber-300 badge-new">NEW</span>' : ''}
               </div>
-              ${job.workplaceType ? `<span class="text-[10px] font-bold uppercase tracking-wider text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded">${escapeHtml(job.workplaceType)}</span>` : ''}
+              ${job.workplaceType ? `<span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">${escapeHtml(job.workplaceType)}</span>` : ''}
             </div>
 
             <!-- Job Title -->
-            <h3 class="text-sm sm:text-base font-black text-zinc-900 leading-snug group-hover:text-blue-700 transition-colors">
+            <h3 class="text-sm sm:text-base font-black text-slate-900 leading-snug group-hover:text-blue-700 transition-colors">
               <a href="/jobs/${job.id}">
                 ${escapeHtml(job.title)}
               </a>
             </h3>
 
             <!-- Details Key-Value Grid -->
-            <div class="mt-3 grid grid-cols-2 gap-2 text-xs text-zinc-600">
+            <div class="mt-3 grid grid-cols-2 gap-2 text-xs text-slate-600">
               <div class="flex items-center gap-1.5 truncate">
-                <i data-lucide="map-pin" class="h-3.5 w-3.5 text-zinc-400 flex-shrink-0"></i>
+                <i data-lucide="map-pin" class="h-3.5 w-3.5 text-slate-400 flex-shrink-0"></i>
                 <span class="truncate font-medium">${escapeHtml(job.location || 'All India')}</span>
               </div>
               <div class="flex items-center gap-1.5 truncate">
-                <i data-lucide="briefcase" class="h-3.5 w-3.5 text-zinc-400 flex-shrink-0"></i>
+                <i data-lucide="briefcase" class="h-3.5 w-3.5 text-slate-400 flex-shrink-0"></i>
                 <span class="truncate font-medium">${escapeHtml(job.experience || 'Fresher / Experienced')}</span>
               </div>
               <div class="flex items-center gap-1.5 truncate col-span-2">
@@ -781,20 +1011,20 @@
           </div>
 
           <!-- Card Action Footer -->
-          <div class="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 text-[11px] text-zinc-400">
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 text-[11px] text-slate-400">
               <div class="flex items-center gap-1">
                 <i data-lucide="calendar" class="h-3 w-3"></i>
                 <span>${formatDate(job.createdAt)}</span>
               </div>
               <div class="flex items-center gap-1 text-blue-600 font-semibold bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">
                 <i data-lucide="eye" class="h-3 w-3"></i>
-                <span>${job.viewsCount || 1} unique views</span>
+                <span>${job.viewsCount || 1} views</span>
               </div>
             </div>
             
-            <a href="/jobs/${job.id}" class="inline-flex items-center gap-1.5 rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 shadow-sm transition-colors flex-shrink-0">
-              <span>View Details & Apply</span>
+            <a href="/jobs/${job.id}" class="inline-flex items-center gap-1.5 rounded-full bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 shadow-xs transition-colors flex-shrink-0">
+              <span>View & Apply</span>
               <i data-lucide="chevron-right" class="h-3.5 w-3.5"></i>
             </a>
           </div>
@@ -802,31 +1032,264 @@
       `;
     }
 
-    function matchCategory(jobCat, requestedCat) {
-      if (!jobCat || !requestedCat) return false;
-      const jc = jobCat.trim().toUpperCase();
-      const rc = requestedCat.trim().toUpperCase();
-      if (jc === rc) return true;
-      if (rc.includes('TECH') && jc.includes('TECH')) return true;
-      if (rc.includes('BANK') && jc.includes('BANK')) return true;
-      if ((rc.includes('BPO') || rc.includes('PRIVATE')) && (jc.includes('BPO') || jc.includes('PRIVATE'))) return true;
-      if (rc.includes('ENGINEERING') && jc.includes('ENGINEERING')) return true;
-      if (rc.includes('STATE') && (jc.includes('STATE') || jc.includes('ALL STATE'))) return true;
-      if (rc.includes('GOVT') && jc.includes('GOVT')) return true;
-      if (rc.includes('DEFENCE') && jc.includes('DEFENCE')) return true;
-      if (rc.includes('RAILWAY') && jc.includes('RAILWAY')) return true;
-      if (rc.includes('TEACHING') && jc.includes('TEACHING')) return true;
-      return false;
-    }
+    // 3-Segment Hero Search Logic
+    function executeHeroSearch() {
+      const keyword = (document.getElementById('heroKeywordInput')?.value || '').trim().toLowerCase();
+      const exp = (document.getElementById('heroExpSelect')?.value || '').trim().toLowerCase();
+      const loc = (document.getElementById('heroLocationInput')?.value || '').trim().toLowerCase();
 
-    function filterByCategory(cat) {
-      if (megaDrop && !megaDrop.classList.contains('hidden')) {
-        megaDrop.classList.add('hidden');
+      if (!keyword && !exp && !loc) {
+        clearCategoryFilter();
+        return;
       }
 
-      document.getElementById('topColoredGridContainer').classList.add('hidden');
-      document.getElementById('mainCategoryBoxesContainer').classList.add('hidden');
-      document.getElementById('searchFilterBanner').classList.add('hidden');
+      document.getElementById('topColoredGridContainer')?.classList.add('hidden');
+      document.getElementById('jobsFeedSection')?.classList.add('hidden');
+      const singleContainer = document.getElementById('singleCategoryContainer');
+      singleContainer.classList.remove('hidden');
+
+      const terms = [];
+      if (keyword) terms.push(`"${keyword}"`);
+      if (exp) terms.push(`Exp: ${exp}`);
+      if (loc) terms.push(`Loc: ${loc}`);
+      document.getElementById('singleCategoryTitle').textContent = `Search: ${terms.join(' • ')}`;
+      document.getElementById('currentCategoryBreadcrumb').textContent = 'Search Results';
+
+      const matchedJobs = allJobs.filter(j => {
+        let matchKw = true;
+        if (keyword) {
+          const title = (j.title || '').toLowerCase();
+          const comp = (j.company || '').toLowerCase();
+          const cat = (j.category || '').toLowerCase();
+          const desc = (j.description || '').toLowerCase();
+          const skills = Array.isArray(j.skills) ? j.skills.join(' ').toLowerCase() : '';
+          matchKw = title.includes(keyword) || comp.includes(keyword) || cat.includes(keyword) || desc.includes(keyword) || skills.includes(keyword);
+        }
+
+        let matchExp = true;
+        if (exp) {
+          const jExp = (j.experience || '').toLowerCase();
+          if (exp === 'fresher') {
+            matchExp = jExp.includes('fresh') || jExp.includes('0-') || jExp.includes('0 to') || jExp.includes('entry');
+          } else if (exp === '1-3') {
+            matchExp = jExp.includes('1') || jExp.includes('2') || jExp.includes('3');
+          } else if (exp === '3-5') {
+            matchExp = jExp.includes('3') || jExp.includes('4') || jExp.includes('5');
+          } else if (exp === '5-7') {
+            matchExp = jExp.includes('5') || jExp.includes('6') || jExp.includes('7');
+          } else if (exp === '7+') {
+            matchExp = jExp.includes('7') || jExp.includes('8') || jExp.includes('9') || jExp.includes('+');
+          }
+        }
+
+        let matchLoc = true;
+        if (loc) {
+          const jLoc = (j.location || '').toLowerCase();
+          const jWp = (j.workplaceType || '').toLowerCase();
+          matchLoc = jLoc.includes(loc) || jWp.includes(loc);
+        }
+
+        return matchKw && matchExp && matchLoc;
+      });
+
+      const badgeEl = document.getElementById('singleCategoryBadge');
+      const gridEl = document.getElementById('singleCategoryJobsGrid');
+      const emptyEl = document.getElementById('singleCategoryEmptyState');
+
+      badgeEl.textContent = `${matchedJobs.length} ${matchedJobs.length === 1 ? 'Opening' : 'Openings'}`;
+
+      if (matchedJobs.length === 0) {
+        gridEl.innerHTML = '';
+        gridEl.classList.add('hidden');
+        document.getElementById('emptyCategoryTitle').textContent = `No openings matching "${keyword || loc || exp}"`;
+        emptyEl.classList.remove('hidden');
+      } else {
+        emptyEl.classList.add('hidden');
+        gridEl.classList.remove('hidden');
+        gridEl.innerHTML = matchedJobs.map(job => renderSingleCategoryJobCard(job)).join('');
+      }
+
+      lucide.createIcons();
+      singleContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Two-Row Staggered Filter Pills Handler
+    function filterByFilterPill(pillType) {
+      document.getElementById('topColoredGridContainer')?.classList.add('hidden');
+      document.getElementById('jobsFeedSection')?.classList.add('hidden');
+      const singleContainer = document.getElementById('singleCategoryContainer');
+      singleContainer.classList.remove('hidden');
+
+      const pillTitles = {
+        'remote': 'Remote & Work-From-Home Openings',
+        'mnc': 'MNC & Global Enterprise Careers',
+        'startup': 'High-Growth Startup Jobs',
+        'project-mgmt': 'Project Management & Leadership Roles',
+        'hr': 'Human Resources & Talent Acquisition',
+        'tech': 'Software & IT Tech Vacancies',
+        'supply-chain': 'Supply Chain & Operations Roles',
+        'analytics': 'Analytics & Business Intelligence',
+        'data-science': 'Data Science, AI & Machine Learning',
+        'fortune-500': 'Fortune 500 Enterprise Openings',
+        'banking': 'Banking, BFSI & Financial Services'
+      };
+
+      const title = pillTitles[pillType] || 'Category Results';
+      document.getElementById('singleCategoryTitle').textContent = title;
+      document.getElementById('currentCategoryBreadcrumb').textContent = title;
+
+      const matchedJobs = allJobs.filter(j => {
+        const title = (j.title || '').toLowerCase();
+        const comp = (j.company || '').toLowerCase();
+        const cat = (j.category || '').toLowerCase();
+        const loc = (j.location || '').toLowerCase();
+        const wp = (j.workplaceType || '').toLowerCase();
+        const skills = Array.isArray(j.skills) ? j.skills.join(' ').toLowerCase() : '';
+
+        if (pillType === 'remote') {
+          return wp.includes('remote') || loc.includes('remote') || title.includes('remote');
+        }
+        if (pillType === 'mnc') {
+          const mncList = ['genpact', 'natwest', 'cargill', 'morgan stanley', 'volvo', 'infosys', 'capgemini', 'cognizant', 'jpmorgan', 'quest global', 'medpace', 'snowflake'];
+          return cat.includes('MNC') || cat.includes('PRIVATE') || mncList.some(m => comp.includes(m));
+        }
+        if (pillType === 'startup') {
+          const startupList = ['mindtickle', 'netomi', 'swiggy', 'zomato', 'razorpay', 'udaan', 'zepto'];
+          return startupList.some(s => comp.includes(s)) || wp.includes('hybrid') || skills.includes('startup');
+        }
+        if (pillType === 'project-mgmt') {
+          return title.includes('project') || title.includes('program') || title.includes('manager') || title.includes('lead') || title.includes('associate');
+        }
+        if (pillType === 'hr') {
+          return title.includes('hr') || title.includes('human resource') || title.includes('talent') || comp.includes('vertex');
+        }
+        if (pillType === 'tech') {
+          return cat.includes('TECH') || title.includes('software') || title.includes('developer') || title.includes('java') || title.includes('python') || title.includes('engineer') || title.includes('sde') || title.includes('full stack');
+        }
+        if (pillType === 'supply-chain') {
+          return title.includes('supply') || title.includes('logistics') || title.includes('operations') || comp.includes('cargill') || comp.includes('volvo');
+        }
+        if (pillType === 'analytics') {
+          return title.includes('analyst') || title.includes('analytics') || title.includes('business analyst') || title.includes('data analyst');
+        }
+        if (pillType === 'data-science') {
+          return title.includes('data') || title.includes('ai') || title.includes('snowflake') || title.includes('machine learning') || skills.includes('data');
+        }
+        if (pillType === 'fortune-500') {
+          const f500 = ['jpmorgan', 'morgan stanley', 'natwest', 'volvo', 'cargill', 'genpact'];
+          return f500.some(f => comp.includes(f));
+        }
+        if (pillType === 'banking') {
+          return cat.includes('BANK') || comp.includes('bank') || comp.includes('sbi') || comp.includes('natwest') || comp.includes('jpmorgan');
+        }
+        return true;
+      });
+
+      const badgeEl = document.getElementById('singleCategoryBadge');
+      const gridEl = document.getElementById('singleCategoryJobsGrid');
+      const emptyEl = document.getElementById('singleCategoryEmptyState');
+
+      badgeEl.textContent = `${matchedJobs.length} Verified Openings`;
+
+      if (matchedJobs.length === 0) {
+        gridEl.innerHTML = '';
+        gridEl.classList.add('hidden');
+        document.getElementById('emptyCategoryTitle').textContent = `No Active Openings in ${title}`;
+        emptyEl.classList.remove('hidden');
+      } else {
+        emptyEl.classList.add('hidden');
+        gridEl.classList.remove('hidden');
+        gridEl.innerHTML = matchedJobs.map(job => renderSingleCategoryJobCard(job)).join('');
+      }
+
+      lucide.createIcons();
+      singleContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Company Carousel Category Filter
+    function filterByCompanyCategory(companyType) {
+      document.getElementById('topColoredGridContainer')?.classList.add('hidden');
+      document.getElementById('jobsFeedSection')?.classList.add('hidden');
+      const singleContainer = document.getElementById('singleCategoryContainer');
+      singleContainer.classList.remove('hidden');
+
+      const titles = {
+        'mncs': 'MNC Enterprise Recruitment Drives',
+        'edtech': 'Edtech & Online Learning Roles',
+        'healthcare': 'Healthcare & Life Sciences Vacancies',
+        'unicorns': 'Fast-Growing Unicorn Tech Companies',
+        'internet': 'Internet, SaaS & Cloud Platforms',
+        'bfsi': 'Banking, Investment & Financial Services'
+      };
+
+      const title = titles[companyType] || 'Company Openings';
+      document.getElementById('singleCategoryTitle').textContent = title;
+      document.getElementById('currentCategoryBreadcrumb').textContent = title;
+
+      const matchedJobs = allJobs.filter(j => {
+        const comp = (j.company || '').toLowerCase();
+        const cat = (j.category || '').toLowerCase();
+        const title = (j.title || '').toLowerCase();
+
+        if (companyType === 'mncs') {
+          const list = ['genpact', 'natwest', 'cargill', 'morgan stanley', 'volvo', 'infosys', 'capgemini', 'cognizant', 'quest global', 'medpace'];
+          return list.some(c => comp.includes(c)) || cat.includes('MNC') || cat.includes('PRIVATE');
+        }
+        if (companyType === 'edtech') {
+          const list = ['mindtickle', 'physicswallah', 'unacademy', 'vedantu', 'byju'];
+          return list.some(c => comp.includes(c)) || title.includes('teaching');
+        }
+        if (companyType === 'healthcare') {
+          const list = ['medpace', 'apollo', 'fortis', 'cipla', 'reddy'];
+          return list.some(c => comp.includes(c)) || title.includes('health') || title.includes('medical');
+        }
+        if (companyType === 'unicorns') {
+          const list = ['swiggy', 'zomato', 'razorpay', 'udaan', 'zepto', 'netomi', 'mindtickle'];
+          return list.some(c => comp.includes(c));
+        }
+        if (companyType === 'internet') {
+          const list = ['snowflake', 'netomi', 'google', 'amazon', 'microsoft'];
+          return list.some(c => comp.includes(c)) || cat.includes('TECH');
+        }
+        if (companyType === 'bfsi') {
+          return cat.includes('BANK') || comp.includes('bank') || comp.includes('sbi') || comp.includes('natwest') || comp.includes('jpmorgan') || comp.includes('morgan stanley');
+        }
+        return true;
+      });
+
+      const badgeEl = document.getElementById('singleCategoryBadge');
+      const gridEl = document.getElementById('singleCategoryJobsGrid');
+      const emptyEl = document.getElementById('singleCategoryEmptyState');
+
+      badgeEl.textContent = `${matchedJobs.length} Verified Openings`;
+
+      if (matchedJobs.length === 0) {
+        gridEl.innerHTML = '';
+        gridEl.classList.add('hidden');
+        document.getElementById('emptyCategoryTitle').textContent = `No Active Openings in ${title}`;
+        emptyEl.classList.remove('hidden');
+      } else {
+        emptyEl.classList.add('hidden');
+        gridEl.classList.remove('hidden');
+        gridEl.innerHTML = matchedJobs.map(job => renderSingleCategoryJobCard(job)).join('');
+      }
+
+      lucide.createIcons();
+      singleContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Scroll company carousel
+    function scrollCompanyCarousel(direction) {
+      const carousel = document.getElementById('companyCarousel');
+      if (carousel) {
+        carousel.scrollBy({ left: direction * 300, behavior: 'smooth' });
+      }
+    }
+
+    // Category Filter from Box / Links
+    function filterByCategory(cat) {
+      document.getElementById('topColoredGridContainer')?.classList.add('hidden');
+      document.getElementById('jobsFeedSection')?.classList.add('hidden');
 
       const singleContainer = document.getElementById('singleCategoryContainer');
       singleContainer.classList.remove('hidden');
@@ -834,14 +1297,14 @@
       document.getElementById('singleCategoryTitle').textContent = cat;
       document.getElementById('currentCategoryBreadcrumb').textContent = cat;
 
-      const matchedJobs = allJobs.filter(j => matchCategory(j.category, cat));
+      const matchedJobs = allJobs.filter(j => (j.category || '').trim().toUpperCase() === cat.trim().toUpperCase());
 
       const badgeEl = document.getElementById('singleCategoryBadge');
       const gridEl = document.getElementById('singleCategoryJobsGrid');
       const emptyEl = document.getElementById('singleCategoryEmptyState');
 
       const isBlogCat = cat.toUpperCase().includes('BLOG') || cat.toUpperCase().includes('GUIDE');
-      badgeEl.textContent = isBlogCat ? 'Verified Career Guides' : 'Verified Openings';
+      badgeEl.textContent = isBlogCat ? 'Verified Career Guides' : `${matchedJobs.length} Verified Openings`;
 
       if (matchedJobs.length === 0) {
         gridEl.innerHTML = '';
@@ -861,32 +1324,24 @@
         history.pushState({ category: cat }, '', url);
       } catch (e) {}
 
-      // Highlight active pill in navbar and ensure it is centered in view
-      document.querySelectorAll('.nav-cat-pill').forEach(pill => {
-        if (pill.getAttribute('data-cat') === cat) {
-          pill.className = 'nav-cat-pill px-3.5 py-1 rounded-full bg-yellow-400 text-zinc-950 font-black shadow-md border border-yellow-300 transition-all whitespace-nowrap text-xs flex items-center gap-1 flex-shrink-0 cursor-pointer';
-          pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        } else {
-          pill.className = 'nav-cat-pill px-3.5 py-1 rounded-full bg-white/10 hover:bg-white/25 hover:border-white/40 border border-white/15 transition-all whitespace-nowrap text-xs font-bold flex items-center gap-1 text-white shadow-sm flex-shrink-0 cursor-pointer';
-        }
-      });
-
       lucide.createIcons();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      singleContainer.scrollIntoView({ behavior: 'smooth' });
     }
 
     function clearCategoryFilter(e) {
       if (e) e.preventDefault();
 
-      document.getElementById('singleCategoryContainer').classList.add('hidden');
-      document.getElementById('topColoredGridContainer').classList.remove('hidden');
-      document.getElementById('mainCategoryBoxesContainer').classList.remove('hidden');
-      document.getElementById('searchFilterBanner').classList.add('hidden');
+      document.getElementById('singleCategoryContainer')?.classList.add('hidden');
+      document.getElementById('topColoredGridContainer')?.classList.remove('hidden');
+      document.getElementById('jobsFeedSection')?.classList.remove('hidden');
 
-      // Reset all pills
-      document.querySelectorAll('.nav-cat-pill').forEach(pill => {
-        pill.className = 'nav-cat-pill px-3.5 py-1 rounded-full bg-white/10 hover:bg-white/25 hover:border-white/40 border border-white/15 transition-all whitespace-nowrap text-xs font-bold flex items-center gap-1 text-white shadow-sm flex-shrink-0 cursor-pointer';
-      });
+      // Clear search inputs
+      const heroKw = document.getElementById('heroKeywordInput');
+      if (heroKw) heroKw.value = '';
+      const heroLoc = document.getElementById('heroLocationInput');
+      if (heroLoc) heroLoc.value = '';
+      const heroExp = document.getElementById('heroExpSelect');
+      if (heroExp) heroExp.value = '';
 
       try {
         const url = new URL(window.location);
@@ -898,78 +1353,12 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function filterBySearch(query) {
-      if (!query) {
-        clearCategoryFilter();
-        return;
-      }
-
-      document.getElementById('topColoredGridContainer').classList.add('hidden');
-      document.getElementById('mainCategoryBoxesContainer').classList.add('hidden');
-      document.getElementById('searchFilterBanner').classList.add('hidden');
-
-      const singleContainer = document.getElementById('singleCategoryContainer');
-      singleContainer.classList.remove('hidden');
-
-      const titleText = `Search Results: "${query}"`;
-      document.getElementById('singleCategoryTitle').textContent = titleText;
-      document.getElementById('currentCategoryBreadcrumb').textContent = `Search: "${query}"`;
-
-      const q = query.toLowerCase().trim();
-      const matchedJobs = allJobs.filter(j => {
-        const title = (j.title || '').toLowerCase();
-        const company = (j.company || '').toLowerCase();
-        const cat = (j.category || '').toLowerCase();
-        const loc = (j.location || '').toLowerCase();
-        const skills = (j.skills && Array.isArray(j.skills)) ? j.skills.join(' ').toLowerCase() : '';
-        return title.includes(q) || company.includes(q) || cat.includes(q) || loc.includes(q) || skills.includes(q);
-      });
-
-      const badgeEl = document.getElementById('singleCategoryBadge');
-      const gridEl = document.getElementById('singleCategoryJobsGrid');
-      const emptyEl = document.getElementById('singleCategoryEmptyState');
-
-      badgeEl.textContent = `${matchedJobs.length} ${matchedJobs.length === 1 ? 'Result' : 'Results'} Found`;
-
-      if (matchedJobs.length === 0) {
-        gridEl.innerHTML = '';
-        gridEl.classList.add('hidden');
-        document.getElementById('emptyCategoryTitle').textContent = `No Results for "${query}"`;
-        emptyEl.classList.remove('hidden');
-      } else {
-        emptyEl.classList.add('hidden');
-        gridEl.classList.remove('hidden');
-        gridEl.innerHTML = matchedJobs.map(job => renderSingleCategoryJobCard(job)).join('');
-      }
-
-      try {
-        const url = new URL(window.location);
-        url.searchParams.set('search', query);
-        url.searchParams.delete('category');
-        history.pushState({ search: query }, '', url);
-      } catch (e) {}
-
-      lucide.createIcons();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
     function escapeHtml(text) {
       if (!text) return '';
       return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
 
-    // All Categories menu dropdown handling
-    const megaBtn = document.getElementById('megaMenuBtn');
-    const megaDrop = document.getElementById('megaMenuDropdown');
-    megaBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      megaDrop.classList.toggle('hidden');
-    });
-    document.addEventListener('click', () => {
-      if (!megaDrop.classList.contains('hidden')) megaDrop.classList.add('hidden');
-    });
-
-    // Post Job / Recruiter Modal handling
+    // Post Job Modal Handling
     const postJobModal = document.getElementById('postJobModal');
     const postJobNavBtn = document.getElementById('postJobNavBtn');
     const closePostJobModal = document.getElementById('closePostJobModal');
@@ -985,55 +1374,29 @@
         postJobModal.classList.add('hidden');
       });
     }
-    postJobModal.addEventListener('click', (e) => {
+    postJobModal?.addEventListener('click', (e) => {
       if (e.target === postJobModal) postJobModal.classList.add('hidden');
     });
 
-    // Search modal handling
-    const searchModal = document.getElementById('searchModal');
-    const searchTriggerBtn = document.getElementById('searchTriggerBtn');
-    const closeSearchModal = document.getElementById('closeSearchModal');
-    const searchForm = document.getElementById('searchForm');
-    const searchInput = document.getElementById('searchInput');
-
-    searchTriggerBtn.addEventListener('click', () => {
-      searchModal.classList.remove('hidden');
-      searchInput.focus();
-    });
-    closeSearchModal.addEventListener('click', () => {
-      searchModal.classList.add('hidden');
-    });
-
-    searchForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const q = searchInput.value.trim();
-      if (q) {
-        searchModal.classList.add('hidden');
-        filterBySearch(q);
-      }
-    });
-
-    document.getElementById('clearSearchBtn').addEventListener('click', () => {
-      clearCategoryFilter();
-    });
-
-    // Popstate browser navigation support
-    window.addEventListener('popstate', (e) => {
+    // Popstate navigation support
+    window.addEventListener('popstate', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const cat = urlParams.get('category');
       const q = urlParams.get('search');
       if (cat) {
         filterByCategory(cat);
       } else if (q) {
-        filterBySearch(q);
+        const kwInput = document.getElementById('heroKeywordInput');
+        if (kwInput) kwInput.value = q;
+        executeHeroSearch();
       } else {
         clearCategoryFilter();
       }
     });
 
-    // Initialize: load jobs with instant cache rendering and background refresh
+    // Initialize: load jobs with cache and API
     async function loadJobs() {
-      // 1. Instant Cache Render (Zero-latency initial display)
+      // 1. Instant Cache Render
       try {
         const cached = localStorage.getItem('sj_cached_jobs_v2');
         if (cached) {
@@ -1045,6 +1408,7 @@
         }
       } catch (e) {}
 
+      // 2. Fetch fresh from server
       try {
         const vid = getVisitorId();
         const url = '/api.php?action=get_jobs&vid=' + encodeURIComponent(vid) + '&_t=' + Date.now();
@@ -1057,98 +1421,36 @@
             localStorage.setItem('sj_cached_jobs_v2', JSON.stringify({ jobs: allJobs, time: Date.now() }));
           } catch (e) {}
 
-          // Update real-time portal metrics (Job openings count, unique visitors & live viewers)
           const uniqueCount = data.site_unique_visitors || 1460;
           const formattedUnique = uniqueCount.toLocaleString('en-IN');
           const liveCount = data.live_visitors || (21 + (new Date().getMinutes() % 8));
           const totalJobsCount = data.total_jobs || allJobs.length;
 
-          // Header Metrics Bar
           const headLive = document.getElementById('headerLiveViewers');
           if (headLive) headLive.textContent = liveCount;
           const headJobs = document.getElementById('headerTotalJobs');
           if (headJobs) headJobs.textContent = totalJobsCount;
           const headVisitors = document.getElementById('headerUniqueVisitors');
           if (headVisitors) headVisitors.textContent = formattedUnique;
-
-          // Navbar Badges
-          const navLive = document.getElementById('navLiveViewers');
-          if (navLive) navLive.textContent = liveCount;
-          const navCounter = document.getElementById('siteVisitorsCount');
-          if (navCounter) navCounter.textContent = formattedUnique;
-
-          // Footer Badge
-          const footCounter = document.getElementById('footerVisitorsCount');
-          if (footCounter) footCounter.textContent = formattedUnique;
+          const footVisitors = document.getElementById('footerVisitorsCount');
+          if (footVisitors) footVisitors.textContent = formattedUnique;
 
           renderAll();
 
-          // Check if URL has category or search
           const urlParams = new URLSearchParams(window.location.search);
           const catParam = urlParams.get('category');
           const searchParam = urlParams.get('search');
           if (catParam) {
             filterByCategory(catParam);
           } else if (searchParam) {
-            filterBySearch(searchParam);
+            const kwInput = document.getElementById('heroKeywordInput');
+            if (kwInput) kwInput.value = searchParam;
+            executeHeroSearch();
           }
         }
       } catch (err) {
         console.error('Error fetching jobs:', err);
       }
-    }
-
-    // Category Strip Scrolling Controls (Desktop Buttons, Wheel & Drag)
-    const categoryScroll = document.getElementById('categoryScrollContainer');
-    const navLeftBtn = document.getElementById('navScrollLeft');
-    const navRightBtn = document.getElementById('navScrollRight');
-
-    if (navLeftBtn && categoryScroll) {
-      navLeftBtn.addEventListener('click', () => {
-        categoryScroll.scrollBy({ left: -240, behavior: 'smooth' });
-      });
-    }
-
-    if (navRightBtn && categoryScroll) {
-      navRightBtn.addEventListener('click', () => {
-        categoryScroll.scrollBy({ left: 240, behavior: 'smooth' });
-      });
-    }
-
-    // Enable horizontal wheel scroll on desktop
-    if (categoryScroll) {
-      categoryScroll.addEventListener('wheel', (e) => {
-        if (e.deltaY !== 0) {
-          e.preventDefault();
-          categoryScroll.scrollLeft += (e.deltaY * 1.5);
-        }
-      }, { passive: false });
-
-      // Mouse drag-to-scroll support for desktop
-      let isDown = false;
-      let startX;
-      let scrollLeftPos;
-      categoryScroll.addEventListener('mousedown', (e) => {
-        isDown = true;
-        categoryScroll.classList.add('cursor-grabbing');
-        startX = e.pageX - categoryScroll.offsetLeft;
-        scrollLeftPos = categoryScroll.scrollLeft;
-      });
-      categoryScroll.addEventListener('mouseleave', () => {
-        isDown = false;
-        categoryScroll.classList.remove('cursor-grabbing');
-      });
-      categoryScroll.addEventListener('mouseup', () => {
-        isDown = false;
-        categoryScroll.classList.remove('cursor-grabbing');
-      });
-      categoryScroll.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - categoryScroll.offsetLeft;
-        const walk = (x - startX) * 1.8;
-        categoryScroll.scrollLeft = scrollLeftPos - walk;
-      });
     }
 
     // Real-time live online seekers heartbeat
@@ -1159,19 +1461,10 @@
         let cur = parseInt(curLiveEl.textContent, 10) || 24;
         cur = Math.max(18, Math.min(38, cur + delta));
         curLiveEl.textContent = cur;
-        const navLive = document.getElementById('navLiveViewers');
-        if (navLive) navLive.textContent = cur;
       }
     }, 15000);
 
     loadJobs();
-
   </script>
-
-  <!-- Floating WhatsApp Channel Follow Button -->
-  <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-3 shadow-2xl hover:shadow-green-500/50 transition-all transform hover:scale-105 group border-2 border-white" title="Follow Selected Jobs Channel on WhatsApp">
-    <i data-lucide="message-circle" class="h-5 w-5 fill-white"></i>
-    <span class="text-xs font-black tracking-wide hidden sm:inline">Follow on WhatsApp</span>
-  </a>
 </body>
 </html>
