@@ -16,13 +16,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    @session_start();
+}
 
 $ADMIN_PASSKEY = "selectedadmin2026";
 $DATA_FILE = __DIR__ . '/data/jobs.json';
 $STATS_FILE = __DIR__ . '/data/stats.json';
 $IG_CONFIG_FILE = __DIR__ . '/data/instagram_config.json';
 $BANNERS_DIR = __DIR__ . '/assets/banners';
+
+if (!is_dir($BANNERS_DIR)) {
+    @mkdir($BANNERS_DIR, 0775, true);
+}
+if (!is_dir(__DIR__ . '/data')) {
+    @mkdir(__DIR__ . '/data', 0775, true);
+}
 
 $dataVersion = file_exists($DATA_FILE) ? filemtime($DATA_FILE) : time();
 header('ETag: "' . $dataVersion . '"');
