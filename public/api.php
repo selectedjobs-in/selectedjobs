@@ -534,9 +534,10 @@ function generateInstagramCaption($job, $defaultHashtags = '') {
         $caption .= $overview;
     }
     $caption .= "👉 HOW TO APPLY:\n";
-    $caption .= "1. Click the link in our bio (@selectedjobs.in)\n";
-    $caption .= "2. Or directly visit: https://selectedjobs.in/jobs/{$id}\n";
-    $caption .= "3. 100% Free Application — direct hiring, no charges!\n\n";
+    $caption .= "1. Click the website link in our bio (@selectedjobs) -> selectedjobs.in\n";
+    $caption .= "2. Direct Job Opening: https://selectedjobs.in/jobs/{$id}\n";
+    $caption .= "3. 100% Free Application — Direct Hiring, Zero Fees!\n\n";
+    $caption .= "🌐 Official Portal: https://selectedjobs.in\n";
     $caption .= "📌 Save this post for reference & tag friends seeking jobs!\n\n";
     $caption .= ".\n.\n.\n";
     $caption .= $hashtags;
@@ -544,8 +545,118 @@ function generateInstagramCaption($job, $defaultHashtags = '') {
     return $caption;
 }
 
+// 8 Premium Branded Background Themes for Instagram Flyers
+function getInstagramThemes() {
+    return [
+        'navy' => [
+            'name' => 'Midnight Navy',
+            'top' => [10, 15, 30],
+            'bottom' => [20, 38, 85],
+            'ambient1' => [37, 99, 235],
+            'ambient2' => [79, 70, 229],
+            'cardBg' => [22, 33, 58],
+            'cardBorder' => [46, 64, 102],
+            'footerBg' => [30, 58, 138],
+            'footerBorder' => [37, 99, 235],
+            'accent' => [56, 189, 248],
+            'brand' => [28, 100, 242]
+        ],
+        'emerald' => [
+            'name' => 'Deep Emerald',
+            'top' => [4, 25, 20],
+            'bottom' => [6, 78, 59],
+            'ambient1' => [16, 185, 129],
+            'ambient2' => [20, 148, 114],
+            'cardBg' => [8, 44, 34],
+            'cardBorder' => [16, 85, 68],
+            'footerBg' => [6, 78, 59],
+            'footerBorder' => [16, 185, 129],
+            'accent' => [52, 211, 153],
+            'brand' => [5, 150, 105]
+        ],
+        'purple' => [
+            'name' => 'Royal Purple',
+            'top' => [18, 10, 38],
+            'bottom' => [49, 46, 129],
+            'ambient1' => [147, 51, 234],
+            'ambient2' => [124, 58, 237],
+            'cardBg' => [36, 25, 66],
+            'cardBorder' => [76, 52, 130],
+            'footerBg' => [76, 29, 149],
+            'footerBorder' => [147, 51, 234],
+            'accent' => [192, 132, 252],
+            'brand' => [126, 34, 206]
+        ],
+        'ruby' => [
+            'name' => 'Crimson Ruby',
+            'top' => [28, 10, 14],
+            'bottom' => [76, 10, 25],
+            'ambient1' => [225, 29, 72],
+            'ambient2' => [190, 18, 60],
+            'cardBg' => [48, 18, 25],
+            'cardBorder' => [95, 32, 45],
+            'footerBg' => [136, 19, 55],
+            'footerBorder' => [225, 29, 72],
+            'accent' => [251, 113, 133],
+            'brand' => [190, 18, 60]
+        ],
+        'cyan' => [
+            'name' => 'Cyber Teal',
+            'top' => [3, 20, 32],
+            'bottom' => [12, 74, 110],
+            'ambient1' => [6, 182, 212],
+            'ambient2' => [14, 116, 144],
+            'cardBg' => [10, 42, 60],
+            'cardBorder' => [20, 80, 110],
+            'footerBg' => [14, 116, 144],
+            'footerBorder' => [6, 182, 212],
+            'accent' => [34, 211, 238],
+            'brand' => [8, 145, 178]
+        ],
+        'amber' => [
+            'name' => 'Sunset Amber',
+            'top' => [26, 16, 8],
+            'bottom' => [72, 32, 8],
+            'ambient1' => [217, 119, 6],
+            'ambient2' => [245, 158, 11],
+            'cardBg' => [46, 30, 16],
+            'cardBorder' => [90, 58, 28],
+            'footerBg' => [120, 53, 15],
+            'footerBorder' => [217, 119, 6],
+            'accent' => [251, 191, 36],
+            'brand' => [180, 83, 9]
+        ],
+        'slate' => [
+            'name' => 'Dark Obsidian',
+            'top' => [15, 23, 42],
+            'bottom' => [30, 41, 59],
+            'ambient1' => [71, 85, 105],
+            'ambient2' => [51, 65, 85],
+            'cardBg' => [30, 41, 59],
+            'cardBorder' => [51, 65, 85],
+            'footerBg' => [51, 65, 85],
+            'footerBorder' => [100, 116, 139],
+            'accent' => [125, 211, 252],
+            'brand' => [37, 99, 235]
+        ],
+        'magenta' => [
+            'name' => 'Neon Magenta',
+            'top' => [28, 8, 30],
+            'bottom' => [78, 6, 75],
+            'ambient1' => [217, 70, 239],
+            'ambient2' => [162, 28, 175],
+            'cardBg' => [50, 18, 55],
+            'cardBorder' => [96, 32, 105],
+            'footerBg' => [112, 26, 117],
+            'footerBorder' => [217, 70, 239],
+            'accent' => [244, 114, 182],
+            'brand' => [192, 38, 211]
+        ]
+    ];
+}
+
 // Generate Instagram Flyer (1080x1080 Square Banner)
-function generateInstagramFlyer($job, $outputPath) {
+function generateInstagramFlyer($job, $outputPath, $themeKey = null) {
     $dir = dirname($outputPath);
     if (!is_dir($dir)) {
         @mkdir($dir, 0775, true);
@@ -570,44 +681,54 @@ function generateInstagramFlyer($job, $outputPath) {
         }
     }
 
-    // Color Palette
+    // Active Theme Selection
+    $allThemes = getInstagramThemes();
+    $themeKeys = array_keys($allThemes);
+    if (empty($themeKey) || !isset($allThemes[$themeKey])) {
+        // Automatically assign a distinct theme for each job using its ID hash
+        $hashIndex = abs(crc32($job['id'] ?? 'sj')) % count($themeKeys);
+        $themeKey = $themeKeys[$hashIndex];
+    }
+    $t = $allThemes[$themeKey];
+
+    // Color Palette based on selected theme
     $cWhite = imagecolorallocate($im, 255, 255, 255);
     $cTextMuted = imagecolorallocate($im, 148, 163, 184); // slate-400
     $cTextSub = imagecolorallocate($im, 203, 213, 225);   // slate-300
-    $cBrandBlue = imagecolorallocate($im, 28, 100, 242);  // #1c64f2
-    $cSky = imagecolorallocate($im, 56, 189, 248);        // sky-400
+    $cBrand = imagecolorallocate($im, $t['brand'][0], $t['brand'][1], $t['brand'][2]);
+    $cAccent = imagecolorallocate($im, $t['accent'][0], $t['accent'][1], $t['accent'][2]);
     $cEmerald = imagecolorallocate($im, 16, 185, 129);    // emerald-500
     $cEmeraldDark = imagecolorallocate($im, 6, 78, 59);   // emerald-900
     $cEmeraldBorder = imagecolorallocate($im, 5, 150, 105);
     $cAmber = imagecolorallocate($im, 245, 158, 11);      // amber-500
     $cAmberBg = imagecolorallocate($im, 69, 26, 3);
-    $cCardBg = imagecolorallocate($im, 22, 33, 58);       // dark navy card
-    $cCardBorder = imagecolorallocate($im, 46, 64, 102);  // navy border
-    $cPillBg = imagecolorallocate($im, 49, 46, 129);      // indigo-900
-    $cPillBorder = imagecolorallocate($im, 99, 102, 241); // indigo-500
-    $cFooterBg = imagecolorallocate($im, 30, 58, 138);    // blue-900
-    $cFooterBorder = imagecolorallocate($im, 37, 99, 235);// blue-600
+    $cCardBg = imagecolorallocate($im, $t['cardBg'][0], $t['cardBg'][1], $t['cardBg'][2]);
+    $cCardBorder = imagecolorallocate($im, $t['cardBorder'][0], $t['cardBorder'][1], $t['cardBorder'][2]);
+    $cPillBg = imagecolorallocate($im, 15, 23, 42);
+    $cPillBorder = $cCardBorder;
+    $cFooterBg = imagecolorallocate($im, $t['footerBg'][0], $t['footerBg'][1], $t['footerBg'][2]);
+    $cFooterBorder = imagecolorallocate($im, $t['footerBorder'][0], $t['footerBorder'][1], $t['footerBorder'][2]);
 
-    // 1. Draw rich gradient background (from dark slate-950 to deep navy #0f172a / #1e1b4b)
+    // 1. Draw rich gradient background
     for ($y = 0; $y < $h; $y++) {
         $ratio = $y / $h;
-        $r = (int)(11 * (1 - $ratio) + 23 * $ratio);
-        $g = (int)(17 * (1 - $ratio) + 37 * $ratio);
-        $b = (int)(32 * (1 - $ratio) + 84 * $ratio);
+        $r = (int)($t['top'][0] * (1 - $ratio) + $t['bottom'][0] * $ratio);
+        $g = (int)($t['top'][1] * (1 - $ratio) + $t['bottom'][1] * $ratio);
+        $b = (int)($t['top'][2] * (1 - $ratio) + $t['bottom'][2] * $ratio);
         $lineColor = imagecolorallocate($im, $r, $g, $b);
         imageline($im, 0, $y, $w, $y, $lineColor);
     }
 
     // 2. Ambient glowing background highlights
-    imagefilledellipse($im, 980, 80, 450, 450, imagecolorallocatealpha($im, 37, 99, 235, 110));
-    imagefilledellipse($im, 60, 980, 500, 500, imagecolorallocatealpha($im, 79, 70, 229, 112));
+    imagefilledellipse($im, 980, 80, 480, 480, imagecolorallocatealpha($im, $t['ambient1'][0], $t['ambient1'][1], $t['ambient1'][2], 112));
+    imagefilledellipse($im, 60, 980, 520, 520, imagecolorallocatealpha($im, $t['ambient2'][0], $t['ambient2'][1], $t['ambient2'][2], 114));
 
     // Outer subtle border
     imagerectangle($im, 20, 20, $w - 20, $h - 20, imagecolorallocate($im, 30, 41, 59));
 
     // 3. Top Header Bar (Brand Logo + Verified Badge)
     // Selected Jobs Brand Pill
-    drawRoundedRect($im, 60, 50, 250, 50, 14, $cBrandBlue);
+    drawRoundedRect($im, 60, 50, 250, 50, 14, $cBrand);
     renderTextSafe($im, 18, 85, 62, $cWhite, $fontFile, "SELECTED JOBS");
 
     // Verified Opening Badge (with real vector dot)
@@ -619,7 +740,7 @@ function generateInstagramFlyer($job, $outputPath) {
     $categoryName = strtoupper(trim($job['category'] ?? 'GENERAL OPENING'));
     $catWidth = min(460, max(200, strlen($categoryName) * 15 + 40));
     drawRoundedRect($im, 60, 135, $catWidth, 42, 10, $cPillBg, $cPillBorder);
-    renderTextSafe($im, 15, 80, 146, $cSky, $fontFile, $categoryName);
+    renderTextSafe($im, 15, 80, 146, $cAccent, $fontFile, $categoryName);
 
     if (!empty($job['isNew'])) {
         drawRoundedRect($im, 60 + $catWidth + 16, 135, 150, 42, 10, $cAmberBg, $cAmber);
@@ -632,7 +753,6 @@ function generateInstagramFlyer($job, $outputPath) {
     // 5. Job Title (Wrapped nicely)
     $title = trim($job['title'] ?? 'Job Opening');
     $titleLines = wrapTextSafe($title, 38, $fontFile, 960);
-    // Limit to 3 lines max
     $titleLines = array_slice($titleLines, 0, 3);
     $currentY = 240;
     foreach ($titleLines as $line) {
@@ -642,7 +762,7 @@ function generateInstagramFlyer($job, $outputPath) {
 
     // 6. Hiring Company
     $company = trim($job['company'] ?? 'Verified Employer');
-    renderTextSafe($im, 26, 60, $currentY + 10, $cSky, $fontFile, "at " . $company);
+    renderTextSafe($im, 26, 60, $currentY + 10, $cAccent, $fontFile, "at " . $company);
 
     // 7. Four Spec Cards Grid (2 rows x 2 cols)
     $cardW = 460;
@@ -684,15 +804,15 @@ function generateInstagramFlyer($job, $outputPath) {
 
     // 8. Key Skills / Highlight Pill (y = 745)
     drawRoundedRect($im, 60, 745, 960, 75, 14, imagecolorallocate($im, 15, 23, 42), $cCardBorder);
-    renderTextSafe($im, 13, 85, 758, $cSky, $fontFile, "KEY REQUIREMENTS / APPLICATION TYPE:");
+    renderTextSafe($im, 13, 85, 758, $cAccent, $fontFile, "KEY REQUIREMENTS / APPLICATION TYPE:");
     $applyHint = (isWebUrl($job['applyValue'] ?? '')) ? "Online Direct Career Application" : ("Direct Contact / Email: " . mb_substr($job['applyValue'] ?? '', 0, 50));
     renderTextSafe($im, 18, 85, 785, $cTextSub, $fontFile, $applyHint);
 
-    // 9. Bottom CTA Card (Vibrant Conversion Banner)
+    // 9. Bottom CTA Card (Vibrant Conversion Banner with Bio and URL prominence)
     drawRoundedRect($im, 60, 845, 960, 175, 20, $cFooterBg, $cFooterBorder);
-    renderTextSafe($im, 24, 95, 875, $cWhite, $fontFile, "APPLY NOW: Click the Link in Our Bio");
-    renderTextSafe($im, 18, 95, 920, $cSky, $fontFile, "selectedjobs.in/jobs/" . ($job['id'] ?? ''));
-    renderTextSafe($im, 14, 95, 965, $cTextSub, $fontFile, "100% Free Job Portal  •  Direct Employer Application  •  Zero Fees");
+    renderTextSafe($im, 24, 95, 875, $cWhite, $fontFile, "APPLY NOW: Click Link in Bio (@selectedjobs)");
+    renderTextSafe($im, 18, 95, 920, $cAccent, $fontFile, "selectedjobs.in/jobs/" . ($job['id'] ?? ''));
+    renderTextSafe($im, 14, 95, 965, $cTextSub, $fontFile, "Official Website: https://selectedjobs.in  •  100% Free Job Portal  •  Zero Fees");
 
     // Save final image
     imagejpeg($im, $outputPath, 92);
@@ -1270,14 +1390,22 @@ switch ($action) {
             exit;
         }
 
-        $flyerName = 'banner_' . preg_replace('/[^a-zA-Z0-9_-]/', '_', $id) . '.jpg';
+        $themes = getInstagramThemes();
+        $themeKeys = array_keys($themes);
+        $reqTheme = trim($_GET['theme'] ?? ($input['theme'] ?? ''));
+        if (empty($reqTheme) || !isset($themes[$reqTheme])) {
+            $hashIndex = abs(crc32($id)) % count($themeKeys);
+            $reqTheme = $themeKeys[$hashIndex];
+        }
+
+        $flyerName = 'banner_' . preg_replace('/[^a-zA-Z0-9_-]/', '_', $id) . '_' . $reqTheme . '.jpg';
         $flyerPath = $BANNERS_DIR . '/' . $flyerName;
         $flyerUrl = 'https://selectedjobs.in/assets/banners/' . $flyerName;
 
         // Generate flyer if not already generated or force refresh
         $force = !empty($_GET['force']) || !empty($input['force']);
         if (!file_exists($flyerPath) || $force) {
-            generateInstagramFlyer($found, $flyerPath);
+            generateInstagramFlyer($found, $flyerPath, $reqTheme);
         }
 
         $cfg = loadInstagramConfig($IG_CONFIG_FILE);
@@ -1289,7 +1417,17 @@ switch ($action) {
             'image_url' => $flyerUrl,
             'caption' => $caption,
             'has_flyer' => file_exists($flyerPath),
-            'flyer_name' => $flyerName
+            'flyer_name' => $flyerName,
+            'current_theme' => $reqTheme,
+            'theme_name' => $themes[$reqTheme]['name'],
+            'available_themes' => array_map(function($k, $v) {
+                return [
+                    'key' => $k,
+                    'name' => $v['name'],
+                    'accent' => sprintf('#%02x%02x%02x', $v['accent'][0], $v['accent'][1], $v['accent'][2]),
+                    'brand' => sprintf('#%02x%02x%02x', $v['brand'][0], $v['brand'][1], $v['brand'][2])
+                ];
+            }, array_keys($themes), array_values($themes))
         ]);
         break;
 
@@ -1324,12 +1462,20 @@ switch ($action) {
         }
 
         $targetJob = $jobs[$foundIndex];
-        $flyerName = 'banner_' . preg_replace('/[^a-zA-Z0-9_-]/', '_', $id) . '.jpg';
+        $themes = getInstagramThemes();
+        $themeKeys = array_keys($themes);
+        $reqTheme = trim($input['theme'] ?? ($_GET['theme'] ?? ''));
+        if (empty($reqTheme) || !isset($themes[$reqTheme])) {
+            $hashIndex = abs(crc32($id)) % count($themeKeys);
+            $reqTheme = $themeKeys[$hashIndex];
+        }
+
+        $flyerName = 'banner_' . preg_replace('/[^a-zA-Z0-9_-]/', '_', $id) . '_' . $reqTheme . '.jpg';
         $flyerPath = $BANNERS_DIR . '/' . $flyerName;
         $flyerUrl = 'https://selectedjobs.in/assets/banners/' . $flyerName;
 
-        if (!file_exists($flyerPath)) {
-            generateInstagramFlyer($targetJob, $flyerPath);
+        if (!file_exists($flyerPath) || !empty($input['force'])) {
+            generateInstagramFlyer($targetJob, $flyerPath, $reqTheme);
         }
 
         $cfg = loadInstagramConfig($IG_CONFIG_FILE);

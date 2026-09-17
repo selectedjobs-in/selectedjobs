@@ -135,12 +135,12 @@
 
       <!-- 2. Controls & Filter Bar -->
       <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-        <!-- Tabs -->
+        <!-- Tabs with Live Count Badges -->
         <div class="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto">
-          <button onclick="setTab('ALL')" id="tab-ALL" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-[#1c64f2] text-white">All Jobs</button>
-          <button onclick="setTab('APPROVED')" id="tab-APPROVED" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 text-zinc-600 hover:bg-zinc-200">Live (Approved)</button>
-          <button onclick="setTab('PENDING')" id="tab-PENDING" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 text-zinc-600 hover:bg-zinc-200">Pending</button>
-          <button onclick="setTab('REJECTED')" id="tab-REJECTED" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 text-zinc-600 hover:bg-zinc-200">Rejected</button>
+          <button onclick="setTab('ALL')" id="tab-ALL" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#1c64f2] text-white">All Jobs <span id="badge-total" class="ml-1 opacity-80 font-normal">(111)</span></button>
+          <button onclick="setTab('APPROVED')" id="tab-APPROVED" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 text-zinc-600 hover:bg-zinc-200">Live <span id="badge-approved" class="ml-1 opacity-80 font-normal">(71)</span></button>
+          <button onclick="setTab('PENDING')" id="tab-PENDING" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 text-zinc-600 hover:bg-zinc-200">Pending <span id="badge-pending" class="ml-1 opacity-80 font-normal">(0)</span></button>
+          <button onclick="setTab('REJECTED')" id="tab-REJECTED" class="tab-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 text-zinc-600 hover:bg-zinc-200">Rejected <span id="badge-rejected" class="ml-1 opacity-80 font-normal">(0)</span></button>
         </div>
 
         <!-- Search Box -->
@@ -168,6 +168,29 @@
         </div>
 
         <form id="igSettingsForm" onsubmit="saveInstagramSettings(event)" class="mt-4 space-y-4">
+          <!-- Recommended Profile Bio Box -->
+          <div class="p-3.5 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border border-blue-200 rounded-xl space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-blue-950 flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="h-3.5 w-3.5 text-blue-600"></i>
+                <span>Recommended Instagram Bio for @selectedjobs</span>
+              </span>
+              <button type="button" onclick="copyBioToClipboard()" id="copyBioBtn" class="text-[11px] font-bold text-blue-700 hover:text-blue-900 bg-white px-2.5 py-1 rounded-lg border border-blue-200 shadow-xs flex items-center gap-1 transition-colors">
+                <i data-lucide="copy" class="h-3 w-3"></i>
+                <span id="copyBioBtnText">Copy Bio</span>
+              </button>
+            </div>
+            <div id="recommendedBioText" class="text-xs text-zinc-800 font-mono bg-white p-2.5 rounded-lg border border-blue-100 whitespace-pre-line leading-relaxed shadow-inner">🎯 SelectedJobs | A True Job Portal
+🚀 Daily Verified IT, MNC, Freshers & Remote Openings
+⚡ 100% Free • Direct Employer Links • No Charges
+👇 Browse 110+ Active Job Openings:
+🔗 selectedjobs.in</div>
+            <p class="text-[11px] text-blue-800 flex items-center gap-1">
+              <i data-lucide="info" class="h-3 w-3 flex-shrink-0"></i>
+              <span>Add <strong>https://selectedjobs.in</strong> in your Instagram profile's <em>Website</em> field.</span>
+            </p>
+          </div>
+
           <!-- Account credentials banner -->
           <div class="p-3 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl flex items-center justify-between">
             <div class="flex items-center gap-2.5">
@@ -293,6 +316,21 @@
                 <span>Re-render Flyer</span>
               </button>
             </div>
+
+            <!-- Background Theme Selector (Allows changing poster background color on every post) -->
+            <div class="w-full mt-3 bg-zinc-50 border border-zinc-200 rounded-xl p-2.5">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold text-zinc-700 flex items-center gap-1.5">
+                  <i data-lucide="palette" class="h-3.5 w-3.5 text-purple-600"></i>
+                  <span>Background Palette:</span>
+                </span>
+                <span id="currentThemeBadge" class="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-purple-100 text-purple-800">Midnight Navy</span>
+              </div>
+              <div id="themePillsContainer" class="grid grid-cols-4 gap-1.5 text-center">
+                <!-- Theme buttons populated by JS -->
+              </div>
+            </div>
+
             <p class="text-[10px] text-zinc-400 mt-2 text-center">Crisp 1080×1080 square format, ideal for Instagram Posts, WhatsApp Stories & LinkedIn.</p>
           </div>
 
@@ -456,6 +494,21 @@
             document.getElementById('statApproved').textContent = data.stats.approved;
             document.getElementById('statPending').textContent = data.stats.pending;
             document.getElementById('statRejected').textContent = data.stats.rejected;
+            if (document.getElementById('badge-total')) document.getElementById('badge-total').textContent = `(${data.stats.total})`;
+            if (document.getElementById('badge-approved')) document.getElementById('badge-approved').textContent = `(${data.stats.approved})`;
+            if (document.getElementById('badge-pending')) document.getElementById('badge-pending').textContent = `(${data.stats.pending})`;
+            if (document.getElementById('badge-rejected')) document.getElementById('badge-rejected').textContent = `(${data.stats.rejected})`;
+
+            // If on Pending tab and 0 pending, switch to ALL so user sees openings
+            if (currentTab === 'PENDING' && data.stats.pending === 0) {
+              currentTab = 'ALL';
+              document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = 'tab-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-zinc-100 text-zinc-600 hover:bg-zinc-200';
+              });
+              const tAll = document.getElementById('tab-ALL');
+              if (tAll) tAll.className = 'tab-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#1c64f2] text-white';
+            }
+
             if (document.getElementById('statVisitors')) {
               document.getElementById('statVisitors').textContent = (data.stats.site_unique_visitors || 142).toLocaleString('en-IN');
             }
@@ -688,9 +741,12 @@
       lucide.createIcons();
     }
 
+    let currentFlyerTheme = null;
+
     async function openInstagramModal(jobId) {
       currentInstagramJobId = jobId;
       currentInstagramData = null;
+      currentFlyerTheme = null;
       document.getElementById('igPublisherModal').classList.remove('hidden');
       document.getElementById('igModalJobBadge').textContent = jobId;
       document.getElementById('igFlyerLoading').classList.remove('hidden');
@@ -706,7 +762,12 @@
       document.getElementById('igPublisherModal').classList.add('hidden');
     }
 
-    async function refreshFlyer(force = false) {
+    function selectFlyerTheme(themeKey) {
+      currentFlyerTheme = themeKey;
+      refreshFlyer(true, themeKey);
+    }
+
+    async function refreshFlyer(force = false, themeKey = null) {
       if (!currentInstagramJobId) return;
       const loading = document.getElementById('igFlyerLoading');
       const img = document.getElementById('igFlyerImg');
@@ -718,12 +779,14 @@
 
       try {
         const forceParam = force ? '&force=1' : '';
-        const res = await fetch(`/api.php?action=generate_instagram_banner&id=${encodeURIComponent(currentInstagramJobId)}${forceParam}&_t=${Date.now()}`, {
+        const themeParam = (themeKey || currentFlyerTheme) ? ('&theme=' + encodeURIComponent(themeKey || currentFlyerTheme)) : '';
+        const res = await fetch(`/api.php?action=generate_instagram_banner&id=${encodeURIComponent(currentInstagramJobId)}${forceParam}${themeParam}&_t=${Date.now()}`, {
           headers: { 'x-admin-key': adminKey }
         });
         const data = await res.json();
         if (data.success) {
           currentInstagramData = data;
+          currentFlyerTheme = data.current_theme || 'navy';
           document.getElementById('igCaptionText').value = data.caption || '';
           
           img.onload = () => {
@@ -731,7 +794,27 @@
           };
           img.src = data.image_url + '?t=' + Date.now();
           dlBtn.href = data.image_url;
-          dlBtn.download = `SelectedJobs_${currentInstagramJobId}.jpg`;
+          dlBtn.download = `SelectedJobs_${currentInstagramJobId}_${currentFlyerTheme}.jpg`;
+
+          // Update theme badge and chips
+          const themeBadge = document.getElementById('currentThemeBadge');
+          if (themeBadge) themeBadge.textContent = data.theme_name || currentFlyerTheme;
+
+          const pillsCont = document.getElementById('themePillsContainer');
+          if (pillsCont && data.available_themes) {
+            pillsCont.innerHTML = '';
+            data.available_themes.forEach(t => {
+              const isSelected = (t.key === currentFlyerTheme);
+              const btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = isSelected 
+                ? 'px-2 py-1.5 rounded-lg text-[10px] font-black bg-[#1c64f2] text-white shadow-xs border border-blue-600 truncate flex items-center justify-center gap-1' 
+                : 'px-2 py-1.5 rounded-lg text-[10px] font-bold bg-white text-zinc-700 hover:bg-zinc-100 border border-zinc-200 truncate flex items-center justify-center gap-1 transition-colors';
+              btn.innerHTML = `<span class="w-2 h-2 rounded-full inline-block" style="background-color: ${t.accent || '#38bdf8'}"></span><span>${t.name}</span>`;
+              btn.onclick = () => selectFlyerTheme(t.key);
+              pillsCont.appendChild(btn);
+            });
+          }
 
           const job = data.job || {};
           const statusBox = document.getElementById('igPublishStatusBox');
@@ -750,7 +833,7 @@
           } else {
             statusBox.className = 'p-3 rounded-xl border border-zinc-200 bg-zinc-50 flex items-center justify-between text-xs';
             statusTitle.textContent = 'Ready to Post to @selectedjobs';
-            statusSub.textContent = 'Branded 1080×1080 flyer rendered with smart hashtags';
+            statusSub.textContent = `Branded ${data.theme_name || '1080×1080'} flyer rendered with smart hashtags`;
             statusBadge.className = 'text-[10px] font-extrabold px-2 py-0.5 rounded bg-zinc-200 text-zinc-700';
             statusBadge.textContent = 'READY';
             statusIcon.textContent = '📸';
@@ -792,7 +875,8 @@
           },
           body: JSON.stringify({
             id: currentInstagramJobId,
-            caption: customCaption
+            caption: customCaption,
+            theme: currentFlyerTheme
           })
         });
         const data = await res.json();
@@ -825,6 +909,21 @@
         }, 2000);
       }).catch(() => {
         alert('Failed to copy to clipboard.');
+      });
+    }
+
+    function copyBioToClipboard() {
+      const bioEl = document.getElementById('recommendedBioText');
+      if (!bioEl) return;
+      const text = bioEl.innerText || bioEl.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = document.getElementById('copyBioBtnText');
+        if (btnText) btnText.textContent = 'Copied!';
+        setTimeout(() => {
+          if (btnText) btnText.textContent = 'Copy Bio';
+        }, 2000);
+      }).catch(() => {
+        alert('Bio copied to clipboard!');
       });
     }
 
