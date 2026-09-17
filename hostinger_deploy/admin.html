@@ -31,52 +31,62 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-[#f8fafc] text-zinc-900 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-[#f8fafc] text-slate-900 font-sans antialiased min-h-screen flex flex-col">
 
-  <!-- Header Banner -->
-  <header class="w-full bg-[#1c64f2] text-white py-4 px-4 text-center border-b border-blue-700">
-    <div class="mx-auto max-w-7xl flex items-center justify-between">
-      <a href="/" class="inline-flex items-center gap-2">
-        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#1c64f2] shadow-sm">
-          <i data-lucide="briefcase" class="h-5 w-5 text-[#1c64f2]"></i>
-        </div>
-        <div class="text-left">
-          <span class="text-xl font-extrabold tracking-tight">Selected Jobs</span>
-          <span class="text-[11px] block font-medium text-blue-100">Portal Administration</span>
-        </div>
-      </a>
-      <div id="adminNavControls" class="flex items-center gap-2 sm:gap-3">
-        <button onclick="openInstagramSettingsModal()" class="text-xs font-bold text-white bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 hover:opacity-95 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 shadow-sm">
+  <!-- 1. Modern Clean Header (Matching Homepage) -->
+  <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+    <div class="mx-auto max-w-7xl px-3 sm:px-6 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Left: Brand Logo -->
+      <div class="flex items-center gap-8 flex-shrink-0">
+        <a href="/" class="flex items-center gap-2.5 group">
+          <div class="h-10 w-10 rounded-xl bg-[#1c64f2] text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            <i data-lucide="briefcase" class="h-5 w-5"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 leading-none">selected<span class="text-[#1c64f2]">jobs</span></span>
+            <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">Portal Administration</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Right: Admin Controls -->
+      <div id="adminNavControls" class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        <button onclick="openInstagramSettingsModal()" class="text-xs font-bold text-white bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 hover:opacity-95 px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 shadow-xs whitespace-nowrap">
           <i data-lucide="instagram" class="h-3.5 w-3.5"></i>
           <span class="hidden sm:inline">Instagram Settings</span>
           <span class="sm:hidden">Instagram</span>
         </button>
-        <a href="/post-job" class="text-xs font-bold text-zinc-950 bg-yellow-400 hover:bg-yellow-300 px-3 py-1.5 rounded-xl transition-colors flex items-center gap-1">
+        <a href="/post-job.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black shadow-xs hover:shadow-md transition-all whitespace-nowrap">
           <i data-lucide="plus-circle" class="h-3.5 w-3.5"></i>
           <span>Post New Job</span>
         </a>
-        <button id="logoutBtn" class="hidden text-xs font-bold text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-xl transition-colors items-center gap-1">
+        <button id="logoutBtn" class="hidden text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 px-3.5 py-1.5 rounded-full transition-colors items-center gap-1">
           <i data-lucide="log-out" class="h-3.5 w-3.5"></i>
           <span>Logout</span>
         </button>
       </div>
+
     </div>
   </header>
 
-  <!-- Red Subnav Bar -->
-  <nav class="w-full bg-[#b91c1c] text-white py-2 px-4 shadow-sm border-b border-red-800 text-xs font-bold">
+  <!-- Modern Sleek Subnav Bar -->
+  <div class="w-full bg-slate-50 border-b border-slate-200/80 py-2.5 px-4 text-xs font-medium text-slate-600">
     <div class="mx-auto max-w-7xl flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <a href="/" class="hover:underline">&larr; Return to Homepage</a>
-        <span class="text-red-300">/</span>
-        <span class="text-red-100 font-normal">Editorial & Moderation Console</span>
+      <div class="flex items-center gap-2">
+        <a href="/" class="hover:text-blue-600 flex items-center gap-1 font-semibold transition-colors">
+          <i data-lucide="arrow-left" class="h-3.5 w-3.5"></i>
+          <span>Return to Homepage</span>
+        </a>
+        <span class="text-slate-300">/</span>
+        <span class="text-slate-900 font-bold">Editorial & Moderation Console</span>
       </div>
-      <div class="flex items-center gap-1.5 text-yellow-300">
-        <i data-lucide="lock" class="h-4 w-4"></i>
+      <div class="flex items-center gap-1.5 text-amber-600 font-bold">
+        <i data-lucide="lock" class="h-3.5 w-3.5"></i>
         <span>Restricted Area</span>
       </div>
     </div>
-  </nav>
+  </div>
 
   <!-- Main Content -->
   <main class="flex-1 py-8 px-4 max-w-7xl mx-auto w-full">

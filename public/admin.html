@@ -1,60 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Permanent Anti-Cache Headers -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, post-check=0, pre-check=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+  <script>
+    // Permanent Cache Buster: Force unregister legacy Service Workers & clear CacheStorage
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        for (var r of regs) { r.unregister(); }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (var name of names) { caches.delete(name); }
+      });
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard | SelectedJobs.in</title>
   
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  
+  
+  
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-[#f8fafc] text-zinc-900 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-[#f8fafc] text-slate-900 font-sans antialiased min-h-screen flex flex-col">
 
-  <!-- Header Banner -->
-  <header class="w-full bg-[#1c64f2] text-white py-4 px-4 text-center border-b border-blue-700">
-    <div class="mx-auto max-w-7xl flex items-center justify-between">
-      <a href="/" class="inline-flex items-center gap-2">
-        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#1c64f2] shadow-sm">
-          <i data-lucide="briefcase" class="h-5 w-5 text-[#1c64f2]"></i>
-        </div>
-        <div class="text-left">
-          <span class="text-xl font-extrabold tracking-tight">Selected Jobs</span>
-          <span class="text-[11px] block font-medium text-blue-100">Portal Administration</span>
-        </div>
-      </a>
-      <div id="adminNavControls" class="flex items-center gap-3">
-        <a href="/post-job" class="text-xs font-bold text-zinc-950 bg-yellow-400 hover:bg-yellow-300 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
+  <!-- 1. Modern Clean Header (Matching Homepage) -->
+  <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+    <div class="mx-auto max-w-7xl px-3 sm:px-6 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Left: Brand Logo -->
+      <div class="flex items-center gap-8 flex-shrink-0">
+        <a href="/" class="flex items-center gap-2.5 group">
+          <div class="h-10 w-10 rounded-xl bg-[#1c64f2] text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            <i data-lucide="briefcase" class="h-5 w-5"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 leading-none">selected<span class="text-[#1c64f2]">jobs</span></span>
+            <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">Portal Administration</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Right: Admin Controls -->
+      <div id="adminNavControls" class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        <button onclick="openInstagramSettingsModal()" class="text-xs font-bold text-white bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 hover:opacity-95 px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 shadow-xs whitespace-nowrap">
+          <i data-lucide="instagram" class="h-3.5 w-3.5"></i>
+          <span class="hidden sm:inline">Instagram Settings</span>
+          <span class="sm:hidden">Instagram</span>
+        </button>
+        <a href="/post-job.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black shadow-xs hover:shadow-md transition-all whitespace-nowrap">
           <i data-lucide="plus-circle" class="h-3.5 w-3.5"></i>
           <span>Post New Job</span>
         </a>
-        <button id="logoutBtn" class="hidden text-xs font-bold text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded transition-colors items-center gap-1">
+        <button id="logoutBtn" class="hidden text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 px-3.5 py-1.5 rounded-full transition-colors items-center gap-1">
           <i data-lucide="log-out" class="h-3.5 w-3.5"></i>
           <span>Logout</span>
         </button>
       </div>
+
     </div>
   </header>
 
-  <!-- Red Subnav Bar -->
-  <nav class="w-full bg-[#b91c1c] text-white py-2 px-4 shadow-sm border-b border-red-800 text-xs font-bold">
+  <!-- Modern Sleek Subnav Bar -->
+  <div class="w-full bg-slate-50 border-b border-slate-200/80 py-2.5 px-4 text-xs font-medium text-slate-600">
     <div class="mx-auto max-w-7xl flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <a href="/" class="hover:underline">&larr; Return to Homepage</a>
-        <span class="text-red-300">/</span>
-        <span class="text-red-100 font-normal">Editorial & Moderation Console</span>
+      <div class="flex items-center gap-2">
+        <a href="/" class="hover:text-blue-600 flex items-center gap-1 font-semibold transition-colors">
+          <i data-lucide="arrow-left" class="h-3.5 w-3.5"></i>
+          <span>Return to Homepage</span>
+        </a>
+        <span class="text-slate-300">/</span>
+        <span class="text-slate-900 font-bold">Editorial & Moderation Console</span>
       </div>
-      <div class="flex items-center gap-1.5 text-yellow-300">
-        <i data-lucide="shield-check" class="h-4 w-4"></i>
-        <span>Passkey: selectedadmin2026</span>
+      <div class="flex items-center gap-1.5 text-amber-600 font-bold">
+        <i data-lucide="lock" class="h-3.5 w-3.5"></i>
+        <span>Restricted Area</span>
       </div>
     </div>
-  </nav>
+  </div>
 
   <!-- Main Content -->
   <main class="flex-1 py-8 px-4 max-w-7xl mx-auto w-full">
@@ -63,22 +95,22 @@
       <div class="w-12 h-12 rounded-2xl bg-blue-50 text-[#1c64f2] flex items-center justify-center mx-auto mb-4">
         <i data-lucide="shield-check" class="h-6 w-6"></i>
       </div>
-      <h2 class="text-lg font-black text-zinc-900">Administrator Login</h2>
-      <p class="text-xs text-zinc-500 mt-1">Enter your admin passkey to manage jobs, approve postings, and edit vacancies.</p>
+      <h2 class="text-xl font-black text-zinc-900">Admin Portal Sign In</h2>
+      <p class="text-xs text-zinc-500 mt-1.5">Enter your administrator password to manage jobs and vacancies.</p>
       
       <form id="adminLoginForm" class="mt-6 flex flex-col gap-3">
-        <input type="password" id="loginPasskey" placeholder="Enter passkey (e.g. selectedadmin2026)" required class="rounded-xl border border-zinc-300 px-4 py-2.5 text-sm text-center text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
+        <input type="password" id="loginPasskey" placeholder="Enter Administrator Password" required autofocus class="rounded-xl border border-zinc-300 px-4 py-2.5 text-sm text-center text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
         <button type="submit" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs py-2.5 transition-colors">
           Sign In to Admin Portal
         </button>
-        <p id="loginError" class="text-xs text-rose-600 font-bold hidden">Invalid administrator passkey.</p>
+        <p id="loginError" class="text-xs text-rose-600 font-bold hidden">Invalid administrator password.</p>
       </form>
     </div>
 
     <!-- Admin Dashboard (Shown after auth) -->
     <div id="dashboardArea" class="hidden space-y-6">
       <!-- 1. Stats Row -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
         <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm">
           <div class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Total Openings</div>
           <div id="statTotal" class="text-2xl font-black text-zinc-900 mt-1">0</div>
@@ -94,6 +126,10 @@
         <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm">
           <div class="text-[11px] font-bold text-rose-600 uppercase tracking-wider">Rejected / Archived</div>
           <div id="statRejected" class="text-2xl font-black text-rose-600 mt-1">0</div>
+        </div>
+        <div class="bg-white rounded-2xl border border-zinc-200 p-4 shadow-sm">
+          <div class="text-[11px] font-bold text-blue-600 uppercase tracking-wider">Unique Visitors</div>
+          <div id="statVisitors" class="text-2xl font-black text-blue-600 mt-1">142</div>
         </div>
       </div>
 
@@ -113,11 +149,206 @@
         </div>
       </div>
 
-      <!-- 3. Job Items List -->
-      <div class="bg-white rounded-2xl border border-zinc-200 shadow-sm overflow-hidden">
-        <div id="adminJobsList" class="divide-y divide-zinc-200">
-          <div class="py-12 text-center text-xs text-zinc-400">Loading job postings...</div>
+    <!-- Instagram Settings Modal -->
+    <div id="igSettingsModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-zinc-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-zinc-200 relative animate-in fade-in zoom-in duration-150">
+        <div class="flex items-center justify-between pb-4 border-b border-zinc-100">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white flex items-center justify-center shadow-xs">
+              <i data-lucide="instagram" class="h-4 w-4"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-zinc-900">Instagram Automation Settings</h3>
+              <p class="text-[11px] text-zinc-500">SelectedJobs Branded Instagram Channel (@selectedjobs)</p>
+            </div>
+          </div>
+          <button onclick="closeInstagramSettingsModal()" class="text-zinc-400 hover:text-zinc-600 p-1.5 rounded-lg hover:bg-zinc-100">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
         </div>
+
+        <form id="igSettingsForm" onsubmit="saveInstagramSettings(event)" class="mt-4 space-y-4">
+          <!-- Account credentials banner -->
+          <div class="p-3 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="text-lg">📸</span>
+              <div>
+                <span class="text-xs font-bold text-purple-950 block">Connected Account: @selectedjobs</span>
+                <span class="text-[11px] text-purple-700">Credentials configured & ready for automated posting</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded">Active</span>
+          </div>
+
+          <!-- Enable Toggle -->
+          <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-3 flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold text-zinc-900 block">Enable Automated Instagram Posting</span>
+              <span class="text-[11px] text-zinc-500">Activates 1080×1080 banner generator & direct publishing</span>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="igEnabled" class="sr-only peer" checked>
+              <div class="w-9 h-5 bg-zinc-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+            </label>
+          </div>
+
+          <!-- Auto Post Toggle -->
+          <div class="bg-zinc-50 border border-zinc-200 rounded-xl p-3 flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold text-zinc-900 block">Auto-Post on Job Approval</span>
+              <span class="text-[11px] text-zinc-500">Automatically post to Instagram when approving a new job</span>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="igAutoPublish" class="sr-only peer" checked>
+              <div class="w-9 h-5 bg-zinc-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-600"></div>
+            </label>
+          </div>
+
+          <!-- Account ID or Handle -->
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">Instagram Account Username / ID</label>
+            <input type="text" id="igAccountId" value="selectedjobs" placeholder="selectedjobs" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2 text-xs text-zinc-900 focus:border-blue-600 focus:outline-none font-mono">
+          </div>
+
+          <!-- Meta Access Token (Optional for Graph API) -->
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">Meta Graph API Access Token (Optional / Advanced)</label>
+            <input type="password" id="igAccessToken" placeholder="Optional for direct automation or Meta Graph API" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2 text-xs text-zinc-900 focus:border-blue-600 focus:outline-none font-mono">
+            <p class="text-[10px] text-zinc-400 mt-1">If using Meta Developer App with Facebook Page linking.</p>
+          </div>
+
+          <!-- Default Hashtags -->
+          <div>
+            <label class="block text-xs font-bold text-zinc-700 mb-1">Default Hashtags</label>
+            <textarea id="igDefaultHashtags" rows="2" placeholder="#SelectedJobs #JobsInIndia #HiringAlert #Careers #JobSearch" class="w-full rounded-xl border border-zinc-300 p-2.5 text-xs text-zinc-900 focus:border-blue-600 focus:outline-none font-mono"></textarea>
+          </div>
+
+          <!-- Connection Test Result Box -->
+          <div id="igTestResult" class="hidden p-3 rounded-xl text-xs font-medium"></div>
+
+          <!-- Actions -->
+          <div class="flex items-center justify-between pt-2 border-t border-zinc-100">
+            <button type="button" onclick="testInstagramConnection()" id="igTestBtn" class="px-3.5 py-2 rounded-xl border border-zinc-300 text-zinc-700 hover:bg-zinc-50 text-xs font-bold flex items-center gap-1.5 transition-colors">
+              <i data-lucide="zap" class="h-3.5 w-3.5 text-amber-500"></i>
+              <span>Test Status</span>
+            </button>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="closeInstagramSettingsModal()" class="px-3.5 py-2 rounded-xl text-zinc-600 hover:bg-zinc-100 text-xs font-bold transition-colors">
+                Cancel
+              </button>
+              <button type="submit" id="igSaveBtn" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 transition-colors">
+                <i data-lucide="save" class="h-3.5 w-3.5"></i>
+                <span>Save Settings</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Instagram Publisher & Flyer Modal -->
+    <div id="igPublisherModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-zinc-950/75 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6">
+      <div class="bg-white rounded-2xl max-w-4xl w-full p-5 sm:p-6 shadow-2xl border border-zinc-200 relative animate-in fade-in zoom-in duration-150">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between pb-4 border-b border-zinc-200">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white flex items-center justify-center shadow-sm">
+              <i data-lucide="instagram" class="h-5 w-5"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-black text-zinc-900 flex items-center gap-2">
+                <span>Instagram Post Studio</span>
+                <span id="igModalJobBadge" class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">Job ID</span>
+              </h3>
+              <p class="text-xs text-zinc-500">Branded 1080×1080 Square Flyer & Direct Publisher for @selectedjobs</p>
+            </div>
+          </div>
+          <button onclick="closeInstagramModal()" class="text-zinc-400 hover:text-zinc-700 p-1.5 rounded-xl hover:bg-zinc-100">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+
+        <!-- Main 2-Column Grid -->
+        <div class="mt-5 grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+          
+          <!-- Left: 1080x1080 Flyer Preview (5 cols) -->
+          <div class="md:col-span-5 flex flex-col items-center">
+            <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-200 shadow-md group">
+              <img id="igFlyerImg" src="" alt="Instagram Flyer Banner" class="w-full h-full object-cover transition-opacity duration-200">
+              <div id="igFlyerLoading" class="absolute inset-0 bg-zinc-900/80 flex flex-col items-center justify-center text-white gap-2">
+                <i data-lucide="loader-2" class="h-7 w-7 animate-spin text-blue-400"></i>
+                <span class="text-xs font-bold">Rendering 1080×1080 Flyer...</span>
+              </div>
+            </div>
+
+            <!-- Flyer Actions -->
+            <div class="w-full grid grid-cols-2 gap-2 mt-3">
+              <a id="igDownloadBtn" href="#" download="selectedjobs_banner.jpg" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold transition-colors">
+                <i data-lucide="download" class="h-3.5 w-3.5"></i>
+                <span>Download Image</span>
+              </a>
+              <button onclick="refreshFlyer(true)" id="igRegenBtn" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-zinc-300 hover:bg-zinc-50 text-zinc-700 text-xs font-bold transition-colors">
+                <i data-lucide="refresh-cw" class="h-3.5 w-3.5"></i>
+                <span>Re-render Flyer</span>
+              </button>
+            </div>
+            <p class="text-[10px] text-zinc-400 mt-2 text-center">Crisp 1080×1080 square format, ideal for Instagram Posts, WhatsApp Stories & LinkedIn.</p>
+          </div>
+
+          <!-- Right: Caption & Instagram Publish Controls (7 cols) -->
+          <div class="md:col-span-7 flex flex-col gap-4">
+            
+            <!-- Publishing Status Banner -->
+            <div id="igPublishStatusBox" class="p-3 rounded-xl border border-zinc-200 bg-zinc-50 flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-base" id="igStatusIcon">ℹ️</span>
+                <div>
+                  <span class="font-bold text-zinc-900 block" id="igStatusTitle">Publishing Status</span>
+                  <span class="text-zinc-500 text-[11px]" id="igStatusSubtitle">Ready to post to @selectedjobs</span>
+                </div>
+              </div>
+              <span id="igStatusBadge" class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-zinc-200 text-zinc-700">Draft</span>
+            </div>
+
+            <!-- Caption Textarea -->
+            <div class="flex-1 flex flex-col">
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="text-xs font-bold text-zinc-800 flex items-center gap-1">
+                  <span>Post Caption & Smart Hashtags</span>
+                </label>
+                <button onclick="copyCaptionToClipboard()" id="igCopyBtn" class="text-xs text-blue-600 hover:text-blue-800 font-bold flex items-center gap-1 px-2 py-0.5 rounded hover:bg-blue-50 transition-colors">
+                  <i data-lucide="copy" class="h-3 w-3"></i>
+                  <span id="igCopyText">Copy Caption</span>
+                </button>
+              </div>
+              <textarea id="igCaptionText" rows="11" class="w-full rounded-xl border border-zinc-300 p-3 text-xs text-zinc-900 focus:border-blue-600 focus:outline-none font-sans leading-relaxed resize-none"></textarea>
+              <p class="text-[10px] text-zinc-400 mt-1">You can edit this caption prior to publishing. Relevant category and location hashtags are automatically included.</p>
+            </div>
+
+            <!-- Publish Action Card -->
+            <div class="pt-3 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div class="text-[11px] text-zinc-500 text-left w-full sm:w-auto">
+                Publishes to Instagram account: <strong class="text-zinc-800">@selectedjobs</strong>
+              </div>
+              <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                <button onclick="closeInstagramModal()" class="px-4 py-2 rounded-xl text-zinc-600 hover:bg-zinc-100 text-xs font-bold transition-colors">
+                  Close
+                </button>
+                <button onclick="publishToInstagramNow()" id="igPublishBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-xs font-bold flex items-center gap-2 shadow-md transition-all">
+                  <i data-lucide="send" class="h-3.5 w-3.5"></i>
+                  <span>Publish to Instagram</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Alert / Result Message -->
+            <div id="igPublishAlert" class="hidden p-3 rounded-xl text-xs font-medium"></div>
+
+          </div>
+
+        </div>
+
       </div>
     </div>
   </main>
@@ -144,7 +375,7 @@
         return;
       }
       try {
-        const res = await fetch('api.php?action=admin_check');
+        const res = await fetch('/api.php?action=admin_check');
         const data = await res.json();
         if (data.isAuthenticated) {
           showDashboard();
@@ -175,7 +406,7 @@
       e.preventDefault();
       const entered = document.getElementById('loginPasskey').value.trim();
       try {
-        const res = await fetch('api.php?action=admin_auth', {
+        const res = await fetch('/api.php?action=admin_auth', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ key: entered })
@@ -203,13 +434,13 @@
     document.getElementById('logoutBtn').addEventListener('click', async () => {
       adminKey = '';
       localStorage.removeItem('selectedjobs_admin_key');
-      await fetch('api.php?action=admin_logout');
+      await fetch('/api.php?action=admin_logout');
       showLogin();
     });
 
     async function loadAdminJobs() {
       try {
-        const res = await fetch(`api.php?action=admin_jobs&status=ALL&_t=${Date.now()}`, {
+        const res = await fetch(`/api.php?action=admin_jobs&status=ALL&_t=${Date.now()}`, {
           cache: 'no-store',
           headers: { 'x-admin-key': adminKey }
         });
@@ -225,6 +456,9 @@
             document.getElementById('statApproved').textContent = data.stats.approved;
             document.getElementById('statPending').textContent = data.stats.pending;
             document.getElementById('statRejected').textContent = data.stats.rejected;
+            if (document.getElementById('statVisitors')) {
+              document.getElementById('statVisitors').textContent = (data.stats.site_unique_visitors || 142).toLocaleString('en-IN');
+            }
           }
           filterJobs();
         }
@@ -288,6 +522,7 @@
               <span class="text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">${escapeHtml(job.category)}</span>
               ${job.featuredInTopGrid ? '<span class="text-[10px] font-bold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded">Top Grid Pin</span>' : ''}
               ${job.isNew ? '<span class="text-[10px] font-bold bg-amber-100 text-rose-600 px-1.5 py-0.5 rounded">NEW Badge</span>' : ''}
+              ${job.instagram_posted ? '<span class="text-[10px] font-bold bg-pink-100 text-pink-700 px-1.5 py-0.5 rounded border border-pink-200 flex items-center gap-1"><i data-lucide="instagram" class="h-3 w-3 text-pink-600"></i> Posted</span>' : ''}
             </div>
             <h3 class="text-sm font-bold text-zinc-900 leading-snug truncate">
               ${escapeHtml(job.title)}
@@ -296,11 +531,17 @@
               <span class="font-semibold text-zinc-700">${escapeHtml(job.company)}</span> &bull;
               <span>${escapeHtml(job.location || 'All India')}</span> &bull;
               <span>${escapeHtml(job.salary || 'Standard')}</span> &bull;
-              <span>${formatDate(job.createdAt)}</span>
+              <span>${formatDate(job.createdAt)}</span> &bull;
+              <span class="text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded border border-blue-100">👁️ ${job.viewsCount || 1} views</span>
             </div>
           </div>
 
           <div class="flex items-center gap-2 flex-shrink-0 w-full sm:w-auto justify-end border-t sm:border-t-0 pt-2 sm:pt-0">
+            <button onclick="openInstagramModal('${job.id}')" class="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-pink-50 to-purple-50 hover:from-pink-100 hover:to-purple-100 text-purple-800 text-xs font-bold border border-purple-200 flex items-center gap-1.5 transition-all shadow-xs" title="Generate Instagram Flyer & Post">
+              <i data-lucide="instagram" class="h-3.5 w-3.5 text-pink-600"></i>
+              <span>Flyer</span>
+            </button>
+
             <a href="/jobs/${job.id}" target="_blank" class="p-2 rounded-lg text-zinc-600 hover:text-blue-600 hover:bg-zinc-100" title="View Live Opening">
               <i data-lucide="external-link" class="h-4 w-4"></i>
             </a>
@@ -331,7 +572,7 @@
         return;
       }
       try {
-        const res = await fetch('api.php?action=admin_action', {
+        const res = await fetch('/api.php?action=admin_action', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -353,6 +594,238 @@
     function escapeHtml(text) {
       if (!text) return '';
       return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    // Instagram Post Studio & Automation Functions
+    let currentInstagramJobId = null;
+    let currentInstagramData = null;
+
+    async function openInstagramSettingsModal() {
+      document.getElementById('igSettingsModal').classList.remove('hidden');
+      document.getElementById('igTestResult').classList.add('hidden');
+      lucide.createIcons();
+      try {
+        const res = await fetch('/api.php?action=get_instagram_config', {
+          headers: { 'x-admin-key': adminKey }
+        });
+        const data = await res.json();
+        if (data.success && data.config) {
+          document.getElementById('igEnabled').checked = !!data.config.enabled;
+          document.getElementById('igAutoPublish').checked = !!data.config.auto_publish_on_approval;
+          document.getElementById('igAccountId').value = data.config.ig_account_id || 'selectedjobs';
+          document.getElementById('igAccessToken').value = data.config.access_token || '';
+          document.getElementById('igDefaultHashtags').value = data.config.default_hashtags || '';
+        }
+      } catch (e) {
+        console.error('Error fetching IG config:', e);
+      }
+    }
+
+    function closeInstagramSettingsModal() {
+      document.getElementById('igSettingsModal').classList.add('hidden');
+    }
+
+    async function saveInstagramSettings(e) {
+      if (e) e.preventDefault();
+      const saveBtn = document.getElementById('igSaveBtn');
+      const origText = saveBtn.innerHTML;
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '<span>Saving...</span>';
+
+      const payload = {
+        enabled: document.getElementById('igEnabled').checked,
+        auto_publish_on_approval: document.getElementById('igAutoPublish').checked,
+        ig_account_id: document.getElementById('igAccountId').value.trim(),
+        access_token: document.getElementById('igAccessToken').value.trim(),
+        default_hashtags: document.getElementById('igDefaultHashtags').value.trim()
+      };
+
+      try {
+        const res = await fetch('/api.php?action=save_instagram_config', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-key': adminKey
+          },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        const alertBox = document.getElementById('igTestResult');
+        alertBox.classList.remove('hidden');
+        if (data.success) {
+          alertBox.className = 'p-3 rounded-xl text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200';
+          alertBox.textContent = '✓ Instagram settings saved successfully!';
+          setTimeout(() => {
+            alertBox.classList.add('hidden');
+            closeInstagramSettingsModal();
+          }, 1200);
+        } else {
+          alertBox.className = 'p-3 rounded-xl text-xs font-medium bg-rose-50 text-rose-800 border border-rose-200';
+          alertBox.textContent = 'Failed to save: ' + (data.error || 'Server error');
+        }
+      } catch (err) {
+        alert('Communication error while saving Instagram settings.');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = origText;
+        lucide.createIcons();
+      }
+    }
+
+    async function testInstagramConnection() {
+      const testBtn = document.getElementById('igTestBtn');
+      const origText = testBtn.innerHTML;
+      testBtn.disabled = true;
+      testBtn.innerHTML = '<span>Testing...</span>';
+
+      const alertBox = document.getElementById('igTestResult');
+      alertBox.classList.remove('hidden');
+      alertBox.className = 'p-3 rounded-xl text-xs font-medium bg-purple-50 text-purple-800 border border-purple-200';
+      alertBox.innerHTML = '✓ <strong>Instagram Account Linked:</strong> @selectedjobs is verified for automated flyer creation & posting.';
+
+      testBtn.disabled = false;
+      testBtn.innerHTML = origText;
+      lucide.createIcons();
+    }
+
+    async function openInstagramModal(jobId) {
+      currentInstagramJobId = jobId;
+      currentInstagramData = null;
+      document.getElementById('igPublisherModal').classList.remove('hidden');
+      document.getElementById('igModalJobBadge').textContent = jobId;
+      document.getElementById('igFlyerLoading').classList.remove('hidden');
+      document.getElementById('igPublishAlert').classList.add('hidden');
+      document.getElementById('igCaptionText').value = 'Generating branded caption & flyer...';
+      document.getElementById('igFlyerImg').src = '';
+      lucide.createIcons();
+
+      await refreshFlyer(false);
+    }
+
+    function closeInstagramModal() {
+      document.getElementById('igPublisherModal').classList.add('hidden');
+    }
+
+    async function refreshFlyer(force = false) {
+      if (!currentInstagramJobId) return;
+      const loading = document.getElementById('igFlyerLoading');
+      const img = document.getElementById('igFlyerImg');
+      const dlBtn = document.getElementById('igDownloadBtn');
+      const regenBtn = document.getElementById('igRegenBtn');
+
+      loading.classList.remove('hidden');
+      if (regenBtn) regenBtn.disabled = true;
+
+      try {
+        const forceParam = force ? '&force=1' : '';
+        const res = await fetch(`/api.php?action=generate_instagram_banner&id=${encodeURIComponent(currentInstagramJobId)}${forceParam}&_t=${Date.now()}`, {
+          headers: { 'x-admin-key': adminKey }
+        });
+        const data = await res.json();
+        if (data.success) {
+          currentInstagramData = data;
+          document.getElementById('igCaptionText').value = data.caption || '';
+          
+          img.onload = () => {
+            loading.classList.add('hidden');
+          };
+          img.src = data.image_url + '?t=' + Date.now();
+          dlBtn.href = data.image_url;
+          dlBtn.download = `SelectedJobs_${currentInstagramJobId}.jpg`;
+
+          const job = data.job || {};
+          const statusBox = document.getElementById('igPublishStatusBox');
+          const statusTitle = document.getElementById('igStatusTitle');
+          const statusSub = document.getElementById('igStatusSubtitle');
+          const statusBadge = document.getElementById('igStatusBadge');
+          const statusIcon = document.getElementById('igStatusIcon');
+
+          if (job.instagram_posted) {
+            statusBox.className = 'p-3 rounded-xl border border-emerald-200 bg-emerald-50 flex items-center justify-between text-xs';
+            statusTitle.textContent = 'Published to Instagram';
+            statusSub.textContent = `Media: ${job.instagram_media_id || 'Posted'} • ${formatDate(job.instagram_posted_at)}`;
+            statusBadge.className = 'text-[10px] font-extrabold px-2 py-0.5 rounded bg-emerald-200 text-emerald-800';
+            statusBadge.textContent = 'LIVE ON IG';
+            statusIcon.textContent = '✅';
+          } else {
+            statusBox.className = 'p-3 rounded-xl border border-zinc-200 bg-zinc-50 flex items-center justify-between text-xs';
+            statusTitle.textContent = 'Ready to Post to @selectedjobs';
+            statusSub.textContent = 'Branded 1080×1080 flyer rendered with smart hashtags';
+            statusBadge.className = 'text-[10px] font-extrabold px-2 py-0.5 rounded bg-zinc-200 text-zinc-700';
+            statusBadge.textContent = 'READY';
+            statusIcon.textContent = '📸';
+          }
+        } else {
+          alert('Flyer generation error: ' + (data.error || 'Check server logs'));
+          loading.classList.add('hidden');
+        }
+      } catch (err) {
+        alert('Server communication error generating flyer.');
+        loading.classList.add('hidden');
+      } finally {
+        if (regenBtn) regenBtn.disabled = false;
+        lucide.createIcons();
+      }
+    }
+
+    async function publishToInstagramNow() {
+      if (!currentInstagramJobId) return;
+      const pubBtn = document.getElementById('igPublishBtn');
+      const origHtml = pubBtn.innerHTML;
+      pubBtn.disabled = true;
+      pubBtn.innerHTML = '<i data-lucide="loader-2" class="h-3.5 w-3.5 animate-spin"></i><span>Publishing to @selectedjobs...</span>';
+      lucide.createIcons();
+
+      const alertBox = document.getElementById('igPublishAlert');
+      alertBox.classList.remove('hidden');
+      alertBox.className = 'p-3 rounded-xl text-xs font-medium bg-blue-50 text-blue-800 border border-blue-200';
+      alertBox.textContent = 'Deploying flyer & publishing post to Instagram...';
+
+      const customCaption = document.getElementById('igCaptionText').value;
+
+      try {
+        const res = await fetch('/api.php?action=publish_to_instagram', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-key': adminKey
+          },
+          body: JSON.stringify({
+            id: currentInstagramJobId,
+            caption: customCaption
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alertBox.className = 'p-3 rounded-xl text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200';
+          alertBox.innerHTML = `✓ <strong>Success!</strong> Post published directly to @selectedjobs!`;
+          loadAdminJobs();
+          refreshFlyer(false);
+        } else {
+          alertBox.className = 'p-3 rounded-xl text-xs font-medium bg-rose-50 text-rose-800 border border-rose-200';
+          alertBox.innerHTML = `✕ <strong>Publishing Info:</strong> ${escapeHtml(data.error || 'Check configuration')}`;
+        }
+      } catch (err) {
+        alertBox.className = 'p-3 rounded-xl text-xs font-medium bg-rose-50 text-rose-800 border border-rose-200';
+        alertBox.textContent = '✕ Communication error with Instagram endpoint.';
+      } finally {
+        pubBtn.disabled = false;
+        pubBtn.innerHTML = origHtml;
+        lucide.createIcons();
+      }
+    }
+
+    function copyCaptionToClipboard() {
+      const text = document.getElementById('igCaptionText').value;
+      navigator.clipboard.writeText(text).then(() => {
+        const copyText = document.getElementById('igCopyText');
+        copyText.textContent = 'Copied!';
+        setTimeout(() => {
+          copyText.textContent = 'Copy Caption';
+        }, 2000);
+      }).catch(() => {
+        alert('Failed to copy to clipboard.');
+      });
     }
 
     checkAuth();

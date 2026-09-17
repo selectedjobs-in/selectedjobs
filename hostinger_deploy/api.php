@@ -610,9 +610,10 @@ function generateInstagramFlyer($job, $outputPath) {
     drawRoundedRect($im, 60, 50, 250, 50, 14, $cBrandBlue);
     renderTextSafe($im, 18, 85, 62, $cWhite, $fontFile, "SELECTED JOBS");
 
-    // Verified Opening Badge
+    // Verified Opening Badge (with real vector dot)
     drawRoundedRect($im, 770, 50, 250, 50, 14, $cEmeraldDark, $cEmeraldBorder);
-    renderTextSafe($im, 15, 800, 64, $cEmerald, $fontFile, "● VERIFIED OPENING");
+    imagefilledellipse($im, 795, 75, 10, 10, $cEmerald);
+    renderTextSafe($im, 15, 812, 64, $cEmerald, $fontFile, "VERIFIED OPENING");
 
     // 4. Category Pill & Urgent Tag
     $categoryName = strtoupper(trim($job['category'] ?? 'GENERAL OPENING'));
@@ -621,12 +622,12 @@ function generateInstagramFlyer($job, $outputPath) {
     renderTextSafe($im, 15, 80, 146, $cSky, $fontFile, $categoryName);
 
     if (!empty($job['isNew'])) {
-        drawRoundedRect($im, 60 + $catWidth + 16, 135, 140, 42, 10, $cAmberBg, $cAmber);
-        renderTextSafe($im, 14, 60 + $catWidth + 30, 146, $cAmber, $fontFile, "🔥 HOT JOB");
+        drawRoundedRect($im, 60 + $catWidth + 16, 135, 150, 42, 10, $cAmberBg, $cAmber);
+        renderTextSafe($im, 14, 60 + $catWidth + 28, 146, $cAmber, $fontFile, "HOT OPENING");
     }
 
     // "WE ARE HIRING" Subtitle
-    renderTextSafe($im, 16, 60, 205, $cTextMuted, $fontFile, "CAREER OPPORTUNITY  •  IMMEDIATE REQUIREMENT");
+    renderTextSafe($im, 16, 60, 205, $cTextMuted, $fontFile, "CAREER OPPORTUNITY  |  IMMEDIATE REQUIREMENT");
 
     // 5. Job Title (Wrapped nicely)
     $title = trim($job['title'] ?? 'Job Opening');
@@ -651,39 +652,47 @@ function generateInstagramFlyer($job, $outputPath) {
 
     // Card 1: Location
     drawRoundedRect($im, 60, $row1Y, $cardW, $cardH, 16, $cCardBg, $cCardBorder);
-    renderTextSafe($im, 13, 85, $row1Y + 18, $cTextMuted, $fontFile, "📍 LOCATION");
-    $locVal = mb_substr(trim($job['location'] ?? 'All India'), 0, 26);
-    renderTextSafe($im, 21, 85, $row1Y + 54, $cWhite, $fontFile, $locVal);
+    renderTextSafe($im, 13, 85, $row1Y + 18, $cTextMuted, $fontFile, "LOCATION");
+    $locVal = trim($job['location'] ?? 'All India');
+    $locSize = (mb_strlen($locVal) > 22) ? 17 : 21;
+    if (mb_strlen($locVal) > 32) $locVal = mb_substr($locVal, 0, 30) . '..';
+    renderTextSafe($im, $locSize, 85, $row1Y + 54, $cWhite, $fontFile, $locVal);
 
     // Card 2: Experience
     drawRoundedRect($im, 560, $row1Y, $cardW, $cardH, 16, $cCardBg, $cCardBorder);
-    renderTextSafe($im, 13, 585, $row1Y + 18, $cTextMuted, $fontFile, "💼 EXPERIENCE");
-    $expVal = mb_substr(trim($job['experience'] ?? 'Freshers / Experienced'), 0, 26);
-    renderTextSafe($im, 21, 585, $row1Y + 54, $cWhite, $fontFile, $expVal);
+    renderTextSafe($im, 13, 585, $row1Y + 18, $cTextMuted, $fontFile, "EXPERIENCE");
+    $expVal = trim($job['experience'] ?? 'Freshers / Experienced');
+    $expSize = (mb_strlen($expVal) > 22) ? 17 : 21;
+    if (mb_strlen($expVal) > 32) $expVal = mb_substr($expVal, 0, 30) . '..';
+    renderTextSafe($im, $expSize, 585, $row1Y + 54, $cWhite, $fontFile, $expVal);
 
     // Card 3: Salary / CTC
     drawRoundedRect($im, 60, $row2Y, $cardW, $cardH, 16, $cCardBg, $cCardBorder);
-    renderTextSafe($im, 13, 85, $row2Y + 18, $cAmber, $fontFile, "💰 CTC / SALARY");
-    $salVal = mb_substr(trim($job['salary'] ?? 'Best in Industry'), 0, 26);
-    renderTextSafe($im, 21, 85, $row2Y + 54, $cEmerald, $fontFile, $salVal);
+    renderTextSafe($im, 13, 85, $row2Y + 18, $cAmber, $fontFile, "SALARY / CTC");
+    $salVal = trim($job['salary'] ?? 'Best in Industry');
+    $salSize = (mb_strlen($salVal) > 22) ? 17 : 21;
+    if (mb_strlen($salVal) > 32) $salVal = mb_substr($salVal, 0, 30) . '..';
+    renderTextSafe($im, $salSize, 85, $row2Y + 54, $cEmerald, $fontFile, $salVal);
 
     // Card 4: Workplace Type / Role Mode
     drawRoundedRect($im, 560, $row2Y, $cardW, $cardH, 16, $cCardBg, $cCardBorder);
-    renderTextSafe($im, 13, 585, $row2Y + 18, $cTextMuted, $fontFile, "⚡ WORK MODE");
-    $modeVal = mb_substr(trim($job['workplaceType'] ?? ($job['type'] ?? 'Full Time / Onsite')), 0, 26);
-    renderTextSafe($im, 21, 585, $row2Y + 54, $cWhite, $fontFile, $modeVal);
+    renderTextSafe($im, 13, 585, $row2Y + 18, $cTextMuted, $fontFile, "WORK MODE");
+    $modeVal = trim($job['workplaceType'] ?? ($job['type'] ?? 'Full Time / Onsite'));
+    $modeSize = (mb_strlen($modeVal) > 22) ? 17 : 21;
+    if (mb_strlen($modeVal) > 32) $modeVal = mb_substr($modeVal, 0, 30) . '..';
+    renderTextSafe($im, $modeSize, 585, $row2Y + 54, $cWhite, $fontFile, $modeVal);
 
     // 8. Key Skills / Highlight Pill (y = 745)
     drawRoundedRect($im, 60, 745, 960, 75, 14, imagecolorallocate($im, 15, 23, 42), $cCardBorder);
     renderTextSafe($im, 13, 85, 758, $cSky, $fontFile, "KEY REQUIREMENTS / APPLICATION TYPE:");
-    $applyHint = (isWebUrl($job['applyValue'] ?? '')) ? "Online Direct Career Application" : ("Direct Contact / Email: " . mb_substr($job['applyValue'] ?? '', 0, 40));
+    $applyHint = (isWebUrl($job['applyValue'] ?? '')) ? "Online Direct Career Application" : ("Direct Contact / Email: " . mb_substr($job['applyValue'] ?? '', 0, 50));
     renderTextSafe($im, 18, 85, 785, $cTextSub, $fontFile, $applyHint);
 
     // 9. Bottom CTA Card (Vibrant Conversion Banner)
     drawRoundedRect($im, 60, 845, 960, 175, 20, $cFooterBg, $cFooterBorder);
-    renderTextSafe($im, 24, 95, 875, $cWhite, $fontFile, "👉 APPLY NOW: Click the Link in Our Bio");
+    renderTextSafe($im, 24, 95, 875, $cWhite, $fontFile, "APPLY NOW: Click the Link in Our Bio");
     renderTextSafe($im, 18, 95, 920, $cSky, $fontFile, "selectedjobs.in/jobs/" . ($job['id'] ?? ''));
-    renderTextSafe($im, 14, 95, 965, $cTextSub, $fontFile, "✓ 100% Free Job Portal  •  Direct Employer Application  •  Zero Fees");
+    renderTextSafe($im, 14, 95, 965, $cTextSub, $fontFile, "100% Free Job Portal  •  Direct Employer Application  •  Zero Fees");
 
     // Save final image
     imagejpeg($im, $outputPath, 92);

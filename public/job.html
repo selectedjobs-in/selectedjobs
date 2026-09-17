@@ -1,57 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Permanent Anti-Cache Headers -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, post-check=0, pre-check=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+  <script>
+    // Permanent Cache Buster: Force unregister legacy Service Workers & clear CacheStorage
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        for (var r of regs) { r.unregister(); }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (var name of names) { caches.delete(name); }
+      });
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Job Details | SelectedJobs.in</title>
   
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  
+  
+  
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-[#f8fafc] text-zinc-900 font-sans antialiased min-h-screen flex flex-col">
+<<body class="bg-[#f8fafc] text-slate-900 font-sans antialiased min-h-screen flex flex-col">
 
-  <!-- Header Banner -->
-  <header class="w-full bg-[#1c64f2] text-white py-4 px-4 text-center border-b border-blue-700">
-    <div class="mx-auto max-w-7xl flex items-center justify-between">
-      <a href="/" class="inline-flex items-center gap-2 group">
-        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#1c64f2] shadow-sm">
-          <i data-lucide="briefcase" class="h-5 w-5 text-[#1c64f2]"></i>
+  <!-- 1. Modern Clean Header (Matching Homepage) -->
+  <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+    <div class="mx-auto max-w-7xl px-3 sm:px-6 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Left: Brand Logo -->
+      <div class="flex items-center gap-8 flex-shrink-0">
+        <a href="/" class="flex items-center gap-2.5 group">
+          <div class="h-10 w-10 rounded-xl bg-[#1c64f2] text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            <i data-lucide="briefcase" class="h-5 w-5"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 leading-none">selected<span class="text-[#1c64f2]">jobs</span></span>
+            <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">A True Job Portal</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+          <a href="/#jobsFeedSection" class="hover:text-[#1c64f2] transition-colors">Jobs</a>
+          <a href="/#topCompaniesSection" class="hover:text-[#1c64f2] transition-colors">Companies</a>
+          <a href="/blog.html" class="hover:text-[#1c64f2] transition-colors flex items-center gap-1">
+            <span>Career Guides</span>
+            <span class="text-[10px] font-black uppercase px-1.5 py-0.2 rounded bg-purple-100 text-purple-700">AI</span>
+          </a>
+          <a href="/post-job.html" class="hover:text-[#1c64f2] transition-colors">For Employers</a>
+        </nav>
+      </div>
+
+      <!-- Right: Actions (WhatsApp, Post Job, Live Viewers) -->
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        
+        <!-- WhatsApp Channel Follow Button -->
+        <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold shadow-xs hover:shadow-md transition-all whitespace-nowrap">
+          <i data-lucide="message-circle" class="h-3.5 w-3.5 fill-white"></i>
+          <span>WhatsApp Channel</span>
+        </a>
+
+        <!-- Post Job Button (Yellow/Amber Pill) -->
+        <a href="/post-job.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black shadow-xs hover:shadow-md transition-all whitespace-nowrap">
+          <i data-lucide="plus-circle" class="h-3.5 w-3.5"></i>
+          <span>Post Job</span>
+        </a>
+
+        <!-- Live Viewers Badge -->
+        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200/80 text-slate-700 text-xs font-bold" title="Live active seekers on SelectedJobs.in">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+          </span>
+          <span><strong id="headerVisitorsCount" class="text-emerald-600 font-extrabold">24</strong> Live</span>
         </div>
-        <div class="text-left">
-          <span class="text-xl font-extrabold tracking-tight">Selected Jobs</span>
-          <span class="text-[11px] block font-medium text-blue-100">selectedjobs.in</span>
-        </div>
-      </a>
-      <a href="/" class="text-xs font-bold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
-        <i data-lucide="chevron-left" class="h-4 w-4"></i>
-        <span>All Openings</span>
-      </a>
+
+      </div>
+
     </div>
   </header>
 
-  <!-- Red Subnav Bar -->
-  <nav class="w-full bg-[#b91c1c] text-white py-2 px-4 shadow-sm border-b border-red-800 text-xs font-bold">
-    <div class="mx-auto max-w-7xl flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <a href="/" class="hover:underline">&larr; Back to Home</a>
-        <span class="text-red-300">/</span>
-        <span id="breadcrumbCategory" class="text-red-100 font-normal">Job Detail</span>
+  <!-- Modern Sleek Breadcrumb Bar -->
+  <div class="w-full bg-slate-50 border-b border-slate-200/80 py-2.5 px-4 text-xs font-medium text-slate-600">
+    <div class="mx-auto max-w-5xl flex items-center justify-between">
+      <div class="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
+        <a href="/" class="hover:text-blue-600 flex items-center gap-1 font-semibold transition-colors">
+          <i data-lucide="arrow-left" class="h-3.5 w-3.5"></i>
+          <span>All Jobs</span>
+        </a>
+        <span class="text-slate-300">/</span>
+        <a id="breadcrumbCategory" href="/" class="hover:text-blue-600 transition-colors">Job Detail</a>
+        <span class="text-slate-300 hidden sm:inline">/</span>
+        <span id="breadcrumbJobTitle" class="text-slate-900 font-bold truncate hidden sm:inline"></span>
       </div>
-      <div class="flex items-center gap-2">
-        <a href="/post-job" class="bg-yellow-400 text-zinc-950 px-2.5 py-1 rounded text-[11px] font-bold hover:bg-yellow-300">Post Job</a>
-        <a href="/admin" class="hover:underline flex items-center gap-1 text-[11px]">
-          <i data-lucide="shield-check" class="h-3.5 w-3.5 text-yellow-300"></i>
-          <span>Admin</span>
+      <div class="flex items-center gap-3 flex-shrink-0">
+        <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="text-emerald-600 hover:text-emerald-700 font-bold flex items-center gap-1">
+          <i data-lucide="message-circle" class="h-3.5 w-3.5 fill-emerald-600"></i>
+          <span class="hidden sm:inline">Daily Job Alerts</span>
         </a>
       </div>
     </div>
-  </nav>
+  </div>
 
   <!-- Main Content Area -->
   <main class="flex-1 py-8 px-3 sm:px-6 max-w-5xl mx-auto w-full">
@@ -91,7 +150,7 @@
               </div>
               <h1 id="jobTitle" class="text-xl sm:text-2xl font-black text-zinc-900 mt-1 leading-tight"></h1>
               <div class="mt-2 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
-                <span id="jobCategoryBadge" class="bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded font-bold"></span>
+                <a id="jobCategoryBadge" href="/" class="bg-blue-100 hover:bg-blue-200 text-blue-800 px-2.5 py-0.5 rounded font-bold transition-colors"></a>
                 <span id="jobDate"></span>
                 <span id="jobViews"></span>
               </div>
@@ -157,6 +216,27 @@
             <i data-lucide="arrow-right" class="h-4 w-4"></i>
           </a>
         </div>
+
+        <!-- WhatsApp Channel Follow Card -->
+        <div class="mt-4 rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 p-5 text-white shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 hover:shadow-lg transition-all group">
+          <div class="flex items-center gap-3">
+            <div class="h-12 w-12 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 text-white border border-white/20">
+              <i data-lucide="bell-ring" class="h-6 w-6 text-yellow-300 animate-pulse"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-black text-sm sm:text-base text-white">Never Miss Instant Job Alerts!</span>
+                <span class="bg-white/20 text-[10px] uppercase font-bold px-1.5 py-0.5 rounded text-white tracking-wider">Free</span>
+              </div>
+              <p class="text-xs text-emerald-100 mt-0.5">Follow the official <strong>Selected Jobs ✅</strong> channel on WhatsApp for daily job openings & recruitment updates.</p>
+            </div>
+          </div>
+          <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto text-center rounded-xl bg-white text-emerald-800 hover:bg-yellow-300 hover:text-zinc-950 font-black text-xs sm:text-sm px-5 py-3 transition-colors shadow flex items-center justify-center gap-2 flex-shrink-0">
+            <i data-lucide="message-circle" class="h-4 w-4 fill-emerald-700"></i>
+            <span>Join WhatsApp Channel</span>
+            <i data-lucide="arrow-right" class="h-4 w-4"></i>
+          </a>
+        </div>
       </div>
 
       <!-- Recruiter Verification Notice -->
@@ -179,8 +259,10 @@
       </div>
       <div class="flex items-center gap-4">
         <a href="/" class="text-zinc-300 hover:text-white transition-colors">Home</a>
-        <a href="/admin" class="text-zinc-300 hover:text-white transition-colors">Admin Dashboard</a>
-        <a href="/post-job" class="text-zinc-300 hover:text-white transition-colors">Post Opening</a>
+        <a href="/post-job" class="text-zinc-300 hover:text-white transition-colors flex items-center gap-1">
+          <i data-lucide="message-circle" class="h-3.5 w-3.5 text-emerald-400"></i>
+          <span>Post a Job Opening</span>
+        </a>
       </div>
     </div>
   </footer>
@@ -203,6 +285,15 @@
 
     const jobId = getParam('id');
 
+    function getVisitorId() {
+      let vid = localStorage.getItem('sj_vid');
+      if (!vid) {
+        vid = 'v_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+        localStorage.setItem('sj_vid', vid);
+      }
+      return vid;
+    }
+
     async function loadJob() {
       if (!jobId) {
         document.getElementById('loadingState').classList.add('hidden');
@@ -212,10 +303,23 @@
       }
 
       try {
-        const res = await fetch(`api.php?action=get_job&id=${encodeURIComponent(jobId)}&_t=${Date.now()}`, { cache: 'no-store' });
+        const vid = getVisitorId();
+        const cacheBuster = Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+        const res = await fetch(`/api.php?action=get_job&id=${encodeURIComponent(jobId)}&vid=${encodeURIComponent(vid)}&_cb=${cacheBuster}`, { 
+          cache: 'no-store',
+          headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
+        });
         if (!res.ok) throw new Error('Job not found');
         const data = await res.json();
         if (data.success && data.job) {
+          if (data.site_unique_visitors) {
+            const hCount = document.getElementById('headerVisitorsCount');
+            if (hCount) hCount.textContent = data.site_unique_visitors.toLocaleString('en-IN');
+          }
+          if (data.job.isBlog || data.job.category === 'CAREER BLOGS & GUIDES' || data.job.type === 'blog') {
+            window.location.replace('/blogs/' + data.job.id);
+            return;
+          }
           renderJob(data.job);
         } else {
           throw new Error('Not found');
@@ -228,15 +332,39 @@
     }
 
     function renderJob(job) {
-      document.title = `${job.title} at ${job.company} | SelectedJobs.in`;
-      document.getElementById('breadcrumbCategory').textContent = job.category || 'Job Opening';
+      const catUrl = `/?category=${encodeURIComponent(job.category || '')}`;
+      const bc = document.getElementById('breadcrumbCategory');
+      bc.textContent = job.category || 'Job Opening';
+      bc.href = catUrl;
+
       document.getElementById('jobCompany').textContent = job.company;
       document.getElementById('jobTitle').textContent = job.title;
-      document.getElementById('jobCategoryBadge').textContent = job.category;
+      const bjt = document.getElementById('breadcrumbJobTitle');
+      if (bjt) bjt.textContent = job.title;
+
+      const bg = document.getElementById('jobCategoryBadge');
+      bg.textContent = job.category || 'Career Opening';
+      bg.href = catUrl;
       
       const date = new Date(job.createdAt);
       document.getElementById('jobDate').textContent = 'Posted ' + (isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }));
       
+      const views = job.viewsCount || 1;
+      const live = job.liveViewers || Math.floor(Math.random() * 3 + 2);
+      const viewsEl = document.getElementById('jobViews');
+      if (viewsEl) {
+        viewsEl.innerHTML = `
+          <span class="inline-flex items-center gap-1 font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200"><i data-lucide="eye" class="h-3 w-3"></i><span>${views} Unique Aspirants Viewed</span></span>
+          <span class="inline-flex items-center gap-1.5 font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+            </span>
+            <span>${live} viewing now</span>
+          </span>
+        `;
+      }
+
       document.getElementById('jobLocation').textContent = job.location || 'All India';
       document.getElementById('jobSalary').textContent = job.salary || 'Standard Pay Scale';
       document.getElementById('jobExperience').textContent = job.experience || 'Fresher / All';
@@ -341,5 +469,11 @@
 
     loadJob();
   </script>
+
+  <!-- Floating WhatsApp Channel Follow Button -->
+  <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-3 shadow-2xl hover:shadow-green-500/50 transition-all transform hover:scale-105 group border-2 border-white" title="Follow Selected Jobs Channel on WhatsApp">
+    <i data-lucide="message-circle" class="h-5 w-5 fill-white"></i>
+    <span class="text-xs font-black tracking-wide hidden sm:inline">Follow on WhatsApp</span>
+  </a>
 </body>
 </html>

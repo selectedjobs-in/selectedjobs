@@ -1,75 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Permanent Anti-Cache Headers -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, post-check=0, pre-check=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+  <script>
+    // Permanent Cache Buster: Force unregister legacy Service Workers & clear CacheStorage
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        for (var r of regs) { r.unregister(); }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (var name of names) { caches.delete(name); }
+      });
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Post Job | SelectedJobs.in</title>
   
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  
+  
+  
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-[#f8fafc] text-zinc-900 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-[#f8fafc] text-slate-900 font-sans antialiased min-h-screen flex flex-col">
 
-  <!-- Header Banner -->
-  <header class="w-full bg-[#1c64f2] text-white py-4 px-4 text-center border-b border-blue-700">
-    <div class="mx-auto max-w-7xl flex items-center justify-between">
-      <a href="/" class="inline-flex items-center gap-2">
-        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#1c64f2] shadow-sm">
-          <i data-lucide="briefcase" class="h-5 w-5 text-[#1c64f2]"></i>
-        </div>
-        <div class="text-left">
-          <span class="text-xl font-extrabold tracking-tight">Selected Jobs</span>
-          <span class="text-[11px] block font-medium text-blue-100">selectedjobs.in</span>
-        </div>
-      </a>
-      <div class="flex items-center gap-2">
-        <a href="/admin" class="text-xs font-bold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded transition-colors flex items-center gap-1">
-          <i data-lucide="shield-check" class="h-4 w-4 text-yellow-300"></i>
-          <span>Admin Portal</span>
+  <!-- 1. Modern Clean Header (Matching Homepage) -->
+  <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+    <div class="mx-auto max-w-7xl px-3 sm:px-6 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Left: Brand Logo -->
+      <div class="flex items-center gap-8 flex-shrink-0">
+        <a href="/" class="flex items-center gap-2.5 group">
+          <div class="h-10 w-10 rounded-xl bg-[#1c64f2] text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            <i data-lucide="briefcase" class="h-5 w-5"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 leading-none">selected<span class="text-[#1c64f2]">jobs</span></span>
+            <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">A True Job Portal</span>
+          </div>
         </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+          <a href="/#jobsFeedSection" class="hover:text-[#1c64f2] transition-colors">Jobs</a>
+          <a href="/#topCompaniesSection" class="hover:text-[#1c64f2] transition-colors">Companies</a>
+          <a href="/blog.html" class="hover:text-[#1c64f2] transition-colors flex items-center gap-1">
+            <span>Career Guides</span>
+            <span class="text-[10px] font-black uppercase px-1.5 py-0.2 rounded bg-purple-100 text-purple-700">AI</span>
+          </a>
+          <a href="/post-job.html" class="text-[#1c64f2] font-bold">For Employers</a>
+        </nav>
       </div>
+
+      <!-- Right: Actions (WhatsApp, Post Job, Live Viewers) -->
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        
+        <!-- WhatsApp Channel Follow Button -->
+        <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold shadow-xs hover:shadow-md transition-all whitespace-nowrap">
+          <i data-lucide="message-circle" class="h-3.5 w-3.5 fill-white"></i>
+          <span>WhatsApp Channel</span>
+        </a>
+
+        <!-- Post Job Button (Yellow/Amber Pill) -->
+        <a href="/post-job.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black shadow-xs hover:shadow-md transition-all whitespace-nowrap">
+          <i data-lucide="plus-circle" class="h-3.5 w-3.5"></i>
+          <span>Post Job</span>
+        </a>
+
+        <!-- Live Viewers Badge -->
+        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200/80 text-slate-700 text-xs font-bold" title="Live active seekers on SelectedJobs.in">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+          </span>
+          <span><strong class="text-emerald-600 font-extrabold">24</strong> Live</span>
+        </div>
+
+      </div>
+
     </div>
   </header>
 
-  <!-- Navigation Bar -->
-  <nav class="w-full bg-[#b91c1c] text-white py-2 px-4 shadow-sm border-b border-red-800 text-xs font-bold">
-    <div class="mx-auto max-w-7xl flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <a href="/" class="hover:underline">&larr; Return to Portal</a>
-        <span class="text-red-300">/</span>
-        <span class="text-red-100 font-normal">Admin Job Publisher</span>
+  <!-- Modern Sleek Breadcrumb Bar -->
+  <div class="w-full bg-slate-50 border-b border-slate-200/80 py-2.5 px-4 text-xs font-medium text-slate-600">
+    <div class="mx-auto max-w-3xl flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <a href="/" class="hover:text-blue-600 flex items-center gap-1 font-semibold transition-colors">
+          <i data-lucide="arrow-left" class="h-3.5 w-3.5"></i>
+          <span>Portal Home</span>
+        </a>
+        <span class="text-slate-300">/</span>
+        <span class="text-slate-900 font-bold">Employer & Recruiter Desk</span>
       </div>
-      <div class="flex items-center gap-2 text-yellow-300">
-        <i data-lucide="lock" class="h-3.5 w-3.5"></i>
-        <span>Admin Only Area</span>
+      <div class="flex items-center gap-1.5 text-emerald-600 font-bold">
+        <i data-lucide="message-circle" class="h-3.5 w-3.5 fill-emerald-600"></i>
+        <span>WhatsApp: 9325293667</span>
       </div>
     </div>
-  </nav>
+  </div>
 
   <!-- Main Form Area -->
   <main class="flex-1 py-8 px-4 max-w-3xl mx-auto w-full">
-    <!-- Admin Auth Gate -->
+    <!-- Recruiter & Employer Notice Card -->
     <div id="authGate" class="bg-white rounded-2xl border border-zinc-200 p-6 sm:p-8 shadow-sm text-center">
-      <div class="mx-auto w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center mb-4">
-        <i data-lucide="shield-alert" class="h-6 w-6"></i>
+      <div class="mx-auto w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 border border-emerald-100 shadow-sm">
+        <i data-lucide="message-circle" class="h-7 w-7"></i>
       </div>
-      <h2 class="text-lg font-bold text-zinc-900">Admin Authentication Required</h2>
-      <p class="text-xs text-zinc-500 mt-1 max-w-md mx-auto">
-        Public job submissions are currently restricted. Enter the SelectedJobs administrator passkey to publish openings.
+      
+      <span class="inline-flex items-center gap-1 text-[11px] font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+        Recruiter & Employer Desk
+      </span>
+      
+      <h1 class="text-xl sm:text-2xl font-black text-zinc-900">Want to Post a Job Opening?</h1>
+      
+      <p class="text-xs sm:text-sm text-zinc-600 mt-2 max-w-lg mx-auto leading-relaxed">
+        Looking to hire qualified talent or publish your company's vacancies on <strong>SelectedJobs.in</strong>? You can contact the portal administration directly on WhatsApp or Call to get your job openings formatted and featured immediately.
       </p>
-      <form id="authForm" class="mt-5 max-w-xs mx-auto flex flex-col gap-2.5">
-        <input type="password" id="adminPasskeyInput" placeholder="Enter Admin Passkey" class="rounded-xl border border-zinc-300 px-3.5 py-2.5 text-sm text-center text-zinc-900 focus:border-[#1c64f2] focus:outline-none" required>
-        <button type="submit" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs py-2.5 transition-colors">
-          Unlock Post Job Form
+
+      <!-- Action Buttons Row -->
+      <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+        <a href="https://wa.me/919325293667?text=Hello%20SelectedJobs%20Admin,%20I%20want%20to%20post%20a%20job%20opening%20on%20SelectedJobs.in" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-sm py-3.5 px-6 shadow-md hover:shadow-lg transition-all">
+          <i data-lucide="message-circle" class="h-5 w-5"></i>
+          <span>Chat on WhatsApp: +91 9325293667</span>
+        </a>
+        <a href="tel:+919325293667" class="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold text-xs py-3 px-5 transition-colors">
+          <i data-lucide="phone" class="h-4 w-4 text-emerald-600"></i>
+          <span>Call: 9325293667</span>
+        </a>
+      </div>
+
+      <!-- Information Card -->
+      <div class="mt-8 bg-zinc-50 rounded-xl p-4 sm:p-5 border border-zinc-200 text-left max-w-lg mx-auto">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-700 flex items-center gap-1.5 mb-2">
+          <i data-lucide="clipboard-list" class="h-4 w-4 text-[#1c64f2]"></i>
+          <span>Details to share when submitting a vacancy:</span>
+        </h3>
+        <ul class="text-xs text-zinc-600 space-y-1.5 list-disc list-inside">
+          <li><strong>Job Title & Company Name</strong></li>
+          <li><strong>Location & Workplace Type</strong> (On-site / Hybrid / Remote)</li>
+          <li><strong>Salary / CTC & Shift Timings</strong></li>
+          <li><strong>Educational Qualifications & Experience</strong></li>
+          <li><strong>Application Method</strong> (Official Link or HR Contact)</li>
+        </ul>
+      </div>
+
+      <!-- Admin Direct Login Toggle -->
+      <div class="mt-8 pt-6 border-t border-zinc-100">
+        <button type="button" id="toggleAdminAuthBtn" class="text-xs font-semibold text-zinc-400 hover:text-zinc-600 transition-colors inline-flex items-center gap-1">
+          <i data-lucide="lock" class="h-3 w-3"></i>
+          <span>Authorized Admin? Click here to open direct form</span>
         </button>
-        <p id="authError" class="text-xs text-rose-600 font-bold hidden">Invalid passkey. Default is selectedadmin2026</p>
-      </form>
+
+        <form id="authForm" class="hidden mt-4 max-w-xs mx-auto flex flex-col gap-2.5">
+          <input type="password" id="adminPasskeyInput" placeholder="Enter Administrator Password" class="rounded-xl border border-zinc-300 px-3.5 py-2 text-xs text-center text-zinc-900 focus:border-[#1c64f2] focus:outline-none" required>
+          <button type="submit" class="rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-bold text-xs py-2 transition-colors">
+            Unlock Job Form
+          </button>
+          <p id="authError" class="text-xs text-rose-600 font-bold hidden">Invalid administrator password.</p>
+        </form>
+      </div>
     </div>
 
     <!-- Job Submission Form (Hidden until authenticated) -->
@@ -100,15 +198,15 @@
           <div>
             <label class="block text-xs font-bold text-zinc-700 mb-1">Portal Category *</label>
             <select id="category" class="w-full rounded-xl border border-zinc-300 px-3.5 py-2.5 text-xs font-semibold text-zinc-900 focus:border-[#1c64f2] focus:outline-none">
-              <option value="ALL STATE JOBS">ALL STATE JOBS</option>
-              <option value="GOVT & PSU JOBS">GOVT & PSU JOBS</option>
-              <option value="DEFENCE & POLICE JOBS">DEFENCE & POLICE JOBS</option>
-              <option value="BANK & FINANCIAL JOBS">BANK & FINANCIAL JOBS</option>
               <option value="TECH & SOFTWARE JOBS">TECH & SOFTWARE JOBS</option>
-              <option value="POST OFFICE & RAILWAYS">POST OFFICE & RAILWAYS</option>
+              <option value="PRIVATE & BPO JOBS">PRIVATE & BPO JOBS</option>
+              <option value="BANK & FINANCIAL JOBS">BANK & FINANCIAL JOBS</option>
               <option value="ENGINEERING & DIPLOMA">ENGINEERING & DIPLOMA</option>
+              <option value="GOVT & PSU JOBS">GOVT & PSU JOBS</option>
+              <option value="ALL STATE JOBS">ALL STATE JOBS</option>
+              <option value="DEFENCE & POLICE JOBS">DEFENCE & POLICE JOBS</option>
+              <option value="POST OFFICE & RAILWAYS">POST OFFICE & RAILWAYS</option>
               <option value="TEACHING & EDUCATION">TEACHING & EDUCATION</option>
-              <option value="IMPORTANT NOTIFICATIONS & PDFS">IMPORTANT NOTIFICATIONS & PDFS</option>
             </select>
           </div>
           <div>
@@ -197,6 +295,20 @@
           </label>
         </div>
 
+        <!-- Duplicate Warning Alert Box -->
+        <div id="duplicateWarningBox" class="hidden rounded-xl border border-amber-300 bg-amber-50 p-4 text-xs text-amber-900 shadow-sm space-y-1.5">
+          <div class="flex items-center gap-1.5 font-bold text-amber-800">
+            <i data-lucide="alert-triangle" class="h-4 w-4 text-amber-600 flex-shrink-0"></i>
+            <span>Possible Duplicate Opening Detected</span>
+          </div>
+          <p id="dupReason" class="text-[11px] text-amber-900"></p>
+          <div class="pt-1 text-[11px]">
+            <span>Active match: </span>
+            <a id="dupExistingLink" href="#" target="_blank" class="font-bold text-blue-700 underline hover:text-blue-900"></a>
+          </div>
+          <p class="text-[10px] text-amber-700 italic">Please avoid duplicate postings. Check the link above to review the currently active listing.</p>
+        </div>
+
         <!-- Submit Button -->
         <div class="pt-2">
           <button type="submit" id="submitBtn" class="w-full rounded-xl bg-[#1c64f2] hover:bg-blue-700 text-white font-black text-sm py-3.5 shadow-md transition-all flex items-center justify-center gap-2">
@@ -243,7 +355,7 @@
         return;
       }
       try {
-        const res = await fetch('api.php?action=admin_check');
+        const res = await fetch('/api.php?action=admin_check');
         const data = await res.json();
         if (data.isAuthenticated) {
           showForm();
@@ -267,12 +379,25 @@
       lucide.createIcons();
     }
 
+    // Toggle Admin Auth Form
+    const toggleAdminBtn = document.getElementById('toggleAdminAuthBtn');
+    if (toggleAdminBtn) {
+      toggleAdminBtn.addEventListener('click', () => {
+        const form = document.getElementById('authForm');
+        form.classList.toggle('hidden');
+        if (!form.classList.contains('hidden')) {
+          document.getElementById('adminPasskeyInput').focus();
+        }
+        lucide.createIcons();
+      });
+    }
+
     // Auth Form Submit
     document.getElementById('authForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const entered = document.getElementById('adminPasskeyInput').value.trim();
       try {
-        const res = await fetch('api.php?action=admin_auth', {
+        const res = await fetch('/api.php?action=admin_auth', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ key: entered })
@@ -295,6 +420,49 @@
           document.getElementById('authError').classList.remove('hidden');
         }
       }
+    });
+
+    // Real-time Duplicate Detection
+    let checkDupTimeout = null;
+    async function checkDuplicate() {
+      const applyValue = document.getElementById('applyValue').value.trim();
+      const title = document.getElementById('title').value.trim();
+      const company = document.getElementById('company').value.trim();
+
+      if (!applyValue && (!title || !company)) {
+        document.getElementById('duplicateWarningBox').classList.add('hidden');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api.php?action=check_duplicate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ applyValue, title, company })
+        });
+        const data = await res.json();
+        const box = document.getElementById('duplicateWarningBox');
+        if (data.success && data.isDuplicate) {
+          box.classList.remove('hidden');
+          document.getElementById('dupReason').textContent = data.reason || 'This opening appears to already be listed.';
+          const link = document.getElementById('dupExistingLink');
+          if (data.duplicateJob) {
+            link.href = '/jobs/' + data.duplicateJob.id;
+            link.textContent = `${data.duplicateJob.title} (${data.duplicateJob.company})`;
+          }
+          lucide.createIcons();
+        } else {
+          box.classList.add('hidden');
+        }
+      } catch (err) {
+        console.warn('Duplicate check check failed:', err);
+      }
+    }
+
+    ['blur', 'change'].forEach(evt => {
+      document.getElementById('applyValue').addEventListener(evt, checkDuplicate);
+      document.getElementById('title').addEventListener(evt, checkDuplicate);
+      document.getElementById('company').addEventListener(evt, checkDuplicate);
     });
 
     // Handle Job Submission
@@ -328,7 +496,7 @@
       };
 
       try {
-        const res = await fetch('api.php?action=create_job', {
+        const res = await fetch('/api.php?action=create_job', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -338,9 +506,24 @@
         });
 
         const data = await res.json();
+        if (res.status === 409 || data.isDuplicate) {
+          const box = document.getElementById('duplicateWarningBox');
+          box.classList.remove('hidden');
+          document.getElementById('dupReason').textContent = data.error || data.reason || 'Duplicate detected.';
+          if (data.duplicate_job) {
+            const link = document.getElementById('dupExistingLink');
+            link.href = '/jobs/' + data.duplicate_job.id;
+            link.textContent = `${data.duplicate_job.title} (${data.duplicate_job.company})`;
+          }
+          lucide.createIcons();
+          alert('Duplicate Job Alert: ' + (data.error || data.reason) + '\nThis opening is already posted on SelectedJobs.in.');
+          return;
+        }
+
         if (data.success && data.job) {
           document.getElementById('viewLiveJobBtn').href = '/jobs/' + data.job.id;
           document.getElementById('successModal').classList.remove('hidden');
+          document.getElementById('duplicateWarningBox').classList.add('hidden');
           lucide.createIcons();
         } else {
           alert('Error publishing job: ' + (data.error || 'Check administrator passkey'));
@@ -356,10 +539,17 @@
 
     document.getElementById('postAnotherBtn').addEventListener('click', () => {
       document.getElementById('successModal').classList.add('hidden');
+      document.getElementById('duplicateWarningBox').classList.add('hidden');
       document.getElementById('jobForm').reset();
     });
 
     checkAuth();
   </script>
+
+  <!-- Floating WhatsApp Channel Follow Button -->
+  <a href="https://whatsapp.com/channel/0029VamrvxBHLHQP2KZHAZ3x" target="_blank" rel="noopener noreferrer" class="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-3 shadow-2xl hover:shadow-green-500/50 transition-all transform hover:scale-105 group border-2 border-white" title="Follow Selected Jobs Channel on WhatsApp">
+    <i data-lucide="message-circle" class="h-5 w-5 fill-white"></i>
+    <span class="text-xs font-black tracking-wide hidden sm:inline">Follow on WhatsApp</span>
+  </a>
 </body>
 </html>
